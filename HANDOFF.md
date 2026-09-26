@@ -32,7 +32,9 @@
 - PHASE 3（Script）完了：ショート台本（`generate shorts`）、台本の自動チェック（`pipeline/script_guard.py`、ルールは `config/script_rules.yaml`、口調は `config/persona.yaml`）、`script_review.md`。
 - 大仏飴の口調（Owner決定）：一人称「おら」、物語はです・ます調、コメントは栃木弁（`config/persona.yaml`）。
 - PHASE 4（Storyboard / Asset Manifest）完了：`python -m pipeline.assets <id>` で素材一覧・レイヤー配置・画像の指示文を自動作成（`docs/DATA_CONTRACT.md`）。
-- 次は PHASE 5（Image Provider）。
+- PHASE 5（Image Provider）完了：`python -m pipeline.images`（request / check / generate、shared-template / shared-request / shared-check）。標準は manual、`--provider openai` で API。詳細は `docs/IMAGES.md`。
+- 大仏飴パーツは未作成・未承認（`assets/shared/daibutsuame/REQUEST.md`）。
+- 次は PHASE 6（TTS）。
 
 ## 次の担当者
 `docs/PHASE.md` の PHASE 0 から順に監査し、最初の未完了PHASEのみ実装すること。

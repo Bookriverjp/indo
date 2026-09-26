@@ -31,7 +31,11 @@ episodes/<episode_id>/
     storyboard.json            絵コンテ
     asset_manifest.json        この回の素材一覧とレイヤー配置（schemas/asset_manifest.schema.json）
     asset_manifest.md          素材一覧（人が読む版）
-  assets/generated/            この回の背景・人物・小物・FX（Git管理外）
+  assets/
+    image_requests.md          画像の生成依頼（manual）
+    image_status.md            画像の取り込み状況
+    inbox/                     生成した画像を置く場所（Git管理外）
+    generated/                 チェック済みの背景・人物・小物・FX（Git管理外）
   audio/generated/             この回のナレーション音声（Git管理外）
   render/timeline.json         紙芝居タイムライン（Git管理外）
   output/
@@ -42,12 +46,15 @@ episodes/<episode_id>/
     qa_report.md               Final Gate の確認レポート
   logs/pipeline.log
   logs/llm_usage.jsonl         LLM のトークン数と費用の目安（claude モード）
+  logs/image_usage.jsonl       画像生成の記録（openai モード）
 ```
 
 ## 共通素材（全話で使い回すもの）
 エピソードフォルダには入れず、リポジトリ直下に置く。
 - `assets/reference/`：大仏飴の基準画像、紙芝居舞台の構図の正本
-- `assets/`：大仏飴のパーツ、舞台テンプレート、共通BGM・効果音（PHASE 5 以降で追加）
+- `assets/shared/stage_template.png`：紙芝居舞台テンプレート
+- `assets/shared/daibutsuame/`：大仏飴のパーツ（REQUEST.md、approval.yaml）
+- `assets/`：共通BGM・効果音（PHASE 6 以降で追加）
 - `config/`：レイアウト、動き、声などの設定
 
 ## Asset manifest（PHASE 4）

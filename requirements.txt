@@ -4,4 +4,5 @@ jsonschema>=4.0
 python-dotenv>=1.0
 Pillow>=10.0
 anthropic>=1.8,<2
+openai>=3.19,<4
 # Add provider SDKs only when the corresponding PHASE is implemented.

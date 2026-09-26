@@ -1,0 +1,20 @@
+# 素材画像の生成（PHASE 5、2026-09-26 Owner決定：手作業とAPIの両方。標準は手作業）
+image:
+  # manual: 指示文を書き出し、ChatGPT などで作った画像を episodes/<id>/assets/inbox/<asset_id>.png に置いて check で取り込む
+  # openai: OpenAI の画像API で自動生成（.env に OPENAI_API_KEY が必要）
+  provider: "manual"
+  openai:
+    model: "gpt-image-1"      # 透明背景に対応。新しいモデル（gpt-image-2 など）は透明背景の対応を確かめてから切り替える
+    quality: "high"
+    max_retries: 3             # 429 / 5xx / 接続エラーは SDK が再試行
+  check_retries: 1             # 取り込みチェック（透過なしなど）に落ちたときの作り直し回数
+
+  # 素材の種類ごとの生成サイズと取り込み後の仕上げ
+  kinds:
+    background: {generate_size: "1536x1024", output_size: [1920, 1080], min_short_side: 720}
+    character:  {generate_size: "1024x1536", min_short_side: 512}
+    prop:       {generate_size: "1024x1024", min_short_side: 256}
+    foreground: {generate_size: "1536x1024", min_short_side: 256}
+    fx:         {generate_size: "1536x1024", min_short_side: 256}
+  # 透過素材は、完全に透明な画素がこの割合以上あること
+  min_transparent_ratio: 0.05

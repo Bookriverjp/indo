@@ -1,0 +1,4 @@
+# 大仏飴パーツの Owner 承認。確認したら approved を true にし、名前と日付を書く
+approved: false
+approved_by: null
+approved_at: null

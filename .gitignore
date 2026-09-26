@@ -6,6 +6,7 @@ venv/
 output/*
 !output/.gitkeep
 episodes/*/assets/generated/
+episodes/*/assets/inbox/
 episodes/*/audio/generated/
 episodes/*/render/
 *.log

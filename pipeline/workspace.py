@@ -30,6 +30,9 @@ ARTIFACTS = {
     "asset_manifest": "storyboard/asset_manifest.json",
     "asset_manifest_md": "storyboard/asset_manifest.md",
     "assets_generated": "assets/generated",
+    "assets_inbox": "assets/inbox",
+    "image_requests": "assets/image_requests.md",
+    "image_status": "assets/image_status.md",
     "narration": "audio/generated",
     "timeline": "render/timeline.json",
     "episode_video": "output/episode.mp4",
@@ -39,6 +42,7 @@ ARTIFACTS = {
     "qa_report": "output/qa_report.md",
     "log": "logs/pipeline.log",
     "llm_usage": "logs/llm_usage.jsonl",
+    "image_usage": "logs/image_usage.jsonl",
 }
 
 # 例: EP0001_nishi_daak（docs/DATA_CONTRACT.md）
