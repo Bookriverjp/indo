@@ -169,3 +169,30 @@ def test_credit_is_drawn_only_in_last_scene(root: Path, monkeypatch) -> None:
     r.frame(last["start"] + last["duration"] - 0.05)
     assert drawn == [True]
     assert r.credit == "VOICEVOX:中国うさぎ"
+
+
+def test_mix_sfx_adds_ambience_with_fade(tmp_path: Path) -> None:
+    from pipeline.render.audio import mix_sfx
+
+    lib = tmp_path / "sfx"
+    lib.mkdir()
+    tone(lib / "river.wav", 0.5, amp=10000)
+    base = np.zeros(24000 * 3, dtype=np.int16)
+    events = [{"name": "river", "start": 0.5, "duration": 2.0, "loop": True, "volume": 0.5}]
+    out = mix_sfx(base, 24000, events, lib, fade_seconds=0.5)
+    assert np.abs(out[: int(0.49 * 24000)]).max() == 0
+    mid = np.abs(out[int(1.4 * 24000): int(1.6 * 24000)]).max()
+    edge = np.abs(out[int(0.5 * 24000): int(0.55 * 24000)]).max()
+    assert mid > 3000 and edge < mid                       # ループして鳴り、入りはフェード
+    assert np.abs(out[int(2.6 * 24000):]).max() == 0
+
+
+def test_credits_from_narration(root: Path) -> None:
+    from pipeline.render.__main__ import Renderer
+
+    p = root / "episodes" / "EP0001_sample" / "audio" / "narration.json"
+    data = json.loads(p.read_text(encoding="utf-8"))
+    data["credits"] = ["VOICEVOX:中国うさぎ", "VOICEVOX:四国めたん"]
+    p.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    r = Renderer(root, "EP0001_sample", scale=0.25, fps=5, placeholders=True, draft=True)
+    assert r.credit == "VOICEVOX:中国うさぎ　VOICEVOX:四国めたん"

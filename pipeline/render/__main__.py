@@ -24,7 +24,7 @@ import yaml
 from PIL import Image, ImageDraw, ImageFont
 
 from pipeline.config import PROJECT_ROOT, ConfigError, load_yaml
-from pipeline.render.audio import frame_levels, mix_narration
+from pipeline.render.audio import frame_levels, mix_narration, mix_sfx
 from pipeline.render.narrator import NarratorRig, blink_frames
 from pipeline.workspace import episode_paths
 
@@ -52,7 +52,9 @@ class Renderer:
         self.assets = {a["asset_id"]: a for a in manifest["assets"]}
         self.layouts = load_yaml("config/layout.yaml", root)["main"]["layouts"]
         self.cfg = load_yaml("config/render.yaml", root)["render"]
-        self.credit = load_yaml("config/voice.yaml", root)["tts"]["credit"]
+        nar_path = self.paths["narration_index"]
+        credits = json.loads(nar_path.read_text(encoding="utf-8")).get("credits") if nar_path.exists() else None
+        self.credit = "　".join(credits or [load_yaml("config/voice.yaml", root)["tts"]["credit"]])
         self.scale = scale
         self.fps = fps or self.timeline["fps"]
         self.W, self.H = round(self.timeline["width"] * scale), round(self.timeline["height"] * scale)
@@ -64,7 +66,13 @@ class Renderer:
             self.template = t.convert("RGBA").resize((self.W, self.H), Image.LANCZOS)
         self.rig = NarratorRig(root / DAIBUTSUAME_DIR, self.cfg["narrator"])
         self.samples, self.rate = mix_narration(self.timeline["audio"], self.episode_dir, self.timeline["total_seconds"])
-        self.mouth = frame_levels(self.samples, self.rate, self.fps, self.timeline["audio"],
+        if self.timeline.get("sfx"):
+            sfx_cfg = load_yaml("config/sfx.yaml", root)["sfx"]
+            voice_only = self.samples
+            self.samples = mix_sfx(self.samples, self.rate, self.timeline["sfx"], root / sfx_cfg["dir"], sfx_cfg["fade_seconds"])
+        else:
+            voice_only = self.samples
+        self.mouth = frame_levels(voice_only, self.rate, self.fps, self.timeline["audio"],
                                   self.cfg["narrator"]["lipsync_threshold"])
         self.blinks = blink_frames(total_seconds=self.timeline["total_seconds"], fps=self.fps,
                                    cfg=self.cfg["narrator"]["blink"], seed=episode_id)

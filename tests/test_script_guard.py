@@ -155,6 +155,11 @@ def test_legend_desu_masu_has_no_style_warning(script: dict) -> None:
     assert "W_NARRATION_STYLE" not in codes(check_main_script(script, RULES, PERSONA).warnings)
 
 
+def test_story_noun_ending_is_fine(script: dict) -> None:
+    set_text(script, "story", "夜の川に、灯りがひとつ。", kind="staging")
+    assert "W_NARRATION_STYLE" not in codes(check_main_script(script, RULES, PERSONA).warnings)
+
+
 def test_first_person_in_legend_quote_is_allowed(script: dict) -> None:
     set_text(script, "story", "娘は「私が行きます」と言った、と語られています。")
     assert "E_FIRST_PERSON" not in codes(check_main_script(script, RULES, PERSONA).errors)
@@ -187,3 +192,26 @@ def test_shorts_banned_phrase_in_cta_is_error(shorts: dict) -> None:
 def test_review_md(script: dict) -> None:
     md = render_review_md("テスト", check_main_script(script, RULES, PERSONA), chars=100, minutes=0.3)
     assert "W_LENGTH" in md and "約0.3分" in md and "- [ ]" in md
+
+
+# --- section-based style (2026-09-26 Owner: 物語以外は栃木弁) -----------------------
+
+def test_explanation_sections_are_comment_style(script: dict) -> None:
+    # background の legend も大仏飴の説明なので栃木弁の対象。「私」は使えない
+    set_text(script, "background", "私が思うに、これは語られている話です。")
+    assert "E_FIRST_PERSON" in codes(check_main_script(script, RULES, PERSONA).errors)
+
+
+def test_story_staging_must_be_desu_masu(script: dict) -> None:
+    set_text(script, "story", "むかし、村に灯りがともったんだべ。", kind="staging")
+    assert "W_NARRATION_STYLE" in codes(check_main_script(script, RULES, PERSONA).warnings)
+
+
+def test_character_voice_is_not_style_checked(script: dict) -> None:
+    for sec in script["sections"]:
+        if sec["section"] == "story":
+            sec["blocks"].append({"block_id": "b90", "kind": "staging", "text": "私よ、こっちへおいで……",
+                                  "source_ids": [], "expression": "scared", "voice": "woman"})
+    result = check_main_script(script, RULES, PERSONA)
+    assert "E_FIRST_PERSON" not in codes(result.errors)
+    assert "W_NARRATION_STYLE" not in codes(result.warnings)

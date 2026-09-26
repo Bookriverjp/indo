@@ -5,13 +5,16 @@ persona:
   # 大仏飴のコメントで使わない一人称
   forbidden_first_person: [ぼく, 僕, ボク, わたし, 私, あたし, 俺, 拙者]
 
+  # 口調は section で決める（2026-09-26 Owner決定：物語以外は栃木弁）
+  #   narration: 物語を読む部分（です・ます調）  comment: それ以外の大仏飴の語り（栃木弁）
+  #   登場人物の声（script の block.voice が narrator 以外）は口調のチェックの対象外
   styles:
     narration:
-      kinds: [legend, staging]      # 物語を読むとき
+      sections: [hook, story]
+      shorts_kinds: [legend, staging]   # ショートは section がないので kind で決める
       description: "です・ます調。やわらかく、落ち着いた語り"
     comment:
-      kinds: [comment]              # 大仏飴のコメント・あいさつ・ツッコミ
-      description: "栃木弁。語尾が上がりやすく、のんびりした調子"
+      description: "栃木弁。語尾が上がりやすく、のんびりした調子（あいさつ・地域の紹介・解説・締めなど、物語以外すべて）"
 
   dialect:
     name: "栃木弁"

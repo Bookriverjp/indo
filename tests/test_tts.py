@@ -158,6 +158,34 @@ def test_synthesizes_every_block_with_style_and_prosody(root: Path) -> None:
     assert narration(root)["credit"] == "VOICEVOX:中国うさぎ"
 
 
+def test_character_voice_uses_its_own_speaker_and_credit(root: Path) -> None:
+    path = root / "episodes" / "EP0001_sample" / "script" / "script_main.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    data["sections"][3]["blocks"].append({"block_id": "b07", "kind": "staging", "text": "……アニク……",
+                                          "source_ids": [], "expression": "scared", "voice": "woman"})
+    path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    tts = FakeTTS()
+    synthesize_episode(root, "EP0001_sample", tts)
+    items = {i["block_id"]: i for i in narration(root)["items"] if i["target"] == "main"}
+    assert items["b07"]["voice"] == "woman" and items["b07"]["style_id"] == 36
+    assert items["b07"]["phrase_end_rise"] == 0.0
+    call = next(c for c in tts.calls if c["text"] == "……アニク……")
+    assert call["speed"] == 0.9
+    assert items["b04"]["voice"] == "narrator"
+    assert narration(root)["credits"] == ["VOICEVOX:中国うさぎ", "VOICEVOX:四国めたん"]
+
+
+def test_unknown_character_voice_is_an_error(root: Path) -> None:
+    from pipeline.tts.__main__ import NarrationError
+
+    path = root / "episodes" / "EP0001_sample" / "script" / "script_main.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    data["sections"][3]["blocks"][0]["voice"] = "ghost_king"
+    path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    with pytest.raises(NarrationError, match="ghost_king"):
+        synthesize_episode(root, "EP0001_sample", FakeTTS())
+
+
 def test_rerun_only_regenerates_changed_blocks(root: Path) -> None:
     synthesize_episode(root, "EP0001_sample", FakeTTS())
     tts = FakeTTS()

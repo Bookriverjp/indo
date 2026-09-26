@@ -46,3 +46,29 @@ def frame_levels(samples: np.ndarray, rate: int, fps: int, audio: list[dict], th
             if peak and rms[k] > threshold * peak:
                 opened[f] = True
     return opened
+
+
+def mix_sfx(samples: np.ndarray, rate: int, events: list[dict], sfx_dir: Path, fade_seconds: float) -> np.ndarray:
+    """環境音（ループ・入りと終わりをフェード）と効果音（1回）をナレーションに重ねる。"""
+    out = samples.astype(np.float64)
+    for e in events:
+        with wave.open(str(sfx_dir / f"{e['name']}.wav")) as w:
+            if w.getframerate() != rate:
+                raise ValueError(f"{e['name']}.wav: sample rate が {rate} ではありません")
+            clip = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64)
+        start = int(round(e["start"] * rate))
+        if start >= len(out):
+            continue
+        if e["loop"]:
+            n = min(int(round(e["duration"] * rate)), len(out) - start)
+            reps = int(np.ceil(n / len(clip)))
+            seg = np.tile(clip, reps)[:n]
+            f = min(int(fade_seconds * rate), n // 2)
+            if f:
+                ramp = np.linspace(0, 1, f)
+                seg[:f] *= ramp
+                seg[-f:] *= ramp[::-1]
+        else:
+            seg = clip[: len(out) - start]
+        out[start:start + len(seg)] += seg * e["volume"]
+    return np.clip(out, -32768, 32767).astype(np.int16)

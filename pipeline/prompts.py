@@ -38,8 +38,9 @@ def persona_block(persona: dict) -> str:
     d = persona["dialect"]
     lines = [
         f"{persona['name']}の一人称は「{persona['first_person']}」です。",
-        f"- 物語を読む部分（kind: {', '.join(styles['narration']['kinds'])}）: {styles['narration']['description']}",
-        f"- {persona['name']}のコメント（kind: {', '.join(styles['comment']['kinds'])}）: {styles['comment']['description']}",
+        f"- 物語を読む部分（section: {', '.join(styles['narration']['sections'])}）: {styles['narration']['description']}",
+        f"- それ以外の{persona['name']}の語り: {styles['comment']['description']}",
+        "- 登場人物のセリフ（block の voice を narrator 以外にする）は、その人物の話し方でよい",
         f"{d['name']}の特徴:",
         *[f"- {f}" for f in d["features"]],
         f"{d['name']}の言葉:",

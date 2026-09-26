@@ -35,7 +35,8 @@ def narration(seconds=SECONDS):
 
 def build(**over):
     kw = dict(episode_id="EP0001_sample", storyboard=load("storyboard_rich.json"), manifest=manifest(),
-              narration=narration(), script=load("script_valid.json"), research=load("research_valid.json"), cfg=CFG)
+              narration=narration(), script=load("script_valid.json"), research=load("research_valid.json"), cfg=CFG,
+              sfx_cfg=None)
     kw.update(over)
     return build_timeline(**kw)
 
@@ -195,3 +196,62 @@ def test_cli_missing_narration(root, capsys):
     (root / "episodes" / "EP0001_sample" / "audio" / "narration.json").unlink()
     assert main(["EP0001_sample"], project_root=root) == 2
     assert "narration.json" in capsys.readouterr().err
+
+
+# --- voices, sources card, transitions, sfx (第1話で追加) ---------------------------
+
+def test_character_voice_does_not_move_narrator_mouth():
+    nar = narration()
+    nar["items"][3]["voice"] = "woman"          # b04
+    tl = build(narration=nar)
+    n = {x["block_id"]: x for x in tl["narrator"]}
+    assert n["b04"]["speaking"] is False and n["b03"]["speaking"] is True
+
+
+def test_sources_card_uses_script_selection():
+    sb = load("storyboard_rich.json")
+    sb["scenes"][3]["layout"] = "card"
+    script = load("script_valid.json")
+    script["sources_card"] = ["s02"]
+    tl = build(storyboard=sb, script=script)
+    rows = tl["scenes"][3]["card"]["rows"]
+    assert len(rows) == 1 and "s02" in rows[0][0]
+
+
+def test_sources_card_defaults_to_sources_used_in_legend_blocks():
+    sb = load("storyboard_rich.json")
+    sb["scenes"][3]["layout"] = "card"
+    tl = build(storyboard=sb)
+    ids = [r[0].split("（")[0] for r in tl["scenes"][3]["card"]["rows"]]
+    assert ids == ["s01", "s02"]
+
+
+def test_transition_override_from_storyboard():
+    sb = load("storyboard_rich.json")
+    sb["scenes"][1]["transition"] = "fade_from_black"
+    tl = build(storyboard=sb)
+    assert tl["scenes"][1]["transition_in"]["type"] == "fade_from_black"
+
+
+def test_ambience_and_sfx_events():
+    sfx_cfg = load_yaml("config/sfx.yaml")["sfx"]
+    sb = load("storyboard_rich.json")
+    sb["scenes"][0]["ambience"] = ["night_insects"]
+    sb["scenes"][1]["ambience"] = ["night_insects"]
+    sb["scenes"][3]["sfx"] = [{"name": "bell", "at": "end"}]
+    tl = build(storyboard=sb, sfx_cfg=sfx_cfg)
+    s = tl["scenes"]
+    amb = [e for e in tl["sfx"] if e["name"] == "night_insects"]
+    assert len(amb) == 1                                   # 続く場面の同じ環境音はつなげる
+    assert amb[0]["start"] == 0 and amb[0]["duration"] == pytest.approx(s[1]["start"] + s[1]["duration"])
+    assert amb[0]["loop"] is True and amb[0]["volume"] == sfx_cfg["library"]["night_insects"]["volume"]
+    bell = next(e for e in tl["sfx"] if e["name"] == "bell")
+    end = s[3]["start"] + s[3]["duration"]
+    assert s[3]["start"] <= bell["start"] < end and bell["loop"] is False
+
+
+def test_unknown_sfx_raises():
+    sb = load("storyboard_rich.json")
+    sb["scenes"][0]["sfx"] = [{"name": "thunder", "at": "start"}]
+    with pytest.raises(TimelineError, match="thunder"):
+        build(storyboard=sb, sfx_cfg=load_yaml("config/sfx.yaml")["sfx"])

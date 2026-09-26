@@ -1,0 +1,11 @@
+# 効果音・環境音（第1話で追加）。python -m pipeline.sfx で assets/sfx/*.wav を合成する
+# 絵コンテの scene に ambience（場面のあいだ鳴らし続ける）と sfx（1回鳴らす）を書く
+sfx:
+  dir: "assets/sfx"
+  sample_rate: 24000           # VOICEVOX の出力と同じ
+  fade_seconds: 1.2            # 環境音の入りと終わり
+  library:
+    bell:          {volume: 0.55, loop: false, desc: "鈴「チリン」"}
+    night_insects: {volume: 0.16, loop: true,  desc: "夜の虫の声"}
+    river:         {volume: 0.14, loop: true,  desc: "ゆっくり流れる川の音"}
+    wind:          {volume: 0.12, loop: true,  desc: "夜風"}

@@ -79,7 +79,7 @@ def render_srt(subtitles: list[dict]) -> str:
 
 # --- cards ------------------------------------------------------------------------------
 
-def _card(kind: str, research: dict) -> dict:
+def _card(kind: str, research: dict, script: dict | None = None) -> dict:
     if kind == "region":
         rows = [["地域", research["region"]], ["言語", research["language"]]]
         if research.get("local_title"):
@@ -93,8 +93,14 @@ def _card(kind: str, research: dict) -> dict:
     if kind == "variants":
         rows = [[f"異説{i}", v["summary"]] for i, v in enumerate(research["variants"], 1)] or [["異説", "記録なし"]]
         return {"kind": kind, "title": "異説と背景", "rows": rows}
+    # 出典カード: 台本の sources_card、なければ legend ブロックで使った出典（研究記録の順）
+    wanted = list((script or {}).get("sources_card") or [])
+    if not wanted and script:
+        used = {i for sec in script["sections"] for b in sec["blocks"] if b["kind"] == "legend" for i in b["source_ids"]}
+        wanted = [s["id"] for s in research["sources"] if s["id"] in used]
+    by_id = {s["id"]: s for s in research["sources"]}
     rows = []
-    for s in research["sources"]:
+    for s in ([by_id[i] for i in wanted if i in by_id] or research["sources"]):
         meta = "、".join(str(x) for x in (s.get("author"), s.get("year")) if x)
         rows.append([f"{s['id']}（信頼度{s['reliability']}）", s["title"] + (f"（{meta}）" if meta else "")])
     return {"kind": "sources", "title": "出典", "rows": rows}
@@ -111,8 +117,13 @@ def _motion(name: str | None, layout: str, cfg: dict) -> dict:
             "parallax": bool(m.get("parallax", False)), "fx_animation": m.get("fx_animation")}
 
 
-def _transition(prev: dict | None, layout: str, cfg: dict) -> dict:
+def _transition(prev: dict | None, layout: str, cfg: dict, override: str | None = None) -> dict:
     t = cfg["transitions"]
+    if override:
+        match = next((v for v in t.values() if v["type"] == override), None)
+        if match is None:
+            raise TimelineError(f"unknown transition: {override}")
+        return {"type": match["type"], "duration": match["duration"]}
     if prev is None:
         key = "first"
     elif prev["layout"] == "stage" and layout == "stage":
@@ -124,8 +135,43 @@ def _transition(prev: dict | None, layout: str, cfg: dict) -> dict:
     return {"type": t[key]["type"], "duration": t[key]["duration"]}
 
 
+def _sfx_events(storyboard: dict, scenes: list[dict], sfx_cfg: dict | None, cfg: dict) -> list[dict]:
+    """環境音（場面のあいだ鳴らし続け、続く場面の同じ音はつなげる）と効果音（1回）。"""
+    lib = (sfx_cfg or {}).get("library", {})
+    events: list[dict] = []
+    open_amb: dict[str, dict] = {}
+    for sb, sc in zip(storyboard["scenes"], scenes):
+        names = sb.get("ambience") or []
+        for name in [*names, *(e["name"] for e in sb.get("sfx") or [])]:
+            if name not in lib:
+                raise TimelineError(f"{sb['scene_id']}: 効果音 {name!r} が config/sfx.yaml の library にありません")
+        end = sc["start"] + sc["duration"]
+        for name in list(open_amb):
+            if name not in names:
+                del open_amb[name]
+        for name in names:
+            if name in open_amb:
+                open_amb[name]["duration"] = round(end - open_amb[name]["start"], 3)
+            else:
+                ev = {"name": name, "start": sc["start"], "duration": sc["duration"], "loop": True,
+                      "volume": lib[name]["volume"]}
+                events.append(ev)
+                open_amb[name] = ev
+        for e in sb.get("sfx") or []:
+            at = e.get("at", "start")
+            if at == "end":
+                start = max(sc["start"], end - cfg.get("sfx_end_offset", 2.0))
+            elif at == "start":
+                start = sc["start"] + cfg["scene_lead_in"] / 2
+            else:
+                start = sc["start"] + float(at)
+            events.append({"name": e["name"], "start": round(start, 3), "duration": None, "loop": False,
+                           "volume": lib[e["name"]]["volume"]})
+    return events
+
+
 def build_timeline(*, episode_id: str, storyboard: dict, manifest: dict, narration: dict, script: dict,
-                   research: dict, cfg: dict, width: int = 1920, height: int = 1080) -> dict:
+                   research: dict, cfg: dict, width: int = 1920, height: int = 1080, sfx_cfg: dict | None = None) -> dict:
     seconds = {i["block_id"]: i for i in narration["items"] if i["target"] == "main"}
     blocks = {b["block_id"]: (s["section"], b) for s in script["sections"] for b in s["blocks"]}
     layers = {s["scene_id"]: s["layers"] for s in manifest["scenes"]}
@@ -146,7 +192,8 @@ def build_timeline(*, episode_id: str, storyboard: dict, manifest: dict, narrati
             audio.append({"block_id": bid, "file": seconds[bid]["file"], "start": round(cursor, 3), "duration": dur})
             section, block = blocks[bid]
             narrator.append({"block_id": bid, "start": round(cursor, 3), "duration": dur,
-                             "expression": block["expression"], "speaking": True})
+                             "expression": block["expression"],
+                             "speaking": seconds[bid].get("voice", "narrator") == "narrator"})
             caps = split_subtitle(block["text"], max_chars=sub_cfg["max_chars_per_line"], max_lines=sub_cfg["max_lines"])
             total_chars = sum(len("".join(c)) for c in caps) or 1
             c_start = cursor
@@ -161,10 +208,10 @@ def build_timeline(*, episode_id: str, storyboard: dict, manifest: dict, narrati
         card = None
         if sc["layout"] == "card":
             section = blocks[sc["block_ids"][-1]][0] if sc["block_ids"] else "intro"
-            card = _card(cfg["card_by_section"].get(section, "region"), research)
+            card = _card(cfg["card_by_section"].get(section, "region"), research, script)
 
         scene = {"scene_id": sc["scene_id"], "layout": sc["layout"], "start": round(t, 3), "duration": round(duration, 3),
-                 "transition_in": _transition(prev, sc["layout"], cfg), "motion": _motion(sc.get("suggested_motion"), sc["layout"], cfg),
+                 "transition_in": _transition(prev, sc["layout"], cfg, sc.get("transition")), "motion": _motion(sc.get("suggested_motion"), sc["layout"], cfg),
                  "layers": layers.get(sc["scene_id"], []), "card": card}
         scenes.append(scene)
         prev = scene
@@ -172,7 +219,8 @@ def build_timeline(*, episode_id: str, storyboard: dict, manifest: dict, narrati
 
     return {"schema_version": 1, "episode_id": episode_id, "width": width, "height": height, "fps": cfg["fps"],
             "total_seconds": round(t, 3), "region_label": f"{research['region']} ・ {research['language']}",
-            "scenes": scenes, "audio": audio, "subtitles": subtitles, "narrator": narrator}
+            "scenes": scenes, "audio": audio, "subtitles": subtitles, "narrator": narrator,
+            "sfx": _sfx_events(storyboard, scenes, sfx_cfg, cfg)}
 
 
 # --- CLI -------------------------------------------------------------------------------
@@ -201,6 +249,7 @@ def main(argv: list[str] | None = None, project_root: Path | None = None) -> int
             script=_read_json(paths["script_json"]),
             research=_read_json(paths["research"]),
             cfg=load_yaml("config/timeline.yaml", root)["timeline"],
+            sfx_cfg=load_yaml("config/sfx.yaml", root)["sfx"] if (root / "config" / "sfx.yaml").exists() else None,
             width=main_cfg["width"], height=main_cfg["height"],
         )
         validate(tl, "timeline", root)

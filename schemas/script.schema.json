@@ -18,6 +18,8 @@
   "properties": {
     "schema_version": {"const": 1},
     "episode_title": {"type": "string", "minLength": 1},
+    "sources_card": {"type": "array", "items": {"type": "string"},
+                     "description": "締めの出典カードに出す出典 id。空なら legend ブロックで使った出典を出す"},
     "sections": {
       "type": "array",
       "minItems": 1,
@@ -42,7 +44,8 @@
                 },
                 "text": {"type": "string", "minLength": 1},
                 "source_ids": {"type": "array", "items": {"type": "string"}},
-                "expression": {"$ref": "#/$defs/expression"}
+                "expression": {"$ref": "#/$defs/expression"},
+                "voice": {"type": ["string", "null"], "description": "読む声。null / narrator は大仏飴。ほかは config/voice.yaml の characters（例: woman）"}
               }
             }
           }

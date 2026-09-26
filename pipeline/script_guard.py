@@ -38,12 +38,22 @@ def _chars(text: str) -> int:
     return len("".join(text.split()))
 
 
+def speech_style(section: str | None, kind: str, voice: str | None, persona: dict) -> str:
+    """narration（物語の語り）/ comment（大仏飴の語り・栃木弁）/ character（登場人物の声）。"""
+    if voice not in (None, "narrator"):
+        return "character"
+    n = persona["styles"]["narration"]
+    if section is None:   # ショート
+        return "narration" if kind in n.get("shorts_kinds", []) else "comment"
+    return "narration" if section in n["sections"] else "comment"
+
+
 def _check_texts(items: list[tuple[str, str, str]], rules: dict, persona: dict, result: GuardResult) -> None:
-    """items: (block_id, kind, text)"""
-    for bid, kind, text in items:
+    """items: (block_id, style, text)"""
+    for bid, style, text in items:
         for phrase in find_banned_phrases(text, rules):
             result.errors.append(Issue("E_BANNED_PHRASE", f"{bid}: 断定・一般化の表現「{phrase}」を使わないでください"))
-        if kind in persona["styles"]["comment"]["kinds"]:
+        if style == "comment":
             for fp in persona["forbidden_first_person"]:
                 if fp in text:
                     result.errors.append(Issue(
@@ -53,16 +63,17 @@ def _check_texts(items: list[tuple[str, str, str]], rules: dict, persona: dict, 
 
 def _check_style(items: list[tuple[str, str, str]], rules: dict, persona: dict, result: GuardResult) -> None:
     """物語はです・ます調、大仏飴のコメントは方言（config/persona.yaml）。"""
-    comment_kinds = persona["styles"]["comment"]["kinds"]
-    comments = "".join(t for _, k, t in items if k in comment_kinds)
+    comments = "".join(t for _, s, t in items if s == "comment")
     if comments and not any(m in comments for m in persona["dialect"]["markers"]):
         result.warnings.append(Issue("W_NO_DIALECT", f"{persona['name']}のコメントに{persona['dialect']['name']}が入っていません"))
     if "こわい" in comments:
         result.warnings.append(Issue("W_KOWAI", "コメントの「こわい」（栃木弁で疲れた）は、怖い話の中では誤解されやすいです"))
-    plain = [bid for bid, k, t in items
-             if k == "legend" and not t.rstrip("。．！？!?」』…ー 　").endswith(tuple(rules["narration_endings"]))]
-    if plain:
-        result.warnings.append(Issue("W_NARRATION_STYLE", f"物語の文がです・ます調で終わっていません: {', '.join(plain)}"))
+    # 物語の語りは標準語（です・ます調や体言止め）。方言が混ざっていたら警告
+    markers = [m for m in persona["dialect"]["markers"] if m != "こわい"]
+    dialect_in_story = [bid for bid, s, t in items if s == "narration" and any(m in t for m in markers)]
+    if dialect_in_story:
+        result.warnings.append(Issue("W_NARRATION_STYLE",
+                                     f"物語の部分に{persona['dialect']['name']}が入っています（物語はです・ます調）: {', '.join(dialect_in_story)}"))
 
 
 def check_main_script(script: dict, rules: dict, persona: dict) -> GuardResult:
@@ -78,7 +89,8 @@ def check_main_script(script: dict, rules: dict, persona: dict) -> GuardResult:
         result.errors.append(Issue("E_SECTION_ORDER",
                                    f"section は {' → '.join(r['section_order'])} の順に1回ずつ並べてください（現在: {' → '.join(sections)}）"))
 
-    blocks = [(b["block_id"], b["kind"], b["text"], s["section"]) for s in script["sections"] for b in s["blocks"]]
+    blocks = [(b["block_id"], speech_style(s["section"], b["kind"], b.get("voice"), persona), b["text"], s["section"])
+              for s in script["sections"] for b in s["blocks"]]
     _check_texts([(bid, k, t) for bid, k, t, _ in blocks], rules, persona, result)
 
     by_section = {name: "".join(t for _, _, t, s in blocks if s == name) for name in sections}
@@ -109,7 +121,7 @@ def check_main_script(script: dict, rules: dict, persona: dict) -> GuardResult:
 def check_shorts_script(shorts: dict, rules: dict, persona: dict) -> GuardResult:
     r = rules["shorts"]
     result = GuardResult()
-    items = [(b["block_id"], b["kind"], b["text"]) for b in shorts["blocks"]]
+    items = [(b["block_id"], speech_style(None, b["kind"], b.get("voice"), persona), b["text"]) for b in shorts["blocks"]]
     _check_texts(items + [("cta", "comment", shorts["cta_text"])], rules, persona, result)
     _check_style(items + [("cta", "comment", shorts["cta_text"])], rules, persona, result)
 

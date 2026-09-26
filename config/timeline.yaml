@@ -5,6 +5,7 @@ timeline:
   block_gap: 0.3            # ブロックとブロックの間
   scene_tail: 0.6           # 最後のナレーションのあと、次の場面まで
   min_scene_seconds: 2.5
+  sfx_end_offset: 2.0       # at: end の効果音を、場面の終わりの何秒前に鳴らすか
 
   subtitle:
     max_chars_per_line: 21  # 字幕枠（1131px）に 52px 前後の文字で1行

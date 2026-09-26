@@ -70,6 +70,14 @@
                        "lines": {"type": "array", "items": {"type": "string"}, "minItems": 1}}
       }
     },
+    "sfx": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["name", "start", "duration", "loop", "volume"],
+        "properties": {"name": {"type": "string"}, "start": {"type": "number"}, "duration": {"type": ["number", "null"]},
+                       "loop": {"type": "boolean"}, "volume": {"type": "number"}}
+      }
+    },
     "narrator": {
       "type": "array",
       "items": {

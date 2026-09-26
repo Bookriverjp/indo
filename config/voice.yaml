@@ -26,6 +26,17 @@ tts:
     narration: {intonation_scale: 1.0, phrase_end_rise: 0.0}   # kind: legend, staging
     comment:   {intonation_scale: 0.4, phrase_end_rise: 0.1}   # kind: comment
 
+  # 登場人物の声（script の block.voice）。大仏飴とは別の話者で読む（2026-09-26 第1話で追加）
+  # 規約: エンジン同梱の policy で「VOICEVOX:四国めたん」の表記で商用可を確認
+  characters:
+    woman:
+      speaker_name: "四国めたん"
+      speaker_uuid: "7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff"
+      style_id: 36            # ささやき
+      speed_scale: 0.9
+      intonation_scale: 1.0
+      credit: "VOICEVOX:四国めたん"
+
   expression_to_style:
     default: normal
     surprise: surprised
