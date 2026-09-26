@@ -48,6 +48,7 @@ ARTIFACTS = {
     "youtube_metadata": "output/youtube_metadata.json",
     "youtube_metadata_md": "output/youtube_metadata.md",
     "qa_report": "output/qa_report.md",
+    "qa_gates": "output/qa_gates.yaml",
     "log": "logs/pipeline.log",
     "llm_usage": "logs/llm_usage.jsonl",
     "image_usage": "logs/image_usage.jsonl",

@@ -50,7 +50,8 @@ episodes/<episode_id>/
     youtube_metadata_request.md  manual モードの生成依頼（YouTube 文面）
     youtube_metadata.json      タイトル案・サムネ文字案・概要欄（チャプター入り）・タグ
     youtube_metadata.md        貼り付け用
-    qa_report.md               Final Gate の確認レポート
+    qa_report.md               確認の関門のまとめ（docs/QA.md）
+    qa_gates.yaml              関門ごとの承認・差し戻しの記録
   logs/pipeline.log
   logs/llm_usage.jsonl         LLM のトークン数と費用の目安（claude モード）
   logs/image_usage.jsonl       画像生成の記録（openai モード）
