@@ -1,0 +1,39 @@
+# タイムライン（PHASE 7）。秒の値は Owner が調整できる
+timeline:
+  fps: 30
+  scene_lead_in: 0.4        # 場面が始まってから最初のナレーションまで
+  block_gap: 0.3            # ブロックとブロックの間
+  scene_tail: 0.6           # 最後のナレーションのあと、次の場面まで
+  min_scene_seconds: 2.5
+
+  subtitle:
+    max_chars_per_line: 21  # 字幕枠（1131px）に 52px 前後の文字で1行
+    max_lines: 2
+
+  # 場面の切り替え（場面の頭で、前の場面から切り替える時間を含む）
+  transitions:
+    first:        {type: fade_from_black, duration: 0.6}
+    stage_to_stage: {type: card_pull, duration: 0.6}   # 紙芝居の絵を引き抜く
+    layout_change:  {type: crossfade, duration: 0.5}
+    default:        {type: crossfade, duration: 0.4}
+
+  # カメラの動き（物語の絵の窓の中だけ動く。枠と大仏飴は動かない）
+  # camera: [拡大率, 横のずれ, 縦のずれ]（ずれは窓の幅・高さに対する割合）
+  motions:
+    static:        {camera_from: [1.0, 0.0, 0.0],   camera_to: [1.0, 0.0, 0.0]}
+    slow_push_in:  {camera_from: [1.0, 0.0, 0.0],   camera_to: [1.08, 0.0, 0.0]}
+    slow_pan:      {camera_from: [1.1, -0.04, 0.0], camera_to: [1.1, 0.04, 0.0]}
+    parallax:      {camera_from: [1.05, -0.02, 0.0], camera_to: [1.05, 0.02, 0.0], parallax: true}
+    fog_drift:     {camera_from: [1.0, 0.0, 0.0],   camera_to: [1.03, 0.0, 0.0], fx_animation: drift}
+    cloud_drift:   {camera_from: [1.0, 0.0, 0.0],   camera_to: [1.03, 0.0, 0.0], fx_animation: drift}
+    flame_flicker: {camera_from: [1.0, 0.0, 0.0],   camera_to: [1.03, 0.0, 0.0], fx_animation: flicker}
+    rain:          {camera_from: [1.0, 0.0, 0.0],   camera_to: [1.03, 0.0, 0.0], fx_animation: fall}
+  default_motion: {stage: slow_push_in, fullbleed: slow_push_in, card: static}
+
+  # 解説カードの内容（場面のブロックが属する section で決める）
+  card_by_section:
+    intro: region
+    background: region
+    commentary: variants
+    comparison: variants
+    ending: sources

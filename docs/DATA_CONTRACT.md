@@ -39,7 +39,7 @@ episodes/<episode_id>/
     generated/                 チェック済みの背景・人物・小物・FX（Git管理外）
   audio/generated/             ブロックごとのナレーション WAV（Git管理外）
   audio/narration.json         ブロックごとの表記・読み・声色・秒数（docs/TTS.md）
-  render/timeline.json         紙芝居タイムライン（Git管理外）
+  render/timeline.json         紙芝居タイムライン（schemas/timeline.schema.json、Git管理外）
   output/
     episode.mp4                本編
     shorts.mp4                 ショート
@@ -65,6 +65,16 @@ episodes/<episode_id>/
 - 大仏飴（`shared_daibutsuame`）と舞台テンプレート（`shared_stage_template`）は共通素材として参照するだけで、この回では生成しない
 - 画像の指示文は `prompts/05_image_background.md`・`06_image_character.md`・`09_image_part.md` から作り、`config/visual_style.yaml` の地域トーンを入れる
 - scene ごとのレイヤーは、layout の窓（template / story_art / narrator）に対する相対 box [x, y, w, h] と重ね順 z で持つ。card には物語の絵を置かない。hook の fullbleed では大仏飴を出さない
+
+## Timeline（PHASE 7）
+`python -m pipeline.timeline <episode_id>` で、storyboard・asset_manifest・narration・script・research から作る。設定は `config/timeline.yaml`。
+- 場面の長さ = 頭の間 + ナレーション（ブロック間の間を含む）+ 終わりの間。短すぎる場面は最短の長さにそろえる
+- 切り替え: 最初は黒からフェード、紙芝居舞台どうしは絵を引き抜く（card_pull）、画面の種類が変わるときはクロスフェード
+- カメラ: storyboard の suggested_motion（ゆっくり寄る・横に流す など）。物語の絵の窓の中だけ動かす。解説カードは動かさない
+- 字幕: 1行21字・2行まで。句読点で切り、文の終わりで画面を改める。ブロックの音声の長さを文字数で配分する。`script/subtitles.srt` も出す
+- 大仏飴: ブロックごとに表情と話している時間（口パク用）
+- 解説カード: 場面の最後のブロックの section で内容を決める（導入・背景＝地域、解説・比較＝異説、締め＝出典）
+- 地域ラベル: research の region と language
 
 ## Research
 - 手作業で書いたリサーチは `templates/research_template.yaml` をコピーして埋め、`python -m pipeline.research import <episode_id> <file>` で取り込む。

@@ -1,52 +1,81 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Timeline",
+  "description": "紙芝居動画の組み立て指示（PHASE 7）。時刻・長さは秒。",
   "type": "object",
-  "required": [
-    "width",
-    "height",
-    "fps",
-    "scenes"
-  ],
+  "additionalProperties": false,
+  "required": ["schema_version", "episode_id", "width", "height", "fps", "total_seconds", "region_label", "scenes", "audio", "subtitles", "narrator"],
+  "$defs": {
+    "cam": {"type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3}
+  },
   "properties": {
-    "width": {
-      "type": "integer"
-    },
-    "height": {
-      "type": "integer"
-    },
-    "fps": {
-      "type": "integer"
-    },
+    "schema_version": {"const": 1},
+    "episode_id": {"type": "string"},
+    "width": {"type": "integer"},
+    "height": {"type": "integer"},
+    "fps": {"type": "integer"},
+    "total_seconds": {"type": "number"},
+    "region_label": {"type": "string"},
     "scenes": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": [
-          "scene_id",
-          "duration",
-          "layers"
-        ],
+        "additionalProperties": false,
+        "required": ["scene_id", "layout", "start", "duration", "transition_in", "motion", "layers", "card"],
         "properties": {
-          "scene_id": {
-            "type": "string"
-          },
-          "duration": {
-            "type": "number"
+          "scene_id": {"type": "string"},
+          "layout": {"enum": ["stage", "fullbleed", "card"]},
+          "start": {"type": "number", "minimum": 0},
+          "duration": {"type": "number", "exclusiveMinimum": 0},
+          "transition_in": {
+            "type": "object", "additionalProperties": false, "required": ["type", "duration"],
+            "properties": {"type": {"enum": ["fade_from_black", "card_pull", "crossfade"]}, "duration": {"type": "number"}}
           },
           "motion": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "layers": {
-            "type": "array",
-            "items": {
-              "type": "string"
+            "type": "object", "additionalProperties": false,
+            "required": ["name", "camera_from", "camera_to", "parallax", "fx_animation"],
+            "properties": {
+              "name": {"type": "string"},
+              "camera_from": {"$ref": "#/$defs/cam"},
+              "camera_to": {"$ref": "#/$defs/cam"},
+              "parallax": {"type": "boolean"},
+              "fx_animation": {"type": ["string", "null"]}
             }
+          },
+          "layers": {"type": "array", "items": {"type": "object"}},
+          "card": {
+            "anyOf": [
+              {"type": "null"},
+              {"type": "object", "required": ["kind", "title", "rows"],
+               "properties": {"kind": {"enum": ["region", "variants", "sources"]}, "title": {"type": "string"},
+                              "rows": {"type": "array", "items": {"type": "array", "items": {"type": "string"}, "minItems": 2, "maxItems": 2}}}}
+            ]
           }
         }
+      }
+    },
+    "audio": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["block_id", "file", "start", "duration"],
+        "properties": {"block_id": {"type": "string"}, "file": {"type": "string"}, "start": {"type": "number"}, "duration": {"type": "number"}}
+      }
+    },
+    "subtitles": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["index", "block_id", "start", "end", "lines"],
+        "properties": {"index": {"type": "integer"}, "block_id": {"type": "string"}, "start": {"type": "number"}, "end": {"type": "number"},
+                       "lines": {"type": "array", "items": {"type": "string"}, "minItems": 1}}
+      }
+    },
+    "narrator": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["block_id", "start", "duration", "expression", "speaking"],
+        "properties": {"block_id": {"type": "string"}, "start": {"type": "number"}, "duration": {"type": "number"},
+                       "expression": {"type": "string"}, "speaking": {"type": "boolean"}}
       }
     }
   }

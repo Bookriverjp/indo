@@ -21,10 +21,14 @@ VALID = {
                                 "box": [0, 0, 1, 1], "z": 10}]}],
     },
     "timeline": {
-        "width": 1920,
-        "height": 1080,
-        "fps": 30,
-        "scenes": [{"scene_id": "s01", "duration": 5.0, "layers": ["bg_s01_v01"]}],
+        "schema_version": 1, "episode_id": "EP0001_x", "width": 1920, "height": 1080, "fps": 30,
+        "total_seconds": 5.0, "region_label": "West Bengal ・ Bengali",
+        "scenes": [{"scene_id": "s01", "layout": "fullbleed", "start": 0, "duration": 5.0,
+                    "transition_in": {"type": "fade_from_black", "duration": 0.6},
+                    "motion": {"name": "static", "camera_from": [1, 0, 0], "camera_to": [1, 0, 0],
+                               "parallax": False, "fx_animation": None},
+                    "layers": [], "card": None}],
+        "audio": [], "subtitles": [], "narrator": [],
     },
 }
 
@@ -62,7 +66,7 @@ def test_bad_reliability_fails() -> None:
 def test_all_errors_are_reported() -> None:
     with pytest.raises(SchemaValidationError) as exc:
         validate({}, "timeline")
-    assert len(exc.value.messages) == 4
+    assert len(exc.value.messages) == len(load_schema("timeline")["required"])
 
 
 def test_unknown_schema_name() -> None:
