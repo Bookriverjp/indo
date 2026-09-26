@@ -1,0 +1,16 @@
+# サムネイル（PHASE 9）。文字は画像生成に描かせず、ここで重ねる
+thumbnail:
+  size: [1280, 720]
+  max_bytes: 2000000                  # YouTube の上限（2MB）
+  text:
+    box: {x: 56, y: 60, w: 760, h: 430}
+    font: gothic
+    max_px: 150
+    fill: [255, 243, 214]
+    stroke: [92, 22, 12]
+    stroke_px: 14
+    max_lines: 2
+  shade: {width: 0.72, alpha: 150}    # 文字の下を左から暗くする（幅は画像に対する割合）
+  narrator: {x: 800, y: 140, w: 470, h: 580, expression: surprise}
+  label: {x: 56, y: 600, h: 70, size: 34}
+  frame: {outer: [142, 31, 22], inner: [199, 154, 58], outer_px: 14, inner_px: 5}

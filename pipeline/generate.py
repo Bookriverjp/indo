@@ -45,13 +45,20 @@ class StageSpec:
     schema: str
     input_key: str
     output_key: str
+    extra_keys: tuple[str, ...] = ()   # 入力に一緒に渡すもの
 
 
 STAGES = {
     "script": StageSpec(prompt="02_script", schema="script", input_key="research", output_key="script_json"),
     "storyboard": StageSpec(prompt="03_storyboard", schema="storyboard", input_key="script_json", output_key="storyboard"),
     "shorts": StageSpec(prompt="07_shorts", schema="shorts", input_key="script_json", output_key="shorts_json"),
+    "metadata": StageSpec(prompt="08_youtube_metadata", schema="youtube_metadata", input_key="script_json",
+                          output_key="youtube_metadata", extra_keys=("research",)),
 }
+
+# 概要欄に書かないもの（2026-09-26 Owner決定：出典とクレジットは動画の中で見せる）
+DESCRIPTION_FORBIDDEN = ("出典", "参考文献", "参考資料", "VOICEVOX", "クレジット")
+TAGS_MAX_CHARS = 500
 
 # 1本に使える回数の上限（docs/CHARACTER_MOTION.md）
 EXPRESSION_LIMITS = {"sleep": 1, "dust_bath": 1, "popcorn": 1, "grooming": 2}
@@ -75,14 +82,15 @@ def _write_text(path: Path, text: str) -> None:
 
 # --- prompt -----------------------------------------------------------------
 
-def _build_prompt(project_root: Path, stage: str, input_data: dict) -> tuple[str, str]:
+def _build_prompt(project_root: Path, stage: str, context: dict) -> tuple[str, str]:
     spec = STAGES[stage]
     persona = load_yaml("config/persona.yaml", project_root)["persona"]
     system = render(load_prompt("00_system", project_root).strip(), name=persona["name"],
                     persona=persona_block(persona))
     instructions = load_prompt(spec.prompt, project_root).strip()
-    user = (f"{instructions}\n\n<input name=\"{spec.input_key}\">\n"
-            f"{json.dumps(input_data, ensure_ascii=False, indent=2)}\n</input>")
+    user = instructions
+    for key in (spec.input_key, *spec.extra_keys):
+        user += f"\n\n<input name=\"{key}\">\n{json.dumps(context[key], ensure_ascii=False, indent=2)}\n</input>"
     return system, user
 
 
@@ -132,7 +140,29 @@ def _check_storyboard(data: dict, context: dict) -> list[str]:
     return errors
 
 
-_EXTRA_CHECKS = {"script": _check_script, "storyboard": _check_storyboard, "shorts": _check_shorts}
+def _check_metadata(data: dict, context: dict) -> list[str]:
+    from pipeline.script_guard import find_banned_phrases
+
+    errors = []
+    texts = [("title", t) for t in data["title_candidates"]] + [("thumbnail", t) for t in data["thumbnail_text_candidates"]]
+    texts.append(("description", data["description"]))
+    for where, text in texts:
+        for phrase in find_banned_phrases(text, context["rules"]):
+            errors.append(f"{where}: 断定・一般化の表現「{phrase}」を使わないでください")
+    for word in DESCRIPTION_FORBIDDEN:
+        if word in data["description"]:
+            errors.append(f"description: 概要欄に「{word}」を書かないでください（出典とクレジットは動画の中で見せる）")
+    research = context["research"]
+    names = [n for n in (research["canonical_title"], research["region"], research.get("local_title")) if n]
+    if not any(n in t for n in names for t in [*data["title_candidates"], data["description"]]):
+        errors.append(f"地域名または伝承名（{' / '.join(names)}）をタイトルか説明文に入れてください")
+    if len(",".join(data["tags"])) > TAGS_MAX_CHARS:
+        errors.append(f"tags が長すぎます（合計 {TAGS_MAX_CHARS} 字まで）")
+    return errors
+
+
+_EXTRA_CHECKS = {"script": _check_script, "storyboard": _check_storyboard, "shorts": _check_shorts,
+                 "metadata": _check_metadata}
 
 
 def validate_output(stage: str, data: object, context: dict, project_root: Path) -> list[str]:
@@ -179,6 +209,16 @@ def _save_output(paths: dict, stage: str, data: dict, context: dict) -> Path:
         chars, minutes = script_length(texts, context["rules"])
         result = check_main_script(data, context["rules"], context["persona"])
         _write_text(paths["script_review"], render_review_md(data["episode_title"], result, chars=chars, minutes=minutes))
+    elif stage == "metadata":
+        from pipeline.metadata import build_description, chapters_from_timeline, render_metadata_md
+
+        chapters = []
+        if paths["timeline"].exists():
+            chapters = chapters_from_timeline(_read_json(paths["timeline"]), context["script_json"])
+        full = dict(data, chapters=chapters)
+        full["description_full"] = build_description(data, chapters)
+        _write_text(out, json.dumps(full, ensure_ascii=False, indent=2) + "\n")
+        _write_text(paths["youtube_metadata_md"], render_metadata_md(full))
     elif stage == "shorts":
         _write_text(paths["script_shorts"], render_shorts_md(data))
         chars, minutes = script_length([b["text"] for b in data["blocks"]] + [data["cta_text"]], context["rules"])
@@ -210,7 +250,7 @@ def run_stage(project_root: Path, episode_id: str, stage: str, provider: LLMProv
     """provider を呼んで生成し、検証に通ったものだけ保存する。"""
     paths, context = _load_context(project_root, episode_id, stage, force)
     create_episode_workspace(project_root, episode_id)
-    system, user = _build_prompt(project_root, stage, context[STAGES[stage].input_key])
+    system, user = _build_prompt(project_root, stage, context)
     schema = load_schema(STAGES[stage].schema, project_root)
 
     prompt = user
@@ -236,7 +276,7 @@ def prepare_request(project_root: Path, episode_id: str, stage: str, force: bool
     """manual 用: プロンプト・入力・schema をまとめた依頼ファイルを書き出す。"""
     paths, context = _load_context(project_root, episode_id, stage, force)
     create_episode_workspace(project_root, episode_id)
-    system, user = _build_prompt(project_root, stage, context[STAGES[stage].input_key])
+    system, user = _build_prompt(project_root, stage, context)
     schema = load_schema(STAGES[stage].schema, project_root)
     req, resp = paths[f"{stage}_request"], paths[f"{stage}_response"]
     resp_rel = resp.relative_to(project_root).as_posix()

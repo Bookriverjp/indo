@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "YouTubeMetadata",
+  "description": "YouTube の投稿用文面（PHASE 9）。チャプターはタイムラインから自動で付ける。出典とクレジットは載せない（2026-09-26 Owner決定）。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "title_candidates", "thumbnail_text_candidates", "description", "hashtags", "tags"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "title_candidates": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 100}, "minItems": 3, "maxItems": 3},
+    "thumbnail_text_candidates": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 14}, "minItems": 3, "maxItems": 3},
+    "description": {"type": "string", "minLength": 1, "maxLength": 4000},
+    "hashtags": {"type": "array", "items": {"type": "string", "pattern": "^#[^\\s#]+$"}, "maxItems": 15},
+    "tags": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  }
+}

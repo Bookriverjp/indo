@@ -5,7 +5,7 @@ from jsonschema import Draft202012Validator
 
 from pipeline.config import PROJECT_ROOT
 
-SCHEMA_NAMES = ("research", "script", "shorts", "storyboard", "asset_manifest", "timeline")
+SCHEMA_NAMES = ("research", "script", "shorts", "storyboard", "asset_manifest", "timeline", "youtube_metadata")
 
 
 class SchemaValidationError(Exception):

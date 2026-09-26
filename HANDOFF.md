@@ -39,7 +39,8 @@
 - PHASE 8（Renderer）完了：`python -m pipeline.render <id>`（`--preview` / `--placeholders` / `--draft`）。詳細は `docs/RENDER.md`。
 - 大仏飴の体（body_base）は基準画像の白い背景を透明にした。舞台テンプレートは大仏飴の輪郭まわりを補間して作り直した。
 - 概要欄には出典もクレジットも載せない（Owner決定）。出典は動画の締めの出典カード、VOICEVOX のクレジットは動画の最後の場面に小さく表示。
-- 次は PHASE 9（Thumbnail / Metadata）。
+- PHASE 9（Thumbnail / Metadata）完了：`python -m pipeline.generate metadata <id>`（チャプター自動）、`python -m pipeline.thumbnail <id>`。詳細は `docs/LLM.md`。
+- 次は PHASE 10（QA Dashboard）。
 
 ## 次の担当者
 `docs/PHASE.md` の PHASE 0 から順に監査し、最初の未完了PHASEのみ実装すること。

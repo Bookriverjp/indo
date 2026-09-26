@@ -47,7 +47,9 @@ episodes/<episode_id>/
     preview.mp4                確認用の書き出し
     shorts.mp4                 ショート
     thumbnail.png              サムネイル
-    youtube_metadata.json      タイトル・説明文・タグ
+    youtube_metadata_request.md  manual モードの生成依頼（YouTube 文面）
+    youtube_metadata.json      タイトル案・サムネ文字案・概要欄（チャプター入り）・タグ
+    youtube_metadata.md        貼り付け用
     qa_report.md               Final Gate の確認レポート
   logs/pipeline.log
   logs/llm_usage.jsonl         LLM のトークン数と費用の目安（claude モード）

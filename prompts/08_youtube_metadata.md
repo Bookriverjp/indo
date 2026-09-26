@@ -1,15 +1,16 @@
 # YouTube metadata prompt
 
-出力：
-- title_candidates: 3
-- thumbnail_text_candidates: 3
-- description
-- chapters
-- hashtags
-- tags
-- source_note
+入力の script_main.json（台本）と research.json から、YouTube の投稿用文面を作る。
 
-ルール：
-- 未確認の「日本初」は禁止。
-- 地域名/伝承名をタイトルまたは説明文で明確にする。
-- サムネ文言は短くする。
+出力:
+- title_candidates: 3案。100字以内。地域名か伝承名を入れる
+- thumbnail_text_candidates: 3案。14字以内、できれば8字前後。画面で大きく読める短い言葉
+- description: 概要欄の本文（チャプターは自動で付くので書かない）
+- hashtags: 3〜5個。# から始める
+- tags: 10〜20個
+
+ルール:
+- 地域名または伝承名を、タイトルか説明文ではっきり書く。
+- 未確認の「日本初」「誰も知らない」「実話」などは書かない。伝承を事実として断定しない。
+- 出典・参考文献・クレジットは説明文に書かない（出典は動画の中の出典カードで見せる）。
+- 台本にない内容を足さない。

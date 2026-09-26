@@ -9,6 +9,7 @@ VALID = {
     "research": json.loads((Path(__file__).parent / "fixtures" / "research_valid.json").read_text(encoding="utf-8")),
     "script": json.loads((Path(__file__).parent / "fixtures" / "script_valid.json").read_text(encoding="utf-8")),
     "shorts": json.loads((Path(__file__).parent / "fixtures" / "shorts_valid.json").read_text(encoding="utf-8")),
+    "youtube_metadata": json.loads((Path(__file__).parent / "fixtures" / "youtube_metadata_valid.json").read_text(encoding="utf-8")),
     "storyboard": json.loads((Path(__file__).parent / "fixtures" / "storyboard_valid.json").read_text(encoding="utf-8")),
     "asset_manifest": {
         "schema_version": 1,

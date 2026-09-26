@@ -56,5 +56,23 @@ python -m pipeline.generate shorts EP0001_nishi_daak
 - 物語（legend）の文がです・ます調で終わっていない、大仏飴のコメントに栃木弁が入っていない
 - コメントに「こわい」（栃木弁で疲れた）がある。怖い話の中では誤解されやすい
 
+## YouTube の文面（PHASE 9）
+タイムラインを作ったあとに実行すると、チャプターも自動で付く。
+```bat
+python -m pipeline.generate metadata EP0001_nishi_daak
+```
+- タイトル案3つ（100字以内）、サムネイルの文字案3つ（14字以内）、概要欄、ハッシュタグ、タグ
+- 概要欄に出典・参考文献・クレジット・VOICEVOX を書いたら作り直し（出典は動画の出典カード、クレジットは動画の最後に出す。Owner決定）
+- 地域名か伝承名がタイトルにも概要欄にもなければ作り直し。断定・一般化の表現も作り直し
+- チャプターは場面の section から自動で作る（最初は 0:00、各10秒以上、3つ未満なら付けない）
+- 出力: `output/youtube_metadata.json`（`description_full` がチャプターとハッシュタグ入りの概要欄）と、貼り付け用の `output/youtube_metadata.md`
+
+## サムネイル（PHASE 9）
+```bat
+python -m pipeline.thumbnail EP0001_nishi_daak [--text "文字"]
+```
+1280x720。背景は最初の場面の物語の絵、左に大きな文字（サムネイルの文字案の1つ目）、右に大仏飴、左下に地域ラベル、赤と金の枠。
+設定は `config/thumbnail.yaml`。2MB を超えたら JPEG も保存する。大仏飴パーツが未承認なら `--draft`、背景がなければ `--placeholders`。
+
 ## 既存の出力
 出力がすでにあるときは上書きしない。作り直すときは `--force` を付ける。
