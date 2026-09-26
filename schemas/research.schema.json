@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research",
+  "type": "object",
+  "required": [
+    "canonical_title",
+    "region",
+    "language",
+    "plot_summary",
+    "sources",
+    "uncertain_points"
+  ],
+  "properties": {
+    "canonical_title": {
+      "type": "string"
+    },
+    "local_title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "local_script": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "transliteration": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "region": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "community_or_context": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "plot_summary": {
+      "type": "string"
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "uncertain_points": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "japanese_coverage_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "source_type",
+          "reliability"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bibliography": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_type": {
+            "type": "string"
+          },
+          "reliability": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

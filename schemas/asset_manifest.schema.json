@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AssetManifest",
+  "type": "object",
+  "required": [
+    "assets"
+  ],
+  "properties": {
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "asset_id",
+          "kind",
+          "prompt",
+          "transparent"
+        ],
+        "properties": {
+          "asset_id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "background",
+              "character",
+              "prop",
+              "foreground",
+              "fx"
+            ]
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "transparent": {
+            "type": "boolean"
+          },
+          "reference_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reuse_key": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

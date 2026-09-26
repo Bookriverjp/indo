@@ -1,0 +1,27 @@
+channel:
+  working_name: "大仏飴のインド異聞"
+  language: "ja-JP"
+  default_duration_minutes: 10
+  shorts_enabled: true
+  publish_requires_owner_approval: true
+  auto_publish_enabled: false
+
+narrator:
+  name: "大仏飴"
+  species: "chinchilla"
+  reference_image: "assets/reference/daibutsuame_reference.jpeg"
+  traits:
+    - "穏やか"
+    - "好奇心がある"
+    - "知ったかぶりをしない"
+    - "伝承を事実として断定しない"
+
+content:
+  themes:
+    - folklore
+    - legend
+    - ghost_story
+    - saint_legend
+    - temple_legend
+    - hero_tale
+    - animal_tale

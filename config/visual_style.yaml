@@ -1,0 +1,22 @@
+visual:
+  concept: "かわいい語り部 × 格調あるインド細密画"
+  aspect_ratio: "16:9"
+  reference_image: "assets/reference/daibutsuame_reference.jpeg"
+  palette:
+    - gold
+    - deep_green
+    - indigo
+    - crimson
+    - ivory
+    - vermilion
+  layers:
+    - background
+    - midground
+    - character
+    - prop
+    - foreground
+    - fx
+  avoid:
+    - "画像内のAI生成日本語文字"
+    - "激しい3D表現"
+    - "毎シーン別キャラデザイン"

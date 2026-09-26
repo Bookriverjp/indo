@@ -1,0 +1,32 @@
+pipeline:
+  dry_run: true
+  stages:
+    - theme
+    - research
+    - research_gate
+    - script
+    - storyboard
+    - asset_manifest
+    - images
+    - voice
+    - subtitles
+    - timeline
+    - render
+    - thumbnail
+    - metadata
+    - final_gate
+  stop_on_gate_failure: true
+  resume_supported: true
+
+render:
+  width: 1920
+  height: 1080
+  fps: 30
+  format: "mp4"
+  motion:
+    default: "slow_push_in"
+    intensity: "subtle"
+
+publish:
+  enabled: false
+  default_privacy: "private"

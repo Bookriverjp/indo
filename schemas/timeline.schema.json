@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Timeline",
+  "type": "object",
+  "required": [
+    "width",
+    "height",
+    "fps",
+    "scenes"
+  ],
+  "properties": {
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "fps": {
+      "type": "integer"
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "scene_id",
+          "duration",
+          "layers"
+        ],
+        "properties": {
+          "scene_id": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "motion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "layers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+output/*
+!output/.gitkeep
+episodes/*/assets/generated/
+episodes/*/audio/generated/
+episodes/*/render/
+*.log
