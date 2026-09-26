@@ -13,9 +13,14 @@ SUBDIRS = [
 ARTIFACTS = {
     "research": "research/research.json",
     "research_review": "research/research_review.md",
+    "script_request": "script/script_request.md",
+    "script_response": "script/script_response.json",
+    "script_json": "script/script_main.json",
     "script_main": "script/script_main.md",
     "script_shorts": "script/script_shorts.md",
     "subtitles": "script/subtitles.srt",
+    "storyboard_request": "storyboard/storyboard_request.md",
+    "storyboard_response": "storyboard/storyboard_response.json",
     "storyboard": "storyboard/storyboard.json",
     "asset_manifest": "storyboard/asset_manifest.json",
     "assets_generated": "assets/generated",
@@ -27,6 +32,7 @@ ARTIFACTS = {
     "youtube_metadata": "output/youtube_metadata.json",
     "qa_report": "output/qa_report.md",
     "log": "logs/pipeline.log",
+    "llm_usage": "logs/llm_usage.jsonl",
 }
 
 # 例: EP0001_nishi_daak（docs/DATA_CONTRACT.md）

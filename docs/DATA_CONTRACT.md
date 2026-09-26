@@ -14,10 +14,15 @@ episodes/<episode_id>/
     research.json              リサーチ（schemas/research.schema.json）
     research_review.md         Research Gate の確認レポート
   script/
-    script_main.md             本編の台本（セリフ）
+    script_request.md          manual モードの生成依頼（プロンプト・入力・schema）
+    script_response.json       manual モードで外から作った JSON
+    script_main.json           本編の台本（schemas/script.schema.json）
+    script_main.md             本編の台本（人が読む版）
     script_shorts.md           ショートの台本
     subtitles.srt              字幕
   storyboard/
+    storyboard_request.md      manual モードの生成依頼
+    storyboard_response.json   manual モードで外から作った JSON
     storyboard.json            絵コンテ
     asset_manifest.json        この回の素材一覧
   assets/generated/            この回の背景・人物・小物・FX（Git管理外）
@@ -30,6 +35,7 @@ episodes/<episode_id>/
     youtube_metadata.json      タイトル・説明文・タグ
     qa_report.md               Final Gate の確認レポート
   logs/pipeline.log
+  logs/llm_usage.jsonl         LLM のトークン数と費用の目安（claude モード）
 ```
 
 ## 共通素材（全話で使い回すもの）

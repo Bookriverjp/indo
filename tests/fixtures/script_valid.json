@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "episode_title": "テスト用の台本（架空）",
+  "sections": [
+    {
+      "section": "hook",
+      "blocks": [
+        {"block_id": "b01", "kind": "staging", "text": "テスト用のフック。", "source_ids": [], "expression": "neutral"}
+      ]
+    },
+    {
+      "section": "intro",
+      "blocks": [
+        {"block_id": "b02", "kind": "comment", "text": "こんにちは、大仏飴です。", "source_ids": [], "expression": "greet_namaste"}
+      ]
+    },
+    {
+      "section": "story",
+      "blocks": [
+        {"block_id": "b03", "kind": "legend", "text": "テスト用の伝承部分。", "source_ids": ["s01"], "expression": "point"}
+      ]
+    },
+    {
+      "section": "ending",
+      "blocks": [
+        {"block_id": "b04", "kind": "comment", "text": "またね。", "source_ids": [], "expression": "bow"}
+      ]
+    }
+  ]
+}

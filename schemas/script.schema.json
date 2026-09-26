@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Script",
+  "description": "大仏飴が語る本編台本。RESEARCH_POLICY に従い、伝承(legend)・演出(staging)・大仏飴のコメント(comment)をブロック単位で分ける。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "episode_title", "sections"],
+  "$defs": {
+    "expression": {
+      "description": "config/character_motion.yaml の expressions と neutral",
+      "enum": [
+        "neutral", "point", "scared", "laugh", "cry", "joy", "serious", "sleep",
+        "surprise", "think", "greet_namaste", "bow", "bell_cue", "nod", "head_shake",
+        "whisper", "munch", "scroll", "dust_bath", "popcorn", "grooming"
+      ]
+    }
+  },
+  "properties": {
+    "schema_version": {"const": 1},
+    "episode_title": {"type": "string", "minLength": 1},
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["section", "blocks"],
+        "properties": {
+          "section": {"enum": ["hook", "intro", "background", "story", "commentary", "comparison", "ending"]},
+          "blocks": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["block_id", "kind", "text", "source_ids", "expression"],
+              "properties": {
+                "block_id": {"type": "string", "pattern": "^b[0-9]{2,3}$"},
+                "kind": {
+                  "description": "legend=資料で確認できる伝承内容 / staging=演出上の補助描写 / comment=大仏飴のコメント",
+                  "enum": ["legend", "staging", "comment"]
+                },
+                "text": {"type": "string", "minLength": 1},
+                "source_ids": {"type": "array", "items": {"type": "string"}},
+                "expression": {"$ref": "#/$defs/expression"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

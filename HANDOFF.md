@@ -28,7 +28,8 @@
 - 紙芝居舞台の構図の正本：`assets/reference/layout_stage_reference.webp`
 - PHASE 1（Research Contract）完了：research schema（RESEARCH_POLICY の必須項目）、出典の信頼度QA、手動取り込み、research_review.md。`python -m pipeline.research`。
 - 1話分の成果物は `episodes/<id>/` にまとめる。パスは `pipeline/workspace.py` の `ARTIFACTS`。
-- 本番API統合は未実装。次は PHASE 2（LLM Provider）。
+- PHASE 2（LLM Provider）完了：`python -m pipeline.generate script|storyboard <id>`。標準は manual（API不要、VS Code の Claude Code で `/generate-stage`）。`config/llm.yaml` の provider を claude にすると Anthropic API（claude-opus-5）を直接呼ぶ。詳細は `docs/LLM.md`。
+- 次は PHASE 3（Script：ショート台本、断定表現のガード）。
 
 ## 次の担当者
 `docs/PHASE.md` の PHASE 0 から順に監査し、最初の未完了PHASEのみ実装すること。

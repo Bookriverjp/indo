@@ -1,0 +1,52 @@
+{
+  "scenes": [
+    {
+      "scene_id": "s01",
+      "layout": "fullbleed",
+      "block_ids": ["b01"],
+      "narration_text": "テスト用のフック。",
+      "visual_summary": "夜の川辺の村（テスト）",
+      "location": "village",
+      "time_of_day": "night",
+      "characters": [],
+      "background": "night river village",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_push_in",
+      "estimated_seconds": 6
+    },
+    {
+      "scene_id": "s02",
+      "layout": "card",
+      "block_ids": ["b02"],
+      "narration_text": "こんにちは、大仏飴です。",
+      "visual_summary": "地域カード",
+      "location": null,
+      "time_of_day": null,
+      "characters": [],
+      "background": null,
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": null,
+      "estimated_seconds": 4
+    },
+    {
+      "scene_id": "s03",
+      "layout": "stage",
+      "block_ids": ["b03", "b04"],
+      "narration_text": "テスト用の伝承部分。またね。",
+      "visual_summary": "テスト",
+      "location": null,
+      "time_of_day": null,
+      "characters": [],
+      "background": null,
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": null,
+      "estimated_seconds": 5
+    }
+  ]
+}
