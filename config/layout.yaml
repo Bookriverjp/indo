@@ -1,0 +1,69 @@
+# 画面レイアウト正本（2026-09-26 Owner決定）
+# 座標は px。main は 1920x1080、shorts は 1080x1920 基準。
+# 詳細と使い分けは docs/LAYOUT.md
+
+narrator:
+  name: "大仏飴"
+  side: "right"          # 右に固定
+  facing: "left"         # 舞台・カードの方を向くポーズで生成する
+
+region_label:
+  always_visible: true   # 地域・言語ラベルを常に表示
+  example: "西ベンガル州 ・ ベンガル語"
+
+youtube:
+  channel_watermark: false   # 右下の透かしロゴは使わない（大仏飴と重なるため）
+  end_screen_seconds: 20     # 終了画面の要素は大仏飴を避けて配置
+
+main:
+  width: 1920
+  height: 1080
+  default_layout: "stage"
+  layouts:
+    # B 紙芝居舞台：物語パートの基本形
+    stage:
+      wall:         {x: 0,    y: 0,   w: 1920, h: 1080}  # 固定素材
+      frame:        {x: 36,   y: 40,  w: 1328, h: 748}   # 固定素材
+      story_art:    {x: 60,   y: 64,  w: 1280, h: 720}   # 16:9 で生成して縮小
+      narrator:     {x: 1330, y: 440, w: 580,  h: 580, style: "full_body"}
+      region_label: {x: 1400, y: 64,  w: 480,  h: 64}
+      subtitle:     {x: 80,   y: 808, w: 1240, h: 112}
+    # A 全面＋ワイプ：フックと山場のみ
+    fullbleed:
+      story_art:    {x: 0,    y: 0,   w: 1920, h: 1080}
+      region_label: {x: 56,   y: 56,  w: 440,  h: 64}
+      narrator:     {x: 1564, y: 620, w: 300,  h: 340, style: "medallion", visible_in_hook: false}
+      subtitle:     {x: 220,  y: 880, w: 1300, h: 120}
+    # C 解説カード：導入・地域紹介・解説・異説・比較・出典
+    card:
+      wall:         {x: 0,    y: 0,   w: 1920, h: 1080}
+      info_card:    {x: 80,   y: 110, w: 960,  h: 660}
+      narrator:     {x: 1100, y: 280, w: 760,  h: 760, style: "full_body"}
+      region_label: {x: 1240, y: 120, w: 480,  h: 64}
+      subtitle:     {x: 80,   y: 800, w: 960,  h: 120}
+
+  # SPEC 6. 標準構成との対応
+  sections:
+    hook:        {layout: "fullbleed", narrator: false}
+    intro:       {layout: "card"}
+    background:  {layout: "card"}
+    story:       {layout: "stage", climax_layout: "fullbleed"}
+    commentary:  {layout: "card"}
+    comparison:  {layout: "card"}
+    ending:      {layout: "card"}
+
+  safe_areas:
+    - {name: "player_controls", x: 0, y: 990, w: 1920, h: 90}
+
+shorts:
+  width: 1080
+  height: 1920
+  layout:
+    wall:         {x: 0,   y: 0,    w: 1080, h: 1920}
+    story_art:    {x: 0,   y: 200,  w: 1080, h: 1080}  # 本編の絵を正方形に切り出し
+    narrator:     {x: 800, y: 220,  w: 240,  h: 280, style: "medallion"}  # 右のボタン列を避けて右上
+    subtitle:     {x: 60,  y: 1300, w: 860,  h: 200}
+  safe_areas:
+    - {name: "top_ui",      x: 0,   y: 0,    w: 1080, h: 160}
+    - {name: "action_bar",  x: 940, y: 900,  w: 140,  h: 680}
+    - {name: "title_block", x: 0,   y: 1580, w: 1080, h: 340}
