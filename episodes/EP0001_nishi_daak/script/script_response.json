@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "episode_title": "夜、知っている声に名前を呼ばれても返事をしてはいけない――ベンガルの『ニシル・ダーク』",
+  "sources_card": [
+    "s01",
+    "s05"
+  ],
+  "sections": [
+    {
+      "section": "hook",
+      "blocks": [
+        {
+          "block_id": "b01",
+          "kind": "staging",
+          "text": "……アニク……",
+          "source_ids": [],
+          "expression": "scared",
+          "voice": "woman"
+        },
+        {
+          "block_id": "b02",
+          "kind": "staging",
+          "text": "アニク……こっちへおいで……",
+          "source_ids": [],
+          "expression": "scared",
+          "voice": "woman"
+        },
+        {
+          "block_id": "b03",
+          "kind": "staging",
+          "text": "夜中。眠っているあなたを、誰かが名前で呼びました。しかもその声は、知らない人ではありません。",
+          "source_ids": [],
+          "expression": "serious"
+        },
+        {
+          "block_id": "b04",
+          "kind": "staging",
+          "text": "母親かもしれない。姉かもしれない。あるいは――もう、この世にはいない人かもしれない。",
+          "source_ids": [],
+          "expression": "serious"
+        },
+        {
+          "block_id": "b05",
+          "kind": "legend",
+          "text": "そんなとき、ベンガルには昔から伝わる警告があります。返事をしてはいけない。",
+          "source_ids": [
+            "s01",
+            "s03",
+            "s04"
+          ],
+          "expression": "serious"
+        }
+      ]
+    },
+    {
+      "section": "intro",
+      "blocks": [
+        {
+          "block_id": "b06",
+          "kind": "comment",
+          "text": "おばんです。大仏飴だよ。今日の話は、インドの東のほうからバングラデシュまで広がってる、ベンガル地方に伝わる「夜の声」の話なんだ。",
+          "source_ids": [],
+          "expression": "greet_namaste"
+        },
+        {
+          "block_id": "b07",
+          "kind": "legend",
+          "text": "その名前は――ニシル・ダーク。ベンガル語で、だいたい「夜の呼び声」「闇からの呼び声」っつう意味なんだべ。",
+          "source_ids": [
+            "s01",
+            "s03",
+            "s04"
+          ],
+          "expression": "point"
+        },
+        {
+          "block_id": "b08",
+          "kind": "comment",
+          "text": "でもな、怖えのは声そのものじゃねえんだ。誰の声で呼んでくるか、なんだよ。",
+          "source_ids": [],
+          "expression": "think"
+        }
+      ]
+    },
+    {
+      "section": "background",
+      "blocks": [
+        {
+          "block_id": "b09",
+          "kind": "legend",
+          "text": "ニシは、日本の幽霊みてえに、白い服を着た誰かが毎回姿を現す――っつう怪異じゃねえんだ。むしろ、ニシのおっかねえとこは、姿がよく分かんねえこと。そんで、声だけが聞こえることなんだべ。",
+          "source_ids": [
+            "s01"
+          ],
+          "expression": "point"
+        },
+        {
+          "block_id": "b10",
+          "kind": "legend",
+          "text": "ベンガルの言い伝えじゃ、夜になるとニシが人の名前を呼ぶっつうんだ。その声は、まるっきり知らねえ声じゃねえ。親しい人。家族。大切だった人。ときには、亡くなった人。そんな、ぜってえ聞き間違えねえはずの声を使う、って語られてんだよ。",
+          "source_ids": [
+            "s01",
+            "s04"
+          ],
+          "expression": "serious"
+        },
+        {
+          "block_id": "b11",
+          "kind": "comment",
+          "text": "ここから話す短い物語は、どっかの一冊にそのまま載ってる昔話じゃねえんだ。ベンガルに伝わるニシの話に共通する、「夜」「名前を呼ぶ声」「親しい人の声」「外へ誘い出す」っつう要素をもとに、おらが動画用に組み立て直したもんだよ。",
+          "source_ids": [],
+          "expression": "nod"
+        }
+      ]
+    },
+    {
+      "section": "story",
+      "blocks": [
+        {
+          "block_id": "b12",
+          "kind": "staging",
+          "text": "川辺の小さな村に、アニクという少年がいました。夜になると村は静かになります。聞こえるのは虫の声と、ゆっくり流れる川の音だけ。",
+          "source_ids": [],
+          "expression": "neutral"
+        },
+        {
+          "block_id": "b13",
+          "kind": "staging",
+          "text": "その夜も、家族はもう眠っていました。アニクも目を閉じていました。すると――窓の向こうから声がしました。",
+          "source_ids": [],
+          "expression": "whisper"
+        },
+        {
+          "block_id": "b14",
+          "kind": "staging",
+          "text": "……アニク……",
+          "source_ids": [],
+          "expression": "scared",
+          "voice": "woman"
+        },
+        {
+          "block_id": "b15",
+          "kind": "staging",
+          "text": "アニクには、その声が分かりました。子どものころ、何度も自分を呼んでくれた声。ずっと忘れられなかった声でした。でも、その人はもう、この家にはいません。",
+          "source_ids": [],
+          "expression": "serious"
+        },
+        {
+          "block_id": "b16",
+          "kind": "staging",
+          "text": "アニク……",
+          "source_ids": [],
+          "expression": "scared",
+          "voice": "woman"
+        },
+        {
+          "block_id": "b17",
+          "kind": "staging",
+          "text": "声は、家の中からではありません。外です。川の方から聞こえてきます。",
+          "source_ids": [],
+          "expression": "scared"
+        },
+        {
+          "block_id": "b18",
+          "kind": "staging",
+          "text": "こっちへおいで……",
+          "source_ids": [],
+          "expression": "scared",
+          "voice": "woman"
+        },
+        {
+          "block_id": "b19",
+          "kind": "staging",
+          "text": "名前を呼ばれた。知っている声だった。だから、返事をしたくなる。「どうしたの？」たった、それだけ言えばいい。",
+          "source_ids": [],
+          "expression": "whisper"
+        },
+        {
+          "block_id": "b20",
+          "kind": "staging",
+          "text": "でもアニクは、幼いころに祖母から聞いた言葉を思い出しました。夜中に外から名前を呼ばれても、すぐには返事をするな。",
+          "source_ids": [],
+          "expression": "serious"
+        },
+        {
+          "block_id": "b21",
+          "kind": "staging",
+          "text": "……アニク……",
+          "source_ids": [],
+          "expression": "scared",
+          "voice": "woman"
+        },
+        {
+          "block_id": "b22",
+          "kind": "staging",
+          "text": "二度目。今度は、もっと近くから聞こえました。でも、アニクは返事をしませんでした。扉も開けません。ただ、朝になるのを待ちました。",
+          "source_ids": [],
+          "expression": "scared"
+        },
+        {
+          "block_id": "b23",
+          "kind": "staging",
+          "text": "やがて空が白くなりました。声は、いつの間にか消えていました。",
+          "source_ids": [],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "section": "commentary",
+      "blocks": [
+        {
+          "block_id": "b24",
+          "kind": "comment",
+          "text": "……これで終わりなんだ。怪物の顔も出てこねえ。血も出ねえ。でも、それがニシの話のおっかねえとこなんだべ。",
+          "source_ids": [],
+          "expression": "serious"
+        },
+        {
+          "block_id": "b25",
+          "kind": "comment",
+          "text": "そんじゃ、ここからは、本当の言い伝えのほうを見てみっぺ。",
+          "source_ids": [],
+          "expression": "point"
+        },
+        {
+          "block_id": "b26",
+          "kind": "legend",
+          "text": "ニシの真ん中にあんのは、目に見える怪物じゃなくて、声なんだ。民俗を紹介する資料じゃ、ニシは眠ってる人や夜道を歩く人に、親しい人の声で呼びかける、とされてんだよ。自分しか知らねえような呼び名で呼ばれる、っつう語りもあんだ。",
+          "source_ids": [
+            "s01",
+            "s05",
+            "s07"
+          ],
+          "expression": "point"
+        },
+        {
+          "block_id": "b27",
+          "kind": "legend",
+          "text": "そんで、その声についてっちまうと、人気のねえとこさ誘い出される。だから、「夜の呼び声には応じるな」っつう警告になるわけだべ。",
+          "source_ids": [
+            "s01",
+            "s04"
+          ],
+          "expression": "nod"
+        },
+        {
+          "block_id": "b28",
+          "kind": "legend",
+          "text": "ニシの話には、ちっと変わった決まりもあんだ。一部の語りじゃ、ニシは同じ人を二度までしか呼べねえ。だから三度目まで聞こえたら人間だ――っつう言い伝えがあんだよ。",
+          "source_ids": [
+            "s04"
+          ],
+          "expression": "think"
+        },
+        {
+          "block_id": "b29",
+          "kind": "comment",
+          "text": "ただ、これはニシのぜんぶの言い伝えに共通する決まりだ、とは考えねえほうがよさそうだ。口で伝わってきた怪談だから、地域や語り手によって、細けえとこが変わんだよ。",
+          "source_ids": [],
+          "expression": "head_shake"
+        },
+        {
+          "block_id": "b30",
+          "kind": "comment",
+          "text": "じゃあ、なんでこんな話が生まれたんだべな。ほんとの答えは、一つじゃねえ。でも、面白え見方があんだ。",
+          "source_ids": [],
+          "expression": "think"
+        },
+        {
+          "block_id": "b31",
+          "kind": "comment",
+          "text": "昔の村の夜は、今よりずっと暗え。川や池、森、ぬかるんだ道。夜中に一人で外さ出たら、それだけで危ねえんだ。",
+          "source_ids": [],
+          "expression": "serious"
+        },
+        {
+          "block_id": "b32",
+          "kind": "legend",
+          "text": "民俗の解説じゃ、ニシの物語が、夜中の徘徊や夢遊状態みてえな出来事を説明したり、危ねえことから人を遠ざけたりする役割を持ってたかもしんねえ、って指摘もされてんだ。",
+          "source_ids": [
+            "s07"
+          ],
+          "expression": "point"
+        },
+        {
+          "block_id": "b33",
+          "kind": "comment",
+          "text": "つまり、「夜、一人で外さ行くな」っつう暮らしの知恵が、忘れらんねえ物語になった、って考えることもできんだよな。",
+          "source_ids": [],
+          "expression": "nod"
+        },
+        {
+          "block_id": "b34",
+          "kind": "comment",
+          "text": "おらが、この話でいちばん怖えと思うのは、ニシがおっかねえ声を出さねえことなんだ。怪物のうなり声なら、逃げりゃいい。でもニシが使うのは、あんたがいちばん安心する声なんだよ。",
+          "source_ids": [],
+          "expression": "serious"
+        },
+        {
+          "block_id": "b35",
+          "kind": "comment",
+          "text": "「おいで」「こっちだよ」「どうしたの？」普段なら何も疑わねえで返事する声。だからこそ、この怪異は姿を見せなくても怖えのかもしんねえな。",
+          "source_ids": [],
+          "expression": "whisper"
+        },
+        {
+          "block_id": "b36",
+          "kind": "legend",
+          "text": "ベンガルには、いっぺえ幽霊や怪異の話があんだ。そんで、こういう話は本だけじゃなくて、親から子へ、じいちゃんばあちゃんから孫へと、語られてきたんだよ。",
+          "source_ids": [
+            "s04"
+          ],
+          "expression": "nod"
+        },
+        {
+          "block_id": "b37",
+          "kind": "comment",
+          "text": "怖え話は、ただ人を怖がらせるもんじゃなくて、「夜は危ねえよ」「知らねえもんについてっちゃなんねえよ」、そんな知恵を残すやり方でもあったのかもしんねえな。",
+          "source_ids": [],
+          "expression": "think"
+        }
+      ]
+    },
+    {
+      "section": "ending",
+      "blocks": [
+        {
+          "block_id": "b38",
+          "kind": "comment",
+          "text": "もし今夜。誰もいねえはずの外から、よく知ってる声で、あんたの名前を呼ばれたら――",
+          "source_ids": [],
+          "expression": "serious"
+        },
+        {
+          "block_id": "b39",
+          "kind": "comment",
+          "text": "……おらだったら、とりあえず返事しねえで、草でも食ってっぺ。",
+          "source_ids": [],
+          "expression": "munch"
+        },
+        {
+          "block_id": "b40",
+          "kind": "comment",
+          "text": "今日の話は、ベンガルの「ニシル・ダーク」だったよ。今日の資料は、このカードにまとめといたかんな。インドには、まだ日本じゃあんまり紹介されてねえ不思議な話が、いっぺえあんだ。そんじゃ、また次のお話で。",
+          "source_ids": [],
+          "expression": "bow"
+        }
+      ]
+    }
+  ]
+}

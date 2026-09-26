@@ -1,0 +1,439 @@
+{
+  "scenes": [
+    {
+      "scene_id": "s01",
+      "layout": "fullbleed",
+      "block_ids": [
+        "b01",
+        "b02",
+        "b03",
+        "b04",
+        "b05"
+      ],
+      "narration_text": "……アニク……アニク……こっちへおいで……夜中。眠っているあなたを、誰かが名前で呼びました。しかもその声は、知らない人ではありません。母親かもしれない。姉かもしれない。あるいは――もう、この世にはいない人かもしれない。そんなとき、ベンガルには昔から伝わる警告があります。返事をしてはいけない。",
+      "visual_summary": "夜の川と月、ベンガルの小さな村（家々の灯りが消えていく）",
+      "location": "夜の川と月、ベンガルの小さな村（家々の灯りが消えていく）",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "夜の川と月、ベンガルの小さな村（家々の灯りが消えていく）",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_push_in",
+      "estimated_seconds": 29.2,
+      "ambience": [
+        "night_insects",
+        "river"
+      ]
+    },
+    {
+      "scene_id": "s02",
+      "layout": "card",
+      "block_ids": [
+        "b06",
+        "b07",
+        "b08"
+      ],
+      "narration_text": "おばんです。大仏飴だよ。今日の話は、インドの東のほうからバングラデシュまで広がってる、ベンガル地方に伝わる「夜の声」の話なんだ。その名前は――ニシル・ダーク。ベンガル語で、だいたい「夜の呼び声」「闇からの呼び声」っつう意味なんだべ。でもな、怖えのは声そのものじゃねえんだ。誰の声で呼んでくるか、なんだよ。",
+      "visual_summary": "タイトルと地域のカード",
+      "location": null,
+      "time_of_day": null,
+      "characters": [],
+      "background": null,
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": null,
+      "estimated_seconds": 30.4,
+      "transition": "fade_from_black"
+    },
+    {
+      "scene_id": "s03",
+      "layout": "stage",
+      "block_ids": [
+        "b09",
+        "b10"
+      ],
+      "narration_text": "ニシは、日本の幽霊みてえに、白い服を着た誰かが毎回姿を現す――っつう怪異じゃねえんだ。むしろ、ニシのおっかねえとこは、姿がよく分かんねえこと。そんで、声だけが聞こえることなんだべ。ベンガルの言い伝えじゃ、夜になるとニシが人の名前を呼ぶっつうんだ。その声は、まるっきり知らねえ声じゃねえ。親しい人。家族。大切だった人。ときには、亡くなった人。そんな、ぜってえ聞き間違えねえはずの声を使う、って語られてんだよ。",
+      "visual_summary": "竹林と村はずれの夜の家",
+      "location": "竹林と村はずれの夜の家",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "竹林と村はずれの夜の家",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_pan",
+      "estimated_seconds": 40.6,
+      "ambience": [
+        "night_insects"
+      ]
+    },
+    {
+      "scene_id": "s04",
+      "layout": "stage",
+      "block_ids": [
+        "b11"
+      ],
+      "narration_text": "ここから話す短い物語は、どっかの一冊にそのまま載ってる昔話じゃねえんだ。ベンガルに伝わるニシの話に共通する、「夜」「名前を呼ぶ声」「親しい人の声」「外へ誘い出す」っつう要素をもとに、おらが動画用に組み立て直したもんだよ。",
+      "visual_summary": "竹林と村はずれの夜の家",
+      "location": "竹林と村はずれの夜の家",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "竹林と村はずれの夜の家",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "static",
+      "estimated_seconds": 22.0,
+      "ambience": [
+        "night_insects"
+      ]
+    },
+    {
+      "scene_id": "s05",
+      "layout": "stage",
+      "block_ids": [
+        "b12"
+      ],
+      "narration_text": "川辺の小さな村に、アニクという少年がいました。夜になると村は静かになります。聞こえるのは虫の声と、ゆっくり流れる川の音だけ。",
+      "visual_summary": "雨季のあとの川沿いの家（夜）",
+      "location": "雨季のあとの川沿いの家（夜）",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "雨季のあとの川沿いの家（夜）",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_push_in",
+      "estimated_seconds": 12.4,
+      "ambience": [
+        "night_insects",
+        "river"
+      ]
+    },
+    {
+      "scene_id": "s06",
+      "layout": "stage",
+      "block_ids": [
+        "b13"
+      ],
+      "narration_text": "その夜も、家族はもう眠っていました。アニクも目を閉じていました。すると――窓の向こうから声がしました。",
+      "visual_summary": "眠る少年アニク（室内・夜・窓の外に大きな木）",
+      "location": "眠る少年アニク（室内・夜・窓の外に大きな木）",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "眠る少年アニク（室内・夜・窓の外に大きな木）",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_push_in",
+      "estimated_seconds": 10.2,
+      "ambience": [
+        "night_insects",
+        "river"
+      ]
+    },
+    {
+      "scene_id": "s07",
+      "layout": "stage",
+      "block_ids": [
+        "b14",
+        "b15",
+        "b16"
+      ],
+      "narration_text": "……アニク……アニクには、その声が分かりました。子どものころ、何度も自分を呼んでくれた声。ずっと忘れられなかった声でした。でも、その人はもう、この家にはいません。アニク……",
+      "visual_summary": "窓の外の闇と大きな木",
+      "location": "窓の外の闇と大きな木",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "窓の外の闇と大きな木",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_push_in",
+      "estimated_seconds": 17.2,
+      "ambience": [
+        "night_insects",
+        "wind"
+      ]
+    },
+    {
+      "scene_id": "s08",
+      "layout": "fullbleed",
+      "block_ids": [
+        "b17",
+        "b18"
+      ],
+      "narration_text": "声は、家の中からではありません。外です。川の方から聞こえてきます。こっちへおいで……",
+      "visual_summary": "霧の立つ暗い川辺（誰もいない）",
+      "location": "霧の立つ暗い川辺（誰もいない）",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "霧の立つ暗い川辺（誰もいない）",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_pan",
+      "estimated_seconds": 8.4,
+      "ambience": [
+        "river",
+        "wind"
+      ]
+    },
+    {
+      "scene_id": "s09",
+      "layout": "stage",
+      "block_ids": [
+        "b19",
+        "b20"
+      ],
+      "narration_text": "名前を呼ばれた。知っている声だった。だから、返事をしたくなる。「どうしたの？」たった、それだけ言えばいい。でもアニクは、幼いころに祖母から聞いた言葉を思い出しました。夜中に外から名前を呼ばれても、すぐには返事をするな。",
+      "visual_summary": "ランプの灯りと祖母の思い出",
+      "location": "ランプの灯りと祖母の思い出",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "ランプの灯りと祖母の思い出",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "parallax",
+      "estimated_seconds": 21.8,
+      "ambience": [
+        "night_insects"
+      ]
+    },
+    {
+      "scene_id": "s10",
+      "layout": "fullbleed",
+      "block_ids": [
+        "b21",
+        "b22"
+      ],
+      "narration_text": "……アニク……二度目。今度は、もっと近くから聞こえました。でも、アニクは返事をしませんでした。扉も開けません。ただ、朝になるのを待ちました。",
+      "visual_summary": "閉ざされた木の扉と、その向こうの闇",
+      "location": "閉ざされた木の扉と、その向こうの闇",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "閉ざされた木の扉と、その向こうの闇",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_push_in",
+      "estimated_seconds": 14.0,
+      "ambience": [
+        "wind"
+      ]
+    },
+    {
+      "scene_id": "s11",
+      "layout": "stage",
+      "block_ids": [
+        "b23"
+      ],
+      "narration_text": "やがて空が白くなりました。声は、いつの間にか消えていました。",
+      "visual_summary": "夜明けの川辺の村",
+      "location": "夜明けの川辺の村",
+      "time_of_day": "明け方",
+      "characters": [],
+      "background": "夜明けの川辺の村",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_pan",
+      "estimated_seconds": 6.0,
+      "ambience": [
+        "river"
+      ]
+    },
+    {
+      "scene_id": "s12",
+      "layout": "stage",
+      "block_ids": [
+        "b24",
+        "b25"
+      ],
+      "narration_text": "……これで終わりなんだ。怪物の顔も出てこねえ。血も出ねえ。でも、それがニシの話のおっかねえとこなんだべ。そんじゃ、ここからは、本当の言い伝えのほうを見てみっぺ。",
+      "visual_summary": "夜明けの川辺の村",
+      "location": "夜明けの川辺の村",
+      "time_of_day": "明け方",
+      "characters": [],
+      "background": "夜明けの川辺の村",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "static",
+      "estimated_seconds": 16.0
+    },
+    {
+      "scene_id": "s13",
+      "layout": "stage",
+      "block_ids": [
+        "b26",
+        "b27"
+      ],
+      "narration_text": "ニシの真ん中にあんのは、目に見える怪物じゃなくて、声なんだ。民俗を紹介する資料じゃ、ニシは眠ってる人や夜道を歩く人に、親しい人の声で呼びかける、とされてんだよ。自分しか知らねえような呼び名で呼ばれる、っつう語りもあんだ。そんで、その声についてっちまうと、人気のねえとこさ誘い出される。だから、「夜の呼び声には応じるな」っつう警告になるわけだべ。",
+      "visual_summary": "夜道を歩く人と、闇からの呼び声",
+      "location": "夜道を歩く人と、闇からの呼び声",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "夜道を歩く人と、闇からの呼び声",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_push_in",
+      "estimated_seconds": 34.4
+    },
+    {
+      "scene_id": "s14",
+      "layout": "stage",
+      "block_ids": [
+        "b28",
+        "b29"
+      ],
+      "narration_text": "ニシの話には、ちっと変わった決まりもあんだ。一部の語りじゃ、ニシは同じ人を二度までしか呼べねえ。だから三度目まで聞こえたら人間だ――っつう言い伝えがあんだよ。ただ、これはニシのぜんぶの言い伝えに共通する決まりだ、とは考えねえほうがよさそうだ。口で伝わってきた怪談だから、地域や語り手によって、細けえとこが変わんだよ。",
+      "visual_summary": "夜道を歩く人と、闇からの呼び声",
+      "location": "夜道を歩く人と、闇からの呼び声",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "夜道を歩く人と、闇からの呼び声",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "static",
+      "estimated_seconds": 31.6
+    },
+    {
+      "scene_id": "s15",
+      "layout": "stage",
+      "block_ids": [
+        "b30",
+        "b31"
+      ],
+      "narration_text": "じゃあ、なんでこんな話が生まれたんだべな。ほんとの答えは、一つじゃねえ。でも、面白え見方があんだ。昔の村の夜は、今よりずっと暗え。川や池、森、ぬかるんだ道。夜中に一人で外さ出たら、それだけで危ねえんだ。",
+      "visual_summary": "昔の村の暗い夜道（川・池・森・ぬかるみ）",
+      "location": "昔の村の暗い夜道（川・池・森・ぬかるみ）",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "昔の村の暗い夜道（川・池・森・ぬかるみ）",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_pan",
+      "estimated_seconds": 20.2,
+      "ambience": [
+        "night_insects"
+      ]
+    },
+    {
+      "scene_id": "s16",
+      "layout": "stage",
+      "block_ids": [
+        "b32",
+        "b33"
+      ],
+      "narration_text": "民俗の解説じゃ、ニシの物語が、夜中の徘徊や夢遊状態みてえな出来事を説明したり、危ねえことから人を遠ざけたりする役割を持ってたかもしんねえ、って指摘もされてんだ。つまり、「夜、一人で外さ行くな」っつう暮らしの知恵が、忘れらんねえ物語になった、って考えることもできんだよな。",
+      "visual_summary": "昔の村の暗い夜道（川・池・森・ぬかるみ）",
+      "location": "昔の村の暗い夜道（川・池・森・ぬかるみ）",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "昔の村の暗い夜道（川・池・森・ぬかるみ）",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "static",
+      "estimated_seconds": 27.0,
+      "ambience": [
+        "night_insects"
+      ]
+    },
+    {
+      "scene_id": "s17",
+      "layout": "stage",
+      "block_ids": [
+        "b34",
+        "b35"
+      ],
+      "narration_text": "おらが、この話でいちばん怖えと思うのは、ニシがおっかねえ声を出さねえことなんだ。怪物のうなり声なら、逃げりゃいい。でもニシが使うのは、あんたがいちばん安心する声なんだよ。「おいで」「こっちだよ」「どうしたの？」普段なら何も疑わねえで返事する声。だからこそ、この怪異は姿を見せなくても怖えのかもしんねえな。",
+      "visual_summary": "窓の外の闇と大きな木",
+      "location": "窓の外の闇と大きな木",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "窓の外の闇と大きな木",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_push_in",
+      "estimated_seconds": 30.4,
+      "ambience": [
+        "wind"
+      ]
+    },
+    {
+      "scene_id": "s18",
+      "layout": "stage",
+      "block_ids": [
+        "b36",
+        "b37"
+      ],
+      "narration_text": "ベンガルには、いっぺえ幽霊や怪異の話があんだ。そんで、こういう話は本だけじゃなくて、親から子へ、じいちゃんばあちゃんから孫へと、語られてきたんだよ。怖え話は、ただ人を怖がらせるもんじゃなくて、「夜は危ねえよ」「知らねえもんについてっちゃなんねえよ」、そんな知恵を残すやり方でもあったのかもしんねえな。",
+      "visual_summary": "祖母が子どもたちに昔話を語る夜（ランプの灯り）",
+      "location": "祖母が子どもたちに昔話を語る夜（ランプの灯り）",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "祖母が子どもたちに昔話を語る夜（ランプの灯り）",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_pan",
+      "estimated_seconds": 30.0
+    },
+    {
+      "scene_id": "s19",
+      "layout": "fullbleed",
+      "block_ids": [
+        "b38",
+        "b39"
+      ],
+      "narration_text": "もし今夜。誰もいねえはずの外から、よく知ってる声で、あんたの名前を呼ばれたら――……おらだったら、とりあえず返事しねえで、草でも食ってっぺ。",
+      "visual_summary": "夜の川と月、ベンガルの小さな村（家々の灯りが消えていく）",
+      "location": "夜の川と月、ベンガルの小さな村（家々の灯りが消えていく）",
+      "time_of_day": "夜",
+      "characters": [],
+      "background": "夜の川と月、ベンガルの小さな村（家々の灯りが消えていく）",
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": "slow_push_in",
+      "estimated_seconds": 14.0,
+      "ambience": [
+        "night_insects",
+        "river"
+      ]
+    },
+    {
+      "scene_id": "s20",
+      "layout": "card",
+      "block_ids": [
+        "b40"
+      ],
+      "narration_text": "今日の話は、ベンガルの「ニシル・ダーク」だったよ。今日の資料は、このカードにまとめといたかんな。インドには、まだ日本じゃあんまり紹介されてねえ不思議な話が、いっぺえあんだ。そんじゃ、また次のお話で。",
+      "visual_summary": "出典カード",
+      "location": null,
+      "time_of_day": null,
+      "characters": [],
+      "background": null,
+      "props": [],
+      "foreground": [],
+      "fx": [],
+      "suggested_motion": null,
+      "estimated_seconds": 19.8,
+      "sfx": [
+        {
+          "name": "bell",
+          "at": "end"
+        }
+      ]
+    }
+  ]
+}

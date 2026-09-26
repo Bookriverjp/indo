@@ -1,0 +1,1025 @@
+{
+  "schema_version": 1,
+  "episode_id": "EP0001_nishi_daak",
+  "assets": [
+    {
+      "asset_id": "shared_stage_template",
+      "kind": "template",
+      "scope": "shared",
+      "label": "紙芝居舞台テンプレート",
+      "prompt": null,
+      "transparent": true,
+      "reference_image": "assets/reference/layout_stage_reference.webp",
+      "file": "assets/shared/stage_template.png",
+      "scenes": [
+        "s02",
+        "s03",
+        "s04",
+        "s05",
+        "s06",
+        "s07",
+        "s09",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17",
+        "s18",
+        "s20"
+      ]
+    },
+    {
+      "asset_id": "shared_daibutsuame",
+      "kind": "narrator",
+      "scope": "shared",
+      "label": "大仏飴（パーツ一式）",
+      "prompt": null,
+      "transparent": true,
+      "reference_image": "assets/reference/daibutsuame_reference.jpeg",
+      "file": "assets/shared/daibutsuame/",
+      "scenes": [
+        "s02",
+        "s03",
+        "s04",
+        "s05",
+        "s06",
+        "s07",
+        "s08",
+        "s09",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20"
+      ]
+    },
+    {
+      "asset_id": "bg_s01_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "夜の川と月、ベンガルの小さな村（家々の灯りが消えていく）",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n夜の川と月、ベンガルの小さな村（家々の灯りが消えていく） / 夜の川と月、ベンガルの小さな村（家々の灯りが消えていく）\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s01_v01.png",
+      "scenes": [
+        "s01",
+        "s19"
+      ]
+    },
+    {
+      "asset_id": "bg_s03_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "竹林と村はずれの夜の家",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n竹林と村はずれの夜の家 / 竹林と村はずれの夜の家\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s03_v01.png",
+      "scenes": [
+        "s03",
+        "s04"
+      ]
+    },
+    {
+      "asset_id": "bg_s05_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "雨季のあとの川沿いの家（夜）",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n雨季のあとの川沿いの家（夜） / 雨季のあとの川沿いの家（夜）\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s05_v01.png",
+      "scenes": [
+        "s05"
+      ]
+    },
+    {
+      "asset_id": "bg_s06_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "眠る少年アニク（室内・夜・窓の外に大きな木）",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n眠る少年アニク（室内・夜・窓の外に大きな木） / 眠る少年アニク（室内・夜・窓の外に大きな木）\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s06_v01.png",
+      "scenes": [
+        "s06"
+      ]
+    },
+    {
+      "asset_id": "bg_s07_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "窓の外の闇と大きな木",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n窓の外の闇と大きな木 / 窓の外の闇と大きな木\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s07_v01.png",
+      "scenes": [
+        "s07",
+        "s17"
+      ]
+    },
+    {
+      "asset_id": "bg_s08_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "霧の立つ暗い川辺（誰もいない）",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n霧の立つ暗い川辺（誰もいない） / 霧の立つ暗い川辺（誰もいない）\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s08_v01.png",
+      "scenes": [
+        "s08"
+      ]
+    },
+    {
+      "asset_id": "bg_s09_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "ランプの灯りと祖母の思い出",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\nランプの灯りと祖母の思い出 / ランプの灯りと祖母の思い出\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s09_v01.png",
+      "scenes": [
+        "s09"
+      ]
+    },
+    {
+      "asset_id": "bg_s10_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "閉ざされた木の扉と、その向こうの闇",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n閉ざされた木の扉と、その向こうの闇 / 閉ざされた木の扉と、その向こうの闇\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s10_v01.png",
+      "scenes": [
+        "s10"
+      ]
+    },
+    {
+      "asset_id": "bg_s11_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "夜明けの川辺の村",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n夜明けの川辺の村 / 夜明けの川辺の村\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n明け方\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s11_v01.png",
+      "scenes": [
+        "s11",
+        "s12"
+      ]
+    },
+    {
+      "asset_id": "bg_s13_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "夜道を歩く人と、闇からの呼び声",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n夜道を歩く人と、闇からの呼び声 / 夜道を歩く人と、闇からの呼び声\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s13_v01.png",
+      "scenes": [
+        "s13",
+        "s14"
+      ]
+    },
+    {
+      "asset_id": "bg_s15_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "昔の村の暗い夜道（川・池・森・ぬかるみ）",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n昔の村の暗い夜道（川・池・森・ぬかるみ） / 昔の村の暗い夜道（川・池・森・ぬかるみ）\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s15_v01.png",
+      "scenes": [
+        "s15",
+        "s16"
+      ]
+    },
+    {
+      "asset_id": "bg_s18_v01",
+      "kind": "background",
+      "scope": "episode",
+      "label": "祖母が子どもたちに昔話を語る夜（ランプの灯り）",
+      "prompt": "歴史的なインド細密画の一般的特徴に着想を得た、精緻な物語背景。\n16:9。人物なし。\n細い輪郭、平面的な遠近、装飾的な植物や建築、手漉き紙の質感。\n物語の地域性を尊重する。\n動画の紙芝居背景として、人物を置ける余白を確保。\n画像内の文字、ロゴ、透かしは禁止。\n\nSCENE:\n祖母が子どもたちに昔話を語る夜（ランプの灯り） / 祖母が子どもたちに昔話を語る夜（ランプの灯り）\nREGION:\nベンガル地方\nREGION TONE:\nBengal: 川、湿潤、樹木、村、夜\nTIME:\n夜\n",
+      "transparent": false,
+      "reference_image": null,
+      "file": "assets/generated/bg_s18_v01.png",
+      "scenes": [
+        "s18"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "scene_id": "s01",
+      "layout": "fullbleed",
+      "motion": "slow_push_in",
+      "estimated_seconds": 29.2,
+      "layers": [
+        {
+          "asset_id": "bg_s01_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        }
+      ]
+    },
+    {
+      "scene_id": "s02",
+      "layout": "card",
+      "motion": null,
+      "estimated_seconds": 30.4,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s03",
+      "layout": "stage",
+      "motion": "slow_pan",
+      "estimated_seconds": 40.6,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s03_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s04",
+      "layout": "stage",
+      "motion": "static",
+      "estimated_seconds": 22.0,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s03_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s05",
+      "layout": "stage",
+      "motion": "slow_push_in",
+      "estimated_seconds": 12.4,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s05_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s06",
+      "layout": "stage",
+      "motion": "slow_push_in",
+      "estimated_seconds": 10.2,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s06_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s07",
+      "layout": "stage",
+      "motion": "slow_push_in",
+      "estimated_seconds": 17.2,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s07_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s08",
+      "layout": "fullbleed",
+      "motion": "slow_pan",
+      "estimated_seconds": 8.4,
+      "layers": [
+        {
+          "asset_id": "bg_s08_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s09",
+      "layout": "stage",
+      "motion": "parallax",
+      "estimated_seconds": 21.8,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s09_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s10",
+      "layout": "fullbleed",
+      "motion": "slow_push_in",
+      "estimated_seconds": 14.0,
+      "layers": [
+        {
+          "asset_id": "bg_s10_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s11",
+      "layout": "stage",
+      "motion": "slow_pan",
+      "estimated_seconds": 6.0,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s11_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s12",
+      "layout": "stage",
+      "motion": "static",
+      "estimated_seconds": 16.0,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s11_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s13",
+      "layout": "stage",
+      "motion": "slow_push_in",
+      "estimated_seconds": 34.4,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s13_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s14",
+      "layout": "stage",
+      "motion": "static",
+      "estimated_seconds": 31.6,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s13_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s15",
+      "layout": "stage",
+      "motion": "slow_pan",
+      "estimated_seconds": 20.2,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s15_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s16",
+      "layout": "stage",
+      "motion": "static",
+      "estimated_seconds": 27.0,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s15_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s17",
+      "layout": "stage",
+      "motion": "slow_push_in",
+      "estimated_seconds": 30.4,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s07_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s18",
+      "layout": "stage",
+      "motion": "slow_pan",
+      "estimated_seconds": 30.0,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "bg_s18_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s19",
+      "layout": "fullbleed",
+      "motion": "slow_push_in",
+      "estimated_seconds": 14.0,
+      "layers": [
+        {
+          "asset_id": "bg_s01_v01",
+          "layer": "background",
+          "slot": "story_art",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 10
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    },
+    {
+      "scene_id": "s20",
+      "layout": "card",
+      "motion": null,
+      "estimated_seconds": 19.8,
+      "layers": [
+        {
+          "asset_id": "shared_stage_template",
+          "layer": "template",
+          "slot": "template",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 0
+        },
+        {
+          "asset_id": "shared_daibutsuame",
+          "layer": "narrator",
+          "slot": "narrator",
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "z": 60
+        }
+      ]
+    }
+  ]
+}
