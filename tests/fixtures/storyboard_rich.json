@@ -1,0 +1,32 @@
+{
+  "scenes": [
+    {
+      "scene_id": "s01", "layout": "fullbleed", "block_ids": ["b01"],
+      "narration_text": "夜の川に、灯りがひとつ。", "visual_summary": "夜の川辺に浮かぶ灯り",
+      "location": "川辺の村", "time_of_day": "夜", "characters": [],
+      "background": "夜の川辺の村", "props": ["小さな灯り"], "foreground": ["葦の茂み"], "fx": ["川霧"],
+      "suggested_motion": "slow_push_in", "estimated_seconds": 6
+    },
+    {
+      "scene_id": "s02", "layout": "card", "block_ids": ["b02", "b03"],
+      "narration_text": "おばんです、大仏飴だよ。", "visual_summary": "地域カード",
+      "location": null, "time_of_day": null, "characters": ["大仏飴"],
+      "background": null, "props": [], "foreground": [], "fx": [],
+      "suggested_motion": null, "estimated_seconds": 8
+    },
+    {
+      "scene_id": "s03", "layout": "stage", "block_ids": ["b04"],
+      "narration_text": "テスト用の伝承部分です。", "visual_summary": "若い漁師が川辺で灯りを見つける",
+      "location": "川辺の村", "time_of_day": "夜", "characters": ["若い漁師", "漁師の母"],
+      "background": "夜の川辺の村", "props": ["小さな灯り", "漁網"], "foreground": [], "fx": [],
+      "suggested_motion": "slow_pan", "estimated_seconds": 5
+    },
+    {
+      "scene_id": "s04", "layout": "stage", "block_ids": ["b05", "b06"],
+      "narration_text": "資料によって細部が違います。またね。", "visual_summary": "明け方の川",
+      "location": "川辺", "time_of_day": "明け方", "characters": [" 若い漁師 "],
+      "background": "明け方の川", "props": [], "foreground": [], "fx": ["朝もや"],
+      "suggested_motion": null, "estimated_seconds": 5
+    }
+  ]
+}

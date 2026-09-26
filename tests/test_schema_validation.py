@@ -11,7 +11,14 @@ VALID = {
     "shorts": json.loads((Path(__file__).parent / "fixtures" / "shorts_valid.json").read_text(encoding="utf-8")),
     "storyboard": json.loads((Path(__file__).parent / "fixtures" / "storyboard_valid.json").read_text(encoding="utf-8")),
     "asset_manifest": {
-        "assets": [{"asset_id": "bg_s01_v01", "kind": "background", "prompt": "…", "transparent": False}]
+        "schema_version": 1,
+        "episode_id": "EP0001_x",
+        "assets": [{"asset_id": "bg_s01_v01", "kind": "background", "scope": "episode", "label": "…",
+                    "prompt": "…", "transparent": False, "reference_image": None,
+                    "file": "assets/generated/bg_s01_v01.png", "scenes": ["s01"]}],
+        "scenes": [{"scene_id": "s01", "layout": "fullbleed", "motion": None, "estimated_seconds": 5,
+                    "layers": [{"asset_id": "bg_s01_v01", "layer": "background", "slot": "story_art",
+                                "box": [0, 0, 1, 1], "z": 10}]}],
     },
     "timeline": {
         "width": 1920,

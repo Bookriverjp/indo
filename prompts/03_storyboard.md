@@ -25,4 +25,5 @@ layout（config/layout.yaml）:
 - suggested_motion（slow_push_in / slow_pan / parallax / fog_drift / flame_flicker / rain / cloud_drift など）
 - estimated_seconds（1.05倍の読み上げで1秒あたり約5字）
 
+同じ人物・小物・背景は全 scene で同じ表記にする（素材を使い回すため）。語り部の大仏飴は characters に入れない。
 紙芝居なので1 scene へ要素を詰め込みすぎない。画像内に文字を描かせる指示を書かない。

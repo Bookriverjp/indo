@@ -29,7 +29,8 @@ episodes/<episode_id>/
     storyboard_request.md      manual モードの生成依頼
     storyboard_response.json   manual モードで外から作った JSON
     storyboard.json            絵コンテ
-    asset_manifest.json        この回の素材一覧
+    asset_manifest.json        この回の素材一覧とレイヤー配置（schemas/asset_manifest.schema.json）
+    asset_manifest.md          素材一覧（人が読む版）
   assets/generated/            この回の背景・人物・小物・FX（Git管理外）
   audio/generated/             この回のナレーション音声（Git管理外）
   render/timeline.json         紙芝居タイムライン（Git管理外）
@@ -48,6 +49,13 @@ episodes/<episode_id>/
 - `assets/reference/`：大仏飴の基準画像、紙芝居舞台の構図の正本
 - `assets/`：大仏飴のパーツ、舞台テンプレート、共通BGM・効果音（PHASE 5 以降で追加）
 - `config/`：レイアウト、動き、声などの設定
+
+## Asset manifest（PHASE 4）
+`python -m pipeline.assets <episode_id>` で storyboard.json から作る。LLM は使わない。
+- 同じ表記の背景・人物・小物・前景・効果は1つの素材にまとめ、複数 scene で使い回す（asset_id は `bg_s01_v01`、`char_01_v01` など）
+- 大仏飴（`shared_daibutsuame`）と舞台テンプレート（`shared_stage_template`）は共通素材として参照するだけで、この回では生成しない
+- 画像の指示文は `prompts/05_image_background.md`・`06_image_character.md`・`09_image_part.md` から作り、`config/visual_style.yaml` の地域トーンを入れる
+- scene ごとのレイヤーは、layout の窓（template / story_art / narrator）に対する相対 box [x, y, w, h] と重ね順 z で持つ。card には物語の絵を置かない。hook の fullbleed では大仏飴を出さない
 
 ## Research
 - 手作業で書いたリサーチは `templates/research_template.yaml` をコピーして埋め、`python -m pipeline.research import <episode_id> <file>` で取り込む。

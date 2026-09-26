@@ -20,3 +20,12 @@ visual:
     - "画像内のAI生成日本語文字"
     - "激しい3D表現"
     - "毎シーン別キャラデザイン"
+
+# 地域ごとの絵のトーン（docs/STYLE_GUIDE.md「地域トーン」）。research の region に match の語が含まれれば使う
+region_tones:
+  - {match: [bengal, ベンガル], tradition: "Bengal", tone: "川、湿潤、樹木、村、夜"}
+  - {match: [kerala, ケーララ], tradition: "Kerala", tone: "濃い緑、熱帯、雨、森"}
+  - {match: [rajasthan, ラージャスターン], tradition: "Rajput", tone: "英雄、伝説、強い色"}
+  - {match: [himachal, kangra, ヒマーチャル, カーングラ], tradition: "Pahari/Kangra", tone: "山、水、雨、恋、抒情"}
+  - {match: [delhi, agra, lucknow, デリー, アーグラ, ラクナウ], tradition: "Mughal", tone: "宮廷、王侯、室内"}
+default_region_tone: "その地域の風土・建築・衣装に合わせる"

@@ -11,5 +11,7 @@ SCENE:
 {{scene_description}}
 REGION:
 {{region}}
+REGION TONE:
+{{region_tone}}
 TIME:
 {{time_of_day}}

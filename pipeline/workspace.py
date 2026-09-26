@@ -28,6 +28,7 @@ ARTIFACTS = {
     "storyboard_response": "storyboard/storyboard_response.json",
     "storyboard": "storyboard/storyboard.json",
     "asset_manifest": "storyboard/asset_manifest.json",
+    "asset_manifest_md": "storyboard/asset_manifest.md",
     "assets_generated": "assets/generated",
     "narration": "audio/generated",
     "timeline": "render/timeline.json",

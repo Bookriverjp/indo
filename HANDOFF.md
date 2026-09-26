@@ -31,7 +31,8 @@
 - PHASE 2（LLM Provider）完了：`python -m pipeline.generate script|storyboard <id>`。標準は manual（API不要、VS Code の Claude Code で `/generate-stage`）。`config/llm.yaml` の provider を claude にすると Anthropic API（claude-opus-5）を直接呼ぶ。詳細は `docs/LLM.md`。
 - PHASE 3（Script）完了：ショート台本（`generate shorts`）、台本の自動チェック（`pipeline/script_guard.py`、ルールは `config/script_rules.yaml`、口調は `config/persona.yaml`）、`script_review.md`。
 - 大仏飴の口調（Owner決定）：一人称「おら」、物語はです・ます調、コメントは栃木弁（`config/persona.yaml`）。
-- 次は PHASE 4（Storyboard / Asset Manifest）。
+- PHASE 4（Storyboard / Asset Manifest）完了：`python -m pipeline.assets <id>` で素材一覧・レイヤー配置・画像の指示文を自動作成（`docs/DATA_CONTRACT.md`）。
+- 次は PHASE 5（Image Provider）。
 
 ## 次の担当者
 `docs/PHASE.md` の PHASE 0 から順に監査し、最初の未完了PHASEのみ実装すること。

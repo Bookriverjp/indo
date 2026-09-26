@@ -1,51 +1,58 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "AssetManifest",
+  "description": "1話分の素材一覧と、scene ごとのレイヤー配置。box は slot（config/layout.yaml の窓）に対する相対座標 [x, y, w, h]。",
   "type": "object",
-  "required": [
-    "assets"
-  ],
+  "additionalProperties": false,
+  "required": ["schema_version", "episode_id", "assets", "scenes"],
   "properties": {
+    "schema_version": {"const": 1},
+    "episode_id": {"type": "string"},
     "assets": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "asset_id",
-          "kind",
-          "prompt",
-          "transparent"
-        ],
+        "additionalProperties": false,
+        "required": ["asset_id", "kind", "scope", "label", "prompt", "transparent", "reference_image", "file", "scenes"],
         "properties": {
-          "asset_id": {
-            "type": "string"
-          },
-          "kind": {
-            "enum": [
-              "background",
-              "character",
-              "prop",
-              "foreground",
-              "fx"
-            ]
-          },
-          "prompt": {
-            "type": "string"
-          },
-          "transparent": {
-            "type": "boolean"
-          },
-          "reference_image": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "reuse_key": {
-            "type": [
-              "string",
-              "null"
-            ]
+          "asset_id": {"type": "string", "pattern": "^((bg|char|prop|fg|fx)_[a-z0-9]+_v[0-9]{2}|shared_[a-z0-9_]+)$"},
+          "kind": {"enum": ["background", "character", "prop", "foreground", "fx", "template", "narrator"]},
+          "scope": {"enum": ["episode", "shared"], "description": "episode=この回で生成する / shared=全話共通の素材を参照する"},
+          "label": {"type": "string", "minLength": 1},
+          "prompt": {"type": ["string", "null"]},
+          "transparent": {"type": "boolean"},
+          "reference_image": {"type": ["string", "null"]},
+          "file": {"type": "string", "description": "episode はエピソードフォルダから、shared はリポジトリ直下からの相対パス"},
+          "scenes": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["scene_id", "layout", "motion", "estimated_seconds", "layers"],
+        "properties": {
+          "scene_id": {"type": "string"},
+          "layout": {"enum": ["stage", "fullbleed", "card"]},
+          "motion": {"type": ["string", "null"]},
+          "estimated_seconds": {"type": "number"},
+          "layers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["asset_id", "layer", "slot", "box", "z"],
+              "properties": {
+                "asset_id": {"type": "string"},
+                "layer": {"enum": ["template", "background", "character", "prop", "foreground", "fx", "narrator"]},
+                "slot": {"enum": ["template", "story_art", "narrator"]},
+                "box": {"type": "array", "items": {"type": "number", "minimum": 0, "maximum": 1}, "minItems": 4, "maxItems": 4},
+                "z": {"type": "integer"}
+              }
+            }
           }
         }
       }
