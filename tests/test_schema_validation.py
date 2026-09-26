@@ -1,16 +1,12 @@
+import json
+from pathlib import Path
+
 import pytest
 
 from pipeline.schema_validation import SCHEMA_NAMES, SchemaValidationError, load_schema, validate
 
 VALID = {
-    "research": {
-        "canonical_title": "サンプル題材",
-        "region": "West Bengal",
-        "language": "Bengali",
-        "plot_summary": "テスト用の要約。",
-        "sources": [{"title": "Sample source", "source_type": "book", "reliability": "A"}],
-        "uncertain_points": [],
-    },
+    "research": json.loads((Path(__file__).parent / "fixtures" / "research_valid.json").read_text(encoding="utf-8")),
     "storyboard": {
         "scenes": [
             {"scene_id": "s01", "narration_text": "…", "visual_summary": "…", "estimated_seconds": 5}
@@ -52,7 +48,7 @@ def test_missing_required_field_fails_with_path() -> None:
 
 def test_bad_reliability_fails() -> None:
     data = dict(VALID["research"])
-    data["sources"] = [{"title": "x", "source_type": "blog", "reliability": "E"}]
+    data["sources"] = [dict(data["sources"][0], reliability="E")]
     with pytest.raises(SchemaValidationError) as exc:
         validate(data, "research")
     assert any("sources/0/reliability" in m for m in exc.value.messages)

@@ -48,3 +48,31 @@ def test_invalid_id_creates_nothing(tmp_path: Path) -> None:
         create_episode_workspace(tmp_path, "../escape")
     assert not (tmp_path / "episodes").exists()
     assert not (tmp_path.parent / "escape").exists()
+
+
+def test_episode_paths_keep_every_artifact_inside_episode_folder(tmp_path: Path) -> None:
+    from pipeline.workspace import ARTIFACTS, episode_paths
+
+    paths = episode_paths(tmp_path, "EP0001_nishi_daak")
+    root = tmp_path / "episodes" / "EP0001_nishi_daak"
+    assert set(paths) == set(ARTIFACTS)
+    for p in paths.values():
+        assert root in p.parents
+        assert p.relative_to(root).parts[0] in SUBDIRS
+
+
+def test_episode_paths_cover_spec_deliverables(tmp_path: Path) -> None:
+    from pipeline.workspace import episode_paths
+
+    names = {p.name for p in episode_paths(tmp_path, "EP0001_x").values()}
+    for spec_name in ["research.json", "research_review.md", "script_main.md", "script_shorts.md",
+                      "storyboard.json", "asset_manifest.json", "subtitles.srt", "timeline.json",
+                      "episode.mp4", "thumbnail.png", "youtube_metadata.json", "qa_report.md"]:
+        assert spec_name in names
+
+
+def test_episode_paths_rejects_invalid_id(tmp_path: Path) -> None:
+    from pipeline.workspace import episode_paths
+
+    with pytest.raises(ValueError):
+        episode_paths(tmp_path, "../x")

@@ -1,0 +1,45 @@
+# research テンプレート（docs/RESEARCH_POLICY.md の記録必須項目）
+# 使い方: コピーして埋め、次で取り込む
+#   python -m pipeline.research import EP0001_nishi_daak research.yaml
+# 分からない項目は消さずに null のままにする。推測で埋めない。
+
+schema_version: 1
+
+canonical_title: ""          # 動画で使う日本語の題名
+local_title: null            # 現地名（現地文字）
+local_script: null           # 文字体系（例: Bengali, Devanagari, Tamil）
+transliteration: null        # ラテン文字転写
+region: ""                   # 地域（州・地方）
+language: ""                 # 言語
+community_or_context: null   # 伝承されている共同体・場面
+
+earliest_or_notable_source: ""   # 下の sources の id
+modern_sources: []               # 下の sources の id の一覧
+
+# reliability（docs/RESEARCH_POLICY.md）
+#   A: 学術論文・大学出版・民俗学資料・一次採話集・公的アーカイブ
+#   B: 博物館・文化機関・信頼できる大手報道・現地媒体
+#   C: 寺院/地域団体/地方媒体/現地インタビュー（notes に資料の性質を必ず書く）
+#   D: Wikipedia・個人ブログ・SNS・まとめサイト（D だけでは本編化しない）
+# source_type: academic / primary_collection / archive / museum / cultural_institution /
+#              news / temple_or_community / local_media / interview / wikipedia / blog / sns / other
+sources:
+  - id: s01
+    title: ""
+    author: null
+    year: null               # 例: 1907
+    url: null                # http(s):// のみ
+    bibliography: null       # 書誌情報（url がない場合は必須に近い）
+    source_type: other
+    reliability: D
+    language: null
+    notes: null
+    accessed_at: null        # 例: 2026-09-26
+
+plot_summary: ""             # 資料で確認できる範囲のあらすじ
+plot_source_ids: [s01]       # あらすじの根拠となる出典 id
+
+variants: []                 # 例: - {summary: "…", source_ids: [s01]}
+uncertain_points: []         # 資料で確認できない点・食い違う点
+japanese_coverage_notes: null   # 日本語圏での既出状況（確認できた範囲）
+checked_at: ""               # 最後に確認した日（YYYY-MM-DD）

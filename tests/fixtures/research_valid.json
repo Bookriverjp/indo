@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "canonical_title": "テスト用の架空の題材（公開用ではない）",
+  "local_title": "টেস্ট",
+  "local_script": "Bengali",
+  "transliteration": "test",
+  "region": "West Bengal (TEST FIXTURE)",
+  "language": "Bengali",
+  "community_or_context": null,
+  "earliest_or_notable_source": "s01",
+  "modern_sources": ["s02"],
+  "sources": [
+    {
+      "id": "s01",
+      "title": "TEST FIXTURE primary collection",
+      "author": null,
+      "year": null,
+      "url": null,
+      "bibliography": "TEST FIXTURE bibliography entry",
+      "source_type": "primary_collection",
+      "reliability": "A",
+      "language": "Bengali",
+      "notes": null,
+      "accessed_at": null
+    },
+    {
+      "id": "s02",
+      "title": "TEST FIXTURE community account",
+      "author": null,
+      "year": null,
+      "url": "https://example.org/fixture",
+      "bibliography": null,
+      "source_type": "temple_or_community",
+      "reliability": "C",
+      "language": "English",
+      "notes": "地域団体による口承の記録。学術的な採話ではない。",
+      "accessed_at": "2026-09-26"
+    }
+  ],
+  "plot_summary": "テスト用の要約。実在の伝承ではない。",
+  "plot_source_ids": ["s01"],
+  "variants": [
+    {"summary": "テスト用の異説。", "source_ids": ["s02"]}
+  ],
+  "uncertain_points": ["テスト用の不確実点。"],
+  "japanese_coverage_notes": "テスト用。",
+  "checked_at": "2026-09-26"
+}

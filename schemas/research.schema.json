@@ -1,109 +1,90 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Research",
+  "description": "docs/RESEARCH_POLICY.md の記録必須項目。分からない項目は省略せず null にする。",
   "type": "object",
+  "additionalProperties": false,
   "required": [
+    "schema_version",
     "canonical_title",
+    "local_title",
+    "local_script",
+    "transliteration",
     "region",
     "language",
-    "plot_summary",
+    "community_or_context",
+    "earliest_or_notable_source",
+    "modern_sources",
     "sources",
-    "uncertain_points"
+    "plot_summary",
+    "plot_source_ids",
+    "variants",
+    "uncertain_points",
+    "japanese_coverage_notes",
+    "checked_at"
   ],
+  "$defs": {
+    "text": {"type": "string", "minLength": 1},
+    "nullable_text": {"type": ["string", "null"], "minLength": 1},
+    "source_id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+    "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"}
+  },
   "properties": {
-    "canonical_title": {
-      "type": "string"
-    },
-    "local_title": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "local_script": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "transliteration": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "region": {
-      "type": "string"
-    },
-    "language": {
-      "type": "string"
-    },
-    "community_or_context": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "plot_summary": {
-      "type": "string"
-    },
-    "variants": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "uncertain_points": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "japanese_coverage_notes": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
+    "schema_version": {"const": 1},
+    "canonical_title": {"$ref": "#/$defs/text"},
+    "local_title": {"$ref": "#/$defs/nullable_text", "description": "現地名（現地文字）"},
+    "local_script": {"$ref": "#/$defs/nullable_text", "description": "現地の文字体系（例: Bengali, Devanagari）"},
+    "transliteration": {"$ref": "#/$defs/nullable_text", "description": "ラテン文字転写"},
+    "region": {"$ref": "#/$defs/text"},
+    "language": {"$ref": "#/$defs/text"},
+    "community_or_context": {"$ref": "#/$defs/nullable_text"},
+    "earliest_or_notable_source": {"$ref": "#/$defs/source_id", "description": "sources[].id の参照"},
+    "modern_sources": {"type": "array", "items": {"$ref": "#/$defs/source_id"}},
     "sources": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": [
-          "title",
-          "source_type",
-          "reliability"
-        ],
+        "additionalProperties": false,
+        "required": ["id", "title", "author", "year", "url", "bibliography", "source_type", "reliability", "language", "notes", "accessed_at"],
         "properties": {
-          "title": {
-            "type": "string"
-          },
-          "url": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "bibliography": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
+          "id": {"$ref": "#/$defs/source_id"},
+          "title": {"$ref": "#/$defs/text"},
+          "author": {"$ref": "#/$defs/nullable_text"},
+          "year": {"type": ["integer", "null"]},
+          "url": {"type": ["string", "null"], "pattern": "^https?://"},
+          "bibliography": {"$ref": "#/$defs/nullable_text"},
           "source_type": {
-            "type": "string"
-          },
-          "reliability": {
             "enum": [
-              "A",
-              "B",
-              "C",
-              "D"
+              "academic", "primary_collection", "archive",
+              "museum", "cultural_institution", "news",
+              "temple_or_community", "local_media", "interview",
+              "wikipedia", "blog", "sns", "other"
             ]
-          }
+          },
+          "reliability": {"enum": ["A", "B", "C", "D"]},
+          "language": {"$ref": "#/$defs/nullable_text"},
+          "notes": {"$ref": "#/$defs/nullable_text", "description": "資料の性質。reliability C では必須"},
+          "accessed_at": {"anyOf": [{"$ref": "#/$defs/date"}, {"type": "null"}]}
         }
       }
-    }
+    },
+    "plot_summary": {"$ref": "#/$defs/text"},
+    "plot_source_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source_id"}},
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["summary", "source_ids"],
+        "properties": {
+          "summary": {"$ref": "#/$defs/text"},
+          "source_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source_id"}}
+        }
+      }
+    },
+    "uncertain_points": {"type": "array", "items": {"$ref": "#/$defs/text"}},
+    "japanese_coverage_notes": {"$ref": "#/$defs/nullable_text", "description": "日本語圏での既出状況（確認できた範囲）"},
+    "checked_at": {"$ref": "#/$defs/date"}
   }
 }

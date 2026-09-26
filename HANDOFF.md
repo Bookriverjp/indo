@@ -26,7 +26,9 @@
 - 大仏飴の動き・表情確定：`docs/CHARACTER_MOTION.md` / `config/character_motion.yaml`
 - ナレーション確定：VOICEVOX 中国うさぎ、速さ1.05倍（`config/voice.yaml`、規約は `docs/licenses/VOICEVOX.md`）
 - 紙芝居舞台の構図の正本：`assets/reference/layout_stage_reference.webp`
-- 本番API統合は未実装。次は PHASE 1（Research Contract）。
+- PHASE 1（Research Contract）完了：research schema（RESEARCH_POLICY の必須項目）、出典の信頼度QA、手動取り込み、research_review.md。`python -m pipeline.research`。
+- 1話分の成果物は `episodes/<id>/` にまとめる。パスは `pipeline/workspace.py` の `ARTIFACTS`。
+- 本番API統合は未実装。次は PHASE 2（LLM Provider）。
 
 ## 次の担当者
 `docs/PHASE.md` の PHASE 0 から順に監査し、最初の未完了PHASEのみ実装すること。
