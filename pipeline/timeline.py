@@ -31,6 +31,20 @@ _PIECE_RE = re.compile(r"[^、。！？!?]*[、。！？!?]|[^、。！？!?]+")
 _SENTENCE_END = tuple("。！？!?")
 
 
+def _is_hiragana(ch: str) -> bool:
+    return "\u3041" <= ch <= "\u309f"
+
+
+def _break_at(piece: str, max_chars: int) -> int:
+    """句読点のない長い句の切れ目。ひらがな（助詞など）の直後で漢字・カタカナが始まる所を選ぶ。なければ max_chars。"""
+    for i in range(max_chars, max_chars // 3 - 1, -1):
+        if piece[i - 1] in "」』" or (piece[i - 1] == "―" and piece[i] != "―"):
+            return i
+        if _is_hiragana(piece[i - 1]) and not _is_hiragana(piece[i]) and piece[i] not in "ー、。！？!?」』）―":
+            return i
+    return max_chars
+
+
 def split_subtitle(text: str, *, max_chars: int, max_lines: int) -> list[list[str]]:
     """字幕を「行」と「画面（最大 max_lines 行）」に分ける。句読点で切り、文の終わりで画面を改める。"""
     lines: list[tuple[str, bool]] = []   # (行, 文の終わりか)
@@ -40,8 +54,9 @@ def split_subtitle(text: str, *, max_chars: int, max_lines: int) -> list[list[st
             if current:
                 lines.append((current, False))
                 current = ""
-            lines.append((piece[:max_chars], False))
-            piece = piece[max_chars:]
+            cut = _break_at(piece, max_chars)
+            lines.append((piece[:cut], False))
+            piece = piece[cut:]
         if len(current) + len(piece) > max_chars and current:
             lines.append((current, False))
             current = ""

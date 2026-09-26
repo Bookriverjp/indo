@@ -11,3 +11,4 @@ episodes/*/audio/generated/
 episodes/*/render/
 *.log
 .pytest_cache/
+episodes/*/output/*.mp4

@@ -255,3 +255,18 @@ def test_unknown_sfx_raises():
     sb["scenes"][0]["sfx"] = [{"name": "thunder", "at": "start"}]
     with pytest.raises(TimelineError, match="thunder"):
         build(storyboard=sb, sfx_cfg=load_yaml("config/sfx.yaml")["sfx"])
+
+
+def test_split_long_clause_breaks_after_particle_not_mid_word():
+    text = "インドの東のほうからバングラデシュまで広がってる、ベンガル地方の話なんだ。"
+    caps = split_subtitle(text, max_chars=21, max_lines=2)
+    lines = [line for c in caps for line in c]
+    assert "".join(lines) == text
+    assert lines[0] == "インドの東のほうからバングラデシュまで"
+    assert lines[1].startswith("広がってる、")
+
+
+def test_split_long_clause_breaks_after_closing_quote():
+    text = "「夜は危ねえよ」「知らねえもんについてっちゃだめだよ」って教えてたんだ。"
+    lines = [line for c in split_subtitle(text, max_chars=21, max_lines=2) for line in c]
+    assert lines[0] == "「夜は危ねえよ」"
