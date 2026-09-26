@@ -2,8 +2,22 @@
   "schema_version": 1,
   "title": "テスト用ショート（架空）",
   "blocks": [
-    {"block_id": "sb01", "kind": "staging", "text": "夜の川に灯り？", "source_ids": [], "expression": "surprise"},
-    {"block_id": "sb02", "kind": "legend", "text": "テスト用の地域では、そう語られているそうです。", "source_ids": ["s01"], "expression": "point"}
+    {
+      "block_id": "sb01",
+      "kind": "staging",
+      "text": "夜の川に灯り？",
+      "source_ids": [],
+      "expression": "surprise"
+    },
+    {
+      "block_id": "sb02",
+      "kind": "legend",
+      "text": "テスト用の地域では、そう語られているそうです。",
+      "source_ids": [
+        "s01"
+      ],
+      "expression": "point"
+    }
   ],
-  "cta_text": "続きは本編で、ぼくがゆっくりお話しします。"
+  "cta_text": "続きは本編で、おらがゆっくり話すっぺ。"
 }

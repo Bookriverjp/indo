@@ -30,6 +30,7 @@
 - 1話分の成果物は `episodes/<id>/` にまとめる。パスは `pipeline/workspace.py` の `ARTIFACTS`。
 - PHASE 2（LLM Provider）完了：`python -m pipeline.generate script|storyboard <id>`。標準は manual（API不要、VS Code の Claude Code で `/generate-stage`）。`config/llm.yaml` の provider を claude にすると Anthropic API（claude-opus-5）を直接呼ぶ。詳細は `docs/LLM.md`。
 - PHASE 3（Script）完了：ショート台本（`generate shorts`）、台本の自動チェック（`pipeline/script_guard.py`、ルールは `config/script_rules.yaml`、口調は `config/persona.yaml`）、`script_review.md`。
+- 大仏飴の口調（Owner決定）：一人称「おら」、物語はです・ます調、コメントは栃木弁（`config/persona.yaml`）。
 - 次は PHASE 4（Storyboard / Asset Manifest）。
 
 ## 次の担当者

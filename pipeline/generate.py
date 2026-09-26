@@ -24,7 +24,7 @@ from pathlib import Path
 from pipeline.config import PROJECT_ROOT, ConfigError, load_yaml
 from pipeline.llm.base import LLMError, LLMProvider
 from pipeline.llm.usage_log import append_usage, estimate_cost
-from pipeline.prompts import PromptError, load_prompt, render
+from pipeline.prompts import PromptError, load_prompt, persona_block, render
 from pipeline.schema_validation import SchemaValidationError, load_schema, validate
 from pipeline.script_guard import (check_main_script, check_shorts_script, render_review_md,
                                    script_length)
@@ -79,7 +79,7 @@ def _build_prompt(project_root: Path, stage: str, input_data: dict) -> tuple[str
     spec = STAGES[stage]
     persona = load_yaml("config/persona.yaml", project_root)["persona"]
     system = render(load_prompt("00_system", project_root).strip(), name=persona["name"],
-                    first_person=persona["first_person"], speech_style=persona["speech_style"])
+                    persona=persona_block(persona))
     instructions = load_prompt(spec.prompt, project_root).strip()
     user = (f"{instructions}\n\n<input name=\"{spec.input_key}\">\n"
             f"{json.dumps(input_data, ensure_ascii=False, indent=2)}\n</input>")

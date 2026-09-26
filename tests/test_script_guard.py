@@ -113,7 +113,7 @@ def test_no_hedge_anywhere_is_warning(script: dict) -> None:
 
 
 def test_ending_without_sources_mention_is_warning(script: dict) -> None:
-    set_text(script, "ending", "またね。")
+    set_text(script, "ending", "そんじゃ、またね。だいじだべ？")
     assert "W_ENDING_SOURCES" in codes(check_main_script(script, RULES, PERSONA).warnings)
 
 
@@ -122,6 +122,32 @@ def test_ending_without_sources_mention_is_warning(script: dict) -> None:
 def test_forbidden_first_person_in_comment_is_error(script: dict) -> None:
     set_text(script, "intro", "こんにちは、大仏飴です。私と一緒に見ていきましょう。")
     assert "E_FIRST_PERSON" in codes(check_main_script(script, RULES, PERSONA).errors)
+
+
+def test_boku_is_now_forbidden(script: dict) -> None:
+    set_text(script, "intro", "おばんです、大仏飴だよ。ぼくと一緒に見てくべ。")
+    assert "E_FIRST_PERSON" in codes(check_main_script(script, RULES, PERSONA).errors)
+
+
+def test_comment_without_dialect_is_warning(script: dict) -> None:
+    set_text(script, "intro", "こんにちは、大仏飴です。一緒に見ていきましょう。")
+    set_text(script, "ending", "出典は概要欄にあります。またね。")
+    assert "W_NO_DIALECT" in codes(check_main_script(script, RULES, PERSONA).warnings)
+
+
+def test_kowai_in_comment_is_warning(script: dict) -> None:
+    set_text(script, "ending", "今日はしゃべりすぎてこわいっぺ。出典は概要欄だよ。")
+    assert "W_KOWAI" in codes(check_main_script(script, RULES, PERSONA).warnings)
+
+
+def test_legend_not_desu_masu_is_warning(script: dict) -> None:
+    set_text(script, "story", "むかし、村に灯りがともったんだべ。")
+    assert "W_NARRATION_STYLE" in codes(check_main_script(script, RULES, PERSONA).warnings)
+
+
+def test_legend_desu_masu_has_no_style_warning(script: dict) -> None:
+    set_text(script, "story", "むかし、村に灯りがともった、と語られています。")
+    assert "W_NARRATION_STYLE" not in codes(check_main_script(script, RULES, PERSONA).warnings)
 
 
 def test_first_person_in_legend_quote_is_allowed(script: dict) -> None:

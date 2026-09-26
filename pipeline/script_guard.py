@@ -43,12 +43,26 @@ def _check_texts(items: list[tuple[str, str, str]], rules: dict, persona: dict, 
     for bid, kind, text in items:
         for phrase in find_banned_phrases(text, rules):
             result.errors.append(Issue("E_BANNED_PHRASE", f"{bid}: 断定・一般化の表現「{phrase}」を使わないでください"))
-        if kind == "comment":
+        if kind in persona["styles"]["comment"]["kinds"]:
             for fp in persona["forbidden_first_person"]:
                 if fp in text:
                     result.errors.append(Issue(
                         "E_FIRST_PERSON",
                         f"{bid}: {persona['name']}の一人称は「{persona['first_person']}」です（「{fp}」は使わない）"))
+
+
+def _check_style(items: list[tuple[str, str, str]], rules: dict, persona: dict, result: GuardResult) -> None:
+    """物語はです・ます調、大仏飴のコメントは方言（config/persona.yaml）。"""
+    comment_kinds = persona["styles"]["comment"]["kinds"]
+    comments = "".join(t for _, k, t in items if k in comment_kinds)
+    if comments and not any(m in comments for m in persona["dialect"]["markers"]):
+        result.warnings.append(Issue("W_NO_DIALECT", f"{persona['name']}のコメントに{persona['dialect']['name']}が入っていません"))
+    if "こわい" in comments:
+        result.warnings.append(Issue("W_KOWAI", "コメントの「こわい」（栃木弁で疲れた）は、怖い話の中では誤解されやすいです"))
+    plain = [bid for bid, k, t in items
+             if k == "legend" and not t.rstrip("。．！？!?」』…ー 　").endswith(tuple(rules["narration_endings"]))]
+    if plain:
+        result.warnings.append(Issue("W_NARRATION_STYLE", f"物語の文がです・ます調で終わっていません: {', '.join(plain)}"))
 
 
 def check_main_script(script: dict, rules: dict, persona: dict) -> GuardResult:
@@ -75,6 +89,8 @@ def check_main_script(script: dict, rules: dict, persona: dict) -> GuardResult:
     if "ending" in by_section and not any(w in by_section["ending"] for w in r["ending_should_include"]):
         result.warnings.append(Issue("W_ENDING_SOURCES", "ending で出典・資料に触れていません"))
 
+    _check_style([(bid, k, t) for bid, k, t, _ in blocks], rules, persona, result)
+
     all_text = "".join(t for _, _, t, _ in blocks)
     if not any(h in all_text for h in rules["hedge_phrases"]):
         result.warnings.append(Issue("W_NO_HEDGE", "「〜と語られています」など、伝承であることを示す言い回しがありません"))
@@ -91,6 +107,7 @@ def check_shorts_script(shorts: dict, rules: dict, persona: dict) -> GuardResult
     result = GuardResult()
     items = [(b["block_id"], b["kind"], b["text"]) for b in shorts["blocks"]]
     _check_texts(items + [("cta", "comment", shorts["cta_text"])], rules, persona, result)
+    _check_style(items + [("cta", "comment", shorts["cta_text"])], rules, persona, result)
 
     total = _chars("".join(t for _, _, t in items) + shorts["cta_text"])
     if total > r["max_chars"]:
@@ -115,7 +132,7 @@ def render_review_md(title: str, result: GuardResult, *, chars: int, minutes: fl
         "## Owner確認", "",
         "- [ ] 伝承（【伝承】）の内容が research の出典どおり",
         "- [ ] 不確実な点を断定していない",
-        "- [ ] 大仏飴の口調・一人称が合っている",
+        "- [ ] 大仏飴の一人称（おら）と口調（物語はです・ます調、コメントは栃木弁）が合っている",
         "- [ ] 表情の選び方が場面に合っている",
         "",
     ]

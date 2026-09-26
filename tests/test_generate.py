@@ -264,7 +264,8 @@ def test_script_review_is_written(root: Path) -> None:
 def test_system_prompt_uses_persona(root: Path) -> None:
     provider = FakeProvider(script_output())
     run_stage(root, "EP0001_sample", "script", provider, pricing={})
-    assert "一人称は「ぼく」" in provider.calls[0]["system"]
+    system = provider.calls[0]["system"]
+    assert "一人称は「おら」" in system and "栃木弁" in system and "こでらんない" in system
     assert "{{" not in provider.calls[0]["system"]
 
 

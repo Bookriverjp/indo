@@ -17,6 +17,14 @@ tts:
     surprised: {id: 62, name: "おどろき"}
     scared:    {id: 63, name: "こわがり"}
     limp:      {id: 64, name: "へろへろ"}
+  # 読み方（PHASE 6 で実装）。物語はふつうの抑揚、大仏飴のコメントは栃木弁らしく
+  #   intonation_scale: 抑揚の強さ（1.0=標準、小さいほど平坦＝無アクセント）
+  #   phrase_end_rise:  区切りごとの最後の2モーラの音高を上げる量（尻上がり）
+  #   試聴: https://claude.ai/artifact/36Xwi2HnpGkVKBQm1zuRWM
+  prosody:
+    narration: {intonation_scale: 1.0, phrase_end_rise: 0.0}   # kind: legend, staging
+    comment:   {intonation_scale: 0.4, phrase_end_rise: 0.1}   # kind: comment（候補。Owner の試聴で確定）
+
   expression_to_style:
     default: normal
     surprise: surprised
