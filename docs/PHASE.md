@@ -48,6 +48,7 @@
 - output naming
 - retry
 - reference image support
+- 大仏飴のパーツ素材（`config/character_motion.yaml` の parts）
 完了条件：大仏飴参照画像を保持した素材生成ワークフロー。
 
 ## PHASE 6 — TTS
@@ -68,6 +69,7 @@
 - layers
 - motion
 - audio mix
+- 大仏飴パーツアニメーション（瞬き・口パク・待機・表情）
 - SRT
 完了条件：紙芝居MP4をローカル書き出し。
 

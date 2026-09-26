@@ -1,6 +1,6 @@
 # 画面レイアウト
 
-座標の正本は `config/layout.yaml`。モックアップ：https://claude.ai/artifact/EyyKigHLjm4S4i7XRbWnnr
+座標の正本は `config/layout.yaml`。大仏飴の動きは `docs/CHARACTER_MOTION.md`。モックアップ：https://claude.ai/artifact/EyyKigHLjm4S4i7XRbWnnr
 
 ## Owner決定（2026-09-26）
 - 語り部の名前は「大仏飴」。

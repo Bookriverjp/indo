@@ -1,0 +1,62 @@
+# 大仏飴の動き・表情（2026-09-26 Owner決定）
+# 説明は docs/CHARACTER_MOTION.md
+
+character:
+  name: "大仏飴"
+  reference_image: "assets/reference/daibutsuame_reference.jpeg"
+  facing: "front"
+  method: "cutout_parts"   # パーツ分け。表情ごとのAI動画生成はしない
+  static_poses_allowed: false
+
+parts:
+  body:        {pivot: "feet"}
+  ear_l:       {pivot: "ear_base", states: [up, down, twitch]}
+  ear_r:       {pivot: "ear_base", states: [up, down, twitch]}
+  eye_l:       {states: [open, half, closed, smile, wide, teary, sleepy]}
+  eye_r:       {states: [open, half, closed, smile, wide, teary, sleepy]}
+  mouth:       {states: [closed, small, open, wide, smile, frown, o, munch]}
+  nose:        {states: [rest, twitch]}
+  whisker_l:   {pivot: "whisker_base", states: [rest, twitch, droop]}
+  whisker_r:   {pivot: "whisker_base", states: [rest, twitch, droop]}
+  arm_grass:   {pivot: "shoulder", states: [hold, point, chin, cover_mouth, hug, raise]}
+  arm_free:    {pivot: "shoulder", states: [rest, raise, namaste]}
+  bell:        {pivot: "collar", states: [rest, swing, ring]}
+  tail:        {pivot: "tail_base", states: [rest, sway]}
+  fx:          [tear, sweat, zzz, exclaim, question, sparkle, gloom, dust, ring, whisper_dots]
+  props:       [scroll]
+
+always_on:
+  blink:
+    interval_seconds: [2.0, 6.0]
+    duration_ms: 120
+    double_blink_probability: 0.15
+    disabled_when_eyes: [closed, sleepy]
+  lipsync:
+    source: "narration_audio_rms"
+    states: [closed, small, open]
+  idle:
+    breath: {scale: 1.015, period_seconds: 3.0}
+    ear_twitch_interval_seconds: [4.0, 10.0]
+    nose_twitch: true
+
+expressions:
+  point:         {arm_grass: point, loop: true}
+  scared:        {ear: down, arm_grass: hug, body: tremble, fx: [sweat], loop: true}
+  laugh:         {eye: smile, mouth: wide, body: bounce, loop: true}
+  cry:           {eye: teary, whisker: droop, fx: [tear], loop: true}
+  joy:           {arm_grass: raise, arm_free: raise, ear: up, bell: swing, fx: [sparkle], loop: true}
+  serious:       {eye: half, ear: down, speed: 0.6, screen_dim: 0.15, loop: true}
+  sleep:         {eye: sleepy, body: nod_off, fx: [zzz], end: "bell_wake", max_per_episode: 1}
+  surprise:      {eye: wide, ear: up, body: hop, fx: [exclaim], bell: ring, loop: false}
+  think:         {arm_grass: chin, body: head_tilt, fx: [question], loop: true}
+  greet_namaste: {arm_grass: namaste, arm_free: namaste, body: small_bow, loop: false, section: intro}
+  bow:           {body: bow, loop: false, section: ending}
+  bell_cue:      {body: head_shake_quick, bell: ring, triggers: "story_card_change", loop: false}
+  nod:           {body: nod, loop: false}
+  head_shake:    {body: head_shake, loop: false}
+  whisper:       {arm_grass: cover_mouth, mouth: o, body: shrink, fx: [whisper_dots], loop: true}
+  munch:         {mouth: munch, loop: true}
+  scroll:        {props: [scroll], loop: false, section: ending}
+  dust_bath:     {body: roll, fx: [dust], loop: true, max_per_episode: 1}
+  popcorn:       {body: popcorn_jump, loop: false, max_per_episode: 1}
+  grooming:      {arm_free: raise, body: jitter, loop: true, max_per_episode: 2}
