@@ -18,7 +18,12 @@ episodes/<episode_id>/
     script_response.json       manual モードで外から作った JSON
     script_main.json           本編の台本（schemas/script.schema.json）
     script_main.md             本編の台本（人が読む版）
-    script_shorts.md           ショートの台本
+    script_review.md           台本の自動チェック結果と Owner 確認欄
+    script_shorts_request.md   manual モードの生成依頼（ショート）
+    script_shorts_response.json
+    script_shorts.json         ショートの台本（schemas/shorts.schema.json）
+    script_shorts.md           ショートの台本（人が読む版）
+    script_shorts_review.md    ショートの自動チェック結果
     subtitles.srt              字幕
   storyboard/
     storyboard_request.md      manual モードの生成依頼

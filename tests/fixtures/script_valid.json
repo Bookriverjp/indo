@@ -5,25 +5,37 @@
     {
       "section": "hook",
       "blocks": [
-        {"block_id": "b01", "kind": "staging", "text": "テスト用のフック。", "source_ids": [], "expression": "neutral"}
+        {"block_id": "b01", "kind": "staging", "text": "夜の川に、灯りがひとつ。", "source_ids": [], "expression": "neutral"}
       ]
     },
     {
       "section": "intro",
       "blocks": [
-        {"block_id": "b02", "kind": "comment", "text": "こんにちは、大仏飴です。", "source_ids": [], "expression": "greet_namaste"}
+        {"block_id": "b02", "kind": "comment", "text": "こんにちは、大仏飴です。今日もぼくと一緒に、インドの不思議なお話をのぞいてみましょう。", "source_ids": [], "expression": "greet_namaste"}
+      ]
+    },
+    {
+      "section": "background",
+      "blocks": [
+        {"block_id": "b03", "kind": "legend", "text": "これはテスト用の地域に伝わる、と語られている架空のお話です。", "source_ids": ["s01"], "expression": "point"}
       ]
     },
     {
       "section": "story",
       "blocks": [
-        {"block_id": "b03", "kind": "legend", "text": "テスト用の伝承部分。", "source_ids": ["s01"], "expression": "point"}
+        {"block_id": "b04", "kind": "legend", "text": "テスト用の伝承部分です。", "source_ids": ["s01"], "expression": "point"}
+      ]
+    },
+    {
+      "section": "commentary",
+      "blocks": [
+        {"block_id": "b05", "kind": "legend", "text": "資料によって細部が違い、テスト用の異説もあります。", "source_ids": ["s02"], "expression": "think"}
       ]
     },
     {
       "section": "ending",
       "blocks": [
-        {"block_id": "b04", "kind": "comment", "text": "またね。", "source_ids": [], "expression": "bow"}
+        {"block_id": "b06", "kind": "comment", "text": "今日の出典は概要欄にまとめました。またね。", "source_ids": [], "expression": "bow"}
       ]
     }
   ]

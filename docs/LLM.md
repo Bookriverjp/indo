@@ -34,5 +34,25 @@ python -m pipeline.generate script EP0001_nishi_daak --provider claude
 - 429 / 5xx / 接続エラーは SDK が再試行。検証に通らなかった出力は理由を添えて `validation_retries` 回まで作り直す
 - トークン数と費用の目安は `logs/llm_usage.jsonl` に記録する
 
+## ショート台本（PHASE 3）
+本編の台本を取り込んだあとに作る。
+```bat
+python -m pipeline.generate shorts EP0001_nishi_daak
+```
+
+## 台本の自動チェック（PHASE 3）
+ルールは `config/script_rules.yaml`、大仏飴の口調は `config/persona.yaml`。どちらも Owner が編集できる。
+
+作り直しになる（エラー）:
+- 断定・一般化の表現（「実際に起きた」「本当にあった」「インド人はみんな」「日本初」など）。「実話かどうかは分かりません」のような否定の形は対象外
+- 大仏飴のコメントで決めた一人称（ぼく）以外を使う。伝承の登場人物のセリフは対象外
+- 本編の section が足りない・順番が違う、intro で「大仏飴」と名乗っていない
+- ショートが300字（60秒）を超える
+
+警告（`script_review.md` に書き、Owner が判断）:
+- 長さが8〜12分の目安から外れる、フックが長い
+- 「〜と語られています」のような伝承であることを示す言い回しが1つもない
+- 締めで出典・資料に触れていない
+
 ## 既存の出力
 出力がすでにあるときは上書きしない。作り直すときは `--force` を付ける。

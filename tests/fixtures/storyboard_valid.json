@@ -4,7 +4,7 @@
       "scene_id": "s01",
       "layout": "fullbleed",
       "block_ids": ["b01"],
-      "narration_text": "テスト用のフック。",
+      "narration_text": "夜の川に、灯りがひとつ。",
       "visual_summary": "夜の川辺の村（テスト）",
       "location": "village",
       "time_of_day": "night",
@@ -19,7 +19,7 @@
     {
       "scene_id": "s02",
       "layout": "card",
-      "block_ids": ["b02"],
+      "block_ids": ["b02", "b03"],
       "narration_text": "こんにちは、大仏飴です。",
       "visual_summary": "地域カード",
       "location": null,
@@ -30,13 +30,13 @@
       "foreground": [],
       "fx": [],
       "suggested_motion": null,
-      "estimated_seconds": 4
+      "estimated_seconds": 8
     },
     {
       "scene_id": "s03",
       "layout": "stage",
-      "block_ids": ["b03", "b04"],
-      "narration_text": "テスト用の伝承部分。またね。",
+      "block_ids": ["b04", "b05", "b06"],
+      "narration_text": "テスト用の伝承部分です。",
       "visual_summary": "テスト",
       "location": null,
       "time_of_day": null,
@@ -46,7 +46,7 @@
       "foreground": [],
       "fx": [],
       "suggested_motion": null,
-      "estimated_seconds": 5
+      "estimated_seconds": 8
     }
   ]
 }

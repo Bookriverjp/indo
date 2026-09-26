@@ -1,4 +1,4 @@
-"""PHASE 2: research → script、script → storyboard を LLM で生成する。
+"""PHASE 2-3: research → script、script → storyboard / shorts を LLM で生成する。
 
 provider は config/llm.yaml の llm.provider で選ぶ。
   manual: APIを使わない。依頼ファイル（プロンプト・入力・schema）を書き出し、
@@ -10,6 +10,7 @@ provider は config/llm.yaml の llm.provider で選ぶ。
   python -m pipeline.generate script EP0001_nishi_daak                 # manual: 依頼ファイルを書き出す
   python -m pipeline.generate script EP0001_nishi_daak --response FILE # 作った JSON を検証して取り込む
   python -m pipeline.generate storyboard EP0001_nishi_daak --provider claude
+  python -m pipeline.generate shorts EP0001_nishi_daak
 """
 from __future__ import annotations
 
@@ -23,8 +24,10 @@ from pathlib import Path
 from pipeline.config import PROJECT_ROOT, ConfigError, load_yaml
 from pipeline.llm.base import LLMError, LLMProvider
 from pipeline.llm.usage_log import append_usage, estimate_cost
-from pipeline.prompts import PromptError, load_prompt
+from pipeline.prompts import PromptError, load_prompt, render
 from pipeline.schema_validation import SchemaValidationError, load_schema, validate
+from pipeline.script_guard import (check_main_script, check_shorts_script, render_review_md,
+                                   script_length)
 from pipeline.workspace import create_episode_workspace, episode_paths
 
 
@@ -47,6 +50,7 @@ class StageSpec:
 STAGES = {
     "script": StageSpec(prompt="02_script", schema="script", input_key="research", output_key="script_json"),
     "storyboard": StageSpec(prompt="03_storyboard", schema="storyboard", input_key="script_json", output_key="storyboard"),
+    "shorts": StageSpec(prompt="07_shorts", schema="shorts", input_key="script_json", output_key="shorts_json"),
 }
 
 # 1本に使える回数の上限（docs/CHARACTER_MOTION.md）
@@ -73,7 +77,9 @@ def _write_text(path: Path, text: str) -> None:
 
 def _build_prompt(project_root: Path, stage: str, input_data: dict) -> tuple[str, str]:
     spec = STAGES[stage]
-    system = load_prompt("00_system", project_root).strip()
+    persona = load_yaml("config/persona.yaml", project_root)["persona"]
+    system = render(load_prompt("00_system", project_root).strip(), name=persona["name"],
+                    first_person=persona["first_person"], speech_style=persona["speech_style"])
     instructions = load_prompt(spec.prompt, project_root).strip()
     user = (f"{instructions}\n\n<input name=\"{spec.input_key}\">\n"
             f"{json.dumps(input_data, ensure_ascii=False, indent=2)}\n</input>")
@@ -82,10 +88,10 @@ def _build_prompt(project_root: Path, stage: str, input_data: dict) -> tuple[str
 
 # --- validation -------------------------------------------------------------
 
-def _check_script(data: dict, context: dict) -> list[str]:
+def _check_blocks(blocks: list[dict], context: dict) -> list[str]:
+    """出典 id・block_id の重複・表情の回数（本編とショート共通）。"""
     known = {s["id"] for s in context["research"]["sources"]}
     errors = []
-    blocks = [b for sec in data["sections"] for b in sec["blocks"]]
     for bid, n in Counter(b["block_id"] for b in blocks).items():
         if n > 1:
             errors.append(f"block_id が重複しています: {bid}")
@@ -102,6 +108,21 @@ def _check_script(data: dict, context: dict) -> list[str]:
     return errors
 
 
+def _guard_errors(result) -> list[str]:
+    return [f"{i.code} {i.message}" for i in result.errors]
+
+
+def _check_script(data: dict, context: dict) -> list[str]:
+    blocks = [b for sec in data["sections"] for b in sec["blocks"]]
+    return _check_blocks(blocks, context) + _guard_errors(
+        check_main_script(data, context["rules"], context["persona"]))
+
+
+def _check_shorts(data: dict, context: dict) -> list[str]:
+    return _check_blocks(data["blocks"], context) + _guard_errors(
+        check_shorts_script(data, context["rules"], context["persona"]))
+
+
 def _check_storyboard(data: dict, context: dict) -> list[str]:
     script_ids = [b["block_id"] for sec in context["script_json"]["sections"] for b in sec["blocks"]]
     used = Counter(i for s in data["scenes"] for i in s["block_ids"])
@@ -111,7 +132,7 @@ def _check_storyboard(data: dict, context: dict) -> list[str]:
     return errors
 
 
-_EXTRA_CHECKS = {"script": _check_script, "storyboard": _check_storyboard}
+_EXTRA_CHECKS = {"script": _check_script, "storyboard": _check_storyboard, "shorts": _check_shorts}
 
 
 def validate_output(stage: str, data: object, context: dict, project_root: Path) -> list[str]:
@@ -140,11 +161,29 @@ def render_script_md(script: dict) -> str:
     return "\n".join(lines)
 
 
-def _save_output(paths: dict, stage: str, data: dict) -> Path:
+def render_shorts_md(shorts: dict) -> str:
+    lines = [f"# {shorts['title']}（ショート）", ""]
+    for b in shorts["blocks"]:
+        src = f"（出典: {', '.join(b['source_ids'])}）" if b["source_ids"] else ""
+        lines.append(f"- `{b['block_id']}` {_KIND_LABEL[b['kind']]} {b['text']}{src}  _表情: {b['expression']}_")
+    lines += ["", f"本編への導線: {shorts['cta_text']}", ""]
+    return "\n".join(lines)
+
+
+def _save_output(paths: dict, stage: str, data: dict, context: dict) -> Path:
     out = paths[STAGES[stage].output_key]
     _write_text(out, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
     if stage == "script":
         _write_text(paths["script_main"], render_script_md(data))
+        texts = [b["text"] for s in data["sections"] for b in s["blocks"]]
+        chars, minutes = script_length(texts, context["rules"])
+        result = check_main_script(data, context["rules"], context["persona"])
+        _write_text(paths["script_review"], render_review_md(data["episode_title"], result, chars=chars, minutes=minutes))
+    elif stage == "shorts":
+        _write_text(paths["script_shorts"], render_shorts_md(data))
+        chars, minutes = script_length([b["text"] for b in data["blocks"]] + [data["cta_text"]], context["rules"])
+        result = check_shorts_script(data, context["rules"], context["persona"])
+        _write_text(paths["shorts_review"], render_review_md(data["title"], result, chars=chars, minutes=minutes))
     return out
 
 
@@ -153,7 +192,9 @@ def _load_context(project_root: Path, episode_id: str, stage: str, force: bool) 
         raise GenerateError(f"unknown stage: {stage}")
     paths = episode_paths(project_root, episode_id)
     spec = STAGES[stage]
-    context = {"research": _read_json(paths["research"])}
+    context = {"research": _read_json(paths["research"]),
+               "rules": load_yaml("config/script_rules.yaml", project_root),
+               "persona": load_yaml("config/persona.yaml", project_root)["persona"]}
     if spec.input_key != "research":
         context[spec.input_key] = _read_json(paths[spec.input_key])
     out = paths[spec.output_key]
@@ -185,7 +226,7 @@ def run_stage(project_root: Path, episode_id: str, stage: str, provider: LLMProv
         })
         errors = validate_output(stage, result.data, context, project_root)
         if not errors:
-            return _save_output(paths, stage, result.data)
+            return _save_output(paths, stage, result.data, context)
         prompt = (f"{user}\n\n<previous_attempt_errors>\n" + "\n".join(errors) +
                   "\n</previous_attempt_errors>\n前回の出力には上の問題がありました。直した JSON を出力してください。")
     raise OutputRejectedError(f"{stage} output rejected: " + "; ".join(errors))
@@ -222,7 +263,7 @@ def import_response(project_root: Path, episode_id: str, stage: str, src: Path, 
     if errors:
         raise OutputRejectedError(f"{stage} response rejected: " + "; ".join(errors))
     create_episode_workspace(project_root, episode_id)
-    return _save_output(paths, stage, data)
+    return _save_output(paths, stage, data, context)
 
 
 def main(argv: list[str] | None = None, project_root: Path | None = None,

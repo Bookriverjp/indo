@@ -1,0 +1,35 @@
+# 台本の自動チェック（PHASE 3）。docs/RESEARCH_POLICY.md の「表現」を機械的に確かめる
+# errors は保存を止めて作り直させる。warnings は script_review.md に書いて Owner が判断する
+
+main:
+  required_sections: [hook, intro, background, story, commentary, ending]
+  section_order: [hook, intro, background, story, commentary, comparison, ending]
+  chars_per_minute: 300        # VOICEVOX 中国うさぎ 1.05倍の目安
+  target_minutes: [8, 12]      # SPEC 5. 1話の標準長
+  hook_max_chars: 90           # 15秒以内
+  intro_must_include: "大仏飴"
+  ending_should_include: [出典, 資料]
+
+shorts:
+  max_chars: 300               # 60秒以内
+  hook_max_chars: 15           # 最初の2秒で異変・疑問を出す
+
+# 断定・一般化・未確認の「初」。否定の形（例:「実話かどうかは分かりません」）は除く
+banned_phrases:
+  - 実際に起きた
+  - 本当にあった
+  - 実話
+  - 間違いなく
+  - 科学的に証明
+  - インド人はみんな
+  - インド人は皆
+  - インドの人はみんな
+  - 日本では誰も知らない
+  - 誰も知らない
+  - 日本初
+  - 日本で初めて
+  - 必ず呪われ
+negation_after: [かどうか, ではな, じゃな, とは言え, とは限ら, わけではな, とは断定, と断定はでき]
+
+# 伝承であることを示す言い回し。台本全体に1つもなければ警告
+hedge_phrases: [と語られ, と伝わ, と伝えられ, と言われ, とされ, という話, という言い伝え, 型, 異説, 資料によって, 地域によって]

@@ -8,6 +8,7 @@ from pipeline.schema_validation import SCHEMA_NAMES, SchemaValidationError, load
 VALID = {
     "research": json.loads((Path(__file__).parent / "fixtures" / "research_valid.json").read_text(encoding="utf-8")),
     "script": json.loads((Path(__file__).parent / "fixtures" / "script_valid.json").read_text(encoding="utf-8")),
+    "shorts": json.loads((Path(__file__).parent / "fixtures" / "shorts_valid.json").read_text(encoding="utf-8")),
     "storyboard": json.loads((Path(__file__).parent / "fixtures" / "storyboard_valid.json").read_text(encoding="utf-8")),
     "asset_manifest": {
         "assets": [{"asset_id": "bg_s01_v01", "kind": "background", "prompt": "…", "transparent": False}]

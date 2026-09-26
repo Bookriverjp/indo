@@ -1,6 +1,6 @@
 ---
-description: APIを使わずに台本・絵コンテを生成する（manual モード）
-argument-hint: <script|storyboard> <episode_id>
+description: APIを使わずに台本・絵コンテ・ショート台本を生成する（manual モード）
+argument-hint: <script|storyboard|shorts> <episode_id>
 ---
 
 大仏飴のインド異聞の $1 を、エピソード $2 について API を使わずに生成する。

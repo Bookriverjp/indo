@@ -243,3 +243,47 @@ def test_cli_import_failure_returns_1(root: Path, tmp_path: Path, capsys) -> Non
     src.write_text(json.dumps({"x": 1}), encoding="utf-8")
     assert main(["script", "EP0001_sample", "--response", str(src)], project_root=root) == 1
     assert "error" in capsys.readouterr().err
+
+
+# --- PHASE 3: guard integration and shorts ---------------------------------
+
+def test_script_with_banned_phrase_is_retried(root: Path) -> None:
+    bad = script_output()
+    bad["sections"][3]["blocks"][0]["text"] = "これは実際に起きた話です。"
+    provider = FakeProvider(bad, script_output())
+    run_stage(root, "EP0001_sample", "script", provider, pricing={})
+    assert "実際に起きた" in provider.calls[1]["user"]
+
+
+def test_script_review_is_written(root: Path) -> None:
+    run_stage(root, "EP0001_sample", "script", FakeProvider(script_output()), pricing={})
+    review = (root / "episodes" / "EP0001_sample" / "script" / "script_review.md").read_text(encoding="utf-8")
+    assert "W_LENGTH" in review
+
+
+def test_system_prompt_uses_persona(root: Path) -> None:
+    provider = FakeProvider(script_output())
+    run_stage(root, "EP0001_sample", "script", provider, pricing={})
+    assert "一人称は「ぼく」" in provider.calls[0]["system"]
+    assert "{{" not in provider.calls[0]["system"]
+
+
+def shorts_output():
+    return json.loads((FIXTURES / "shorts_valid.json").read_text(encoding="utf-8"))
+
+
+def test_shorts_stage(root: Path) -> None:
+    run_stage(root, "EP0001_sample", "script", FakeProvider(script_output()), pricing={})
+    out = run_stage(root, "EP0001_sample", "shorts", FakeProvider(shorts_output()), pricing={})
+    ep = root / "episodes" / "EP0001_sample" / "script"
+    assert out == ep / "script_shorts.json"
+    assert "続きは本編で" in (ep / "script_shorts.md").read_text(encoding="utf-8")
+    assert (ep / "script_shorts_review.md").exists()
+
+
+def test_shorts_unknown_source_rejected(root: Path) -> None:
+    run_stage(root, "EP0001_sample", "script", FakeProvider(script_output()), pricing={})
+    bad = shorts_output()
+    bad["blocks"][1]["source_ids"] = ["s99"]
+    with pytest.raises(GenerateError, match="s99"):
+        run_stage(root, "EP0001_sample", "shorts", FakeProvider(bad, bad), pricing={}, validation_retries=1)
