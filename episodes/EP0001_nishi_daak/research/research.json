@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "canonical_title": "ニシル・ダーク（夜の呼び声）",
+  "local_title": "নিশির ডাক",
+  "local_script": "Bengali",
+  "transliteration": "Nishir Daak",
+  "region": "ベンガル地方",
+  "language": "ベンガル語",
+  "community_or_context": "ベンガル語圏（インド西ベンガル州・バングラデシュ）の、とくに農村部で語られてきた夜の怪異。ベンガルの幽霊（ブート）の一類型として紹介されることが多い",
+  "earliest_or_notable_source": "s01",
+  "modern_sources": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05"
+  ],
+  "sources": [
+    {
+      "id": "s01",
+      "title": "Monstrum: Beyond the Supernatural Horror of the Nishi Daak Ghost (Season 5, Episode 7)",
+      "author": "Emily Zarka",
+      "year": null,
+      "url": "https://www.pbs.org/video/beyond-the-supernatural-horror-of-the-nishi-daak-ghost-1jv9c9/",
+      "bibliography": "PBS Digital Studios",
+      "source_type": "news",
+      "reliability": "B",
+      "language": "English",
+      "notes": "PBS の教育番組。司会は怪物・民俗文化の研究者。2026-09-26 時点で作業環境から本編・字幕を取得できず、番組説明の検索要約のみ確認（「亡くなった愛する人の声で暗闇から呼び、外へ出ると命取りになる」「農村部で語られる」）。本編の確認が必要",
+      "accessed_at": null
+    },
+    {
+      "id": "s02",
+      "title": "নিশির ডাক（ニシル・ダーク）",
+      "author": "গৌরী দত্ত（ゴウリ・ドット）",
+      "year": null,
+      "url": "https://www.parabaas.com/article.php?id=5116",
+      "bibliography": "Parabaas（ベンガル語のウェブ文芸誌）",
+      "source_type": "local_media",
+      "reliability": "C",
+      "notes": "ベンガル語の文芸誌に載った随筆とみられる。作業環境から本文を取得できず、題名と検索要約のみ確認。伝承の根拠として使う前に本文の確認が必要",
+      "language": "Bengali",
+      "accessed_at": null
+    },
+    {
+      "id": "s03",
+      "title": "নিশির ডাক（ベンガル語版ウィキペディア）",
+      "author": null,
+      "year": null,
+      "url": "https://bn.wikipedia.org/wiki/নিশির_ডাক",
+      "bibliography": null,
+      "source_type": "wikipedia",
+      "reliability": "D",
+      "language": "Bengali",
+      "notes": "検索要約のみ確認。「家の前で3回続けて知った声で呼ぶ」「『一度の呼び声には応じない』と言い習わした」とある",
+      "accessed_at": null
+    },
+    {
+      "id": "s04",
+      "title": "Ghosts in Bengali culture（英語版ウィキペディア）",
+      "author": null,
+      "year": null,
+      "url": "https://en.wikipedia.org/wiki/Ghosts_in_Bengali_culture",
+      "bibliography": null,
+      "source_type": "wikipedia",
+      "reliability": "D",
+      "language": "English",
+      "notes": "検索要約のみ確認。「1〜2回はニシ、3回目は安全」「一人でいる者を狙い、人気のない所へ誘い出す」「ビハール・ジャールカンドにもニシとして伝わる」とある",
+      "accessed_at": null
+    },
+    {
+      "id": "s05",
+      "title": "Didur Jhuli（ベンガルの子ども向け怪談についての記事）",
+      "author": null,
+      "year": 2022,
+      "url": "https://aclisa.in/2022/09/12/didur-jhuli/",
+      "bibliography": "ACLISA（南アジア子どもの文学協会）",
+      "source_type": "cultural_institution",
+      "reliability": "C",
+      "language": "English",
+      "notes": "Owner の調査メモで参照（「窓辺で名前を呼び、応じると外へ誘い出す」「魂を若いココナッツに入れる型」）。作業環境から本文を取得できず未確認",
+      "accessed_at": null
+    },
+    {
+      "id": "s06",
+      "title": "Nishi Pusha（タントラ行者がニシを使うという記述を含むブログ記事）",
+      "author": null,
+      "year": 2023,
+      "url": "https://www.hindu-blog.com/2023/12/nishi-bhoot-ghost-bengal-midnight-caller.html",
+      "bibliography": null,
+      "source_type": "blog",
+      "reliability": "D",
+      "language": "English",
+      "notes": "検索要約のみ確認。「タントラ行者が復讐のためにニシを使う（ニシ・プシャ）」とある。ベンガル語の検索要約にも同趣旨（タントラ行者が他人を害するためにニシとして呼ぶ）",
+      "accessed_at": null
+    }
+  ],
+  "plot_summary": "ベンガル地方の夜の怪異。夜、身近な人や亡くなった愛する人の声をまねて、人の名前を呼ぶと語られる。 その呼び声に返事をしたり、声を追って外へ出たりすると、人気のない所へ誘い出され、命や魂を奪われるとされる。 そのため、夜の呼び声にはすぐに返事をしない、という戒めとともに語られてきた。",
+  "plot_source_ids": [
+    "s01",
+    "s03",
+    "s04"
+  ],
+  "variants": [
+    {
+      "summary": "呼ぶ回数の型A：1〜2回の呼び声はニシで、3回目は人間なので応じてよい",
+      "source_ids": [
+        "s04"
+      ]
+    },
+    {
+      "summary": "呼ぶ回数の型B：ニシは家の前で3回続けて呼ぶ。「一度の呼び声には応じない」と言い習わした",
+      "source_ids": [
+        "s03"
+      ]
+    },
+    {
+      "summary": "声の主：亡くなった愛する人の声で呼ぶ型と、家族や友人など身近な人の声で呼ぶ型がある",
+      "source_ids": [
+        "s01",
+        "s04"
+      ]
+    },
+    {
+      "summary": "タントラ行者（呪術者）がニシを使って、他人を害するために呼ばせるという型",
+      "source_ids": [
+        "s06"
+      ]
+    },
+    {
+      "summary": "応じた者の魂を若いココナッツに閉じ込めるという型（原文未確認）",
+      "source_ids": [
+        "s05"
+      ]
+    }
+  ],
+  "uncertain_points": [
+    "呼ぶ回数と「何回目なら安全か」は資料によって食い違う（型Aと型B）。どちらかを正解として断定しない",
+    "いつ頃から語られているか（最古の記録）は未確認。学術資料・ベンガル語の印刷資料での確認が必要",
+    "ビハール・ジャールカンドにも伝わるという記述は英語版ウィキペディアの要約のみで未確認",
+    "ココナッツの型は s05 にあるとされるが原文を確認できていない。すべてのニシル・ダークに共通する設定ではない",
+    "「池で溺れる」はネット上の再話にあるとされる（Owner メモ）が、出典を確認できていない",
+    "s01・s02 は検索要約のみで本文未確認。公開前に本編・本文を確認する",
+    "ニシの正体（霊か、行者が使う存在か）は型によって違い、一つに決まっていない"
+  ],
+  "japanese_coverage_notes": "2026-09-26 に日本語で Web 検索した範囲（1回・限定的）では、ニシル・ダークをまとめて紹介した日本語資料は見つからなかった。書籍・論文は未調査。「日本初」とは言わない",
+  "checked_at": "2026-09-26"
+}

@@ -41,6 +41,8 @@
 - 概要欄には出典もクレジットも載せない（Owner決定）。出典は動画の締めの出典カード、VOICEVOX のクレジットは動画の最後の場面に小さく表示。
 - PHASE 9（Thumbnail / Metadata）完了：`python -m pipeline.generate metadata <id>`（チャプター自動）、`python -m pipeline.thumbnail <id>`。詳細は `docs/LLM.md`。
 - PHASE 10（QA Dashboard）完了：5つの関門（リサーチ・台本・画像・音声・最終）と確認画面 `python -m pipeline.qa serve <id>`。詳細は `docs/QA.md`。
+- チャンネル方針と最初の10本の計画: `docs/CHANNEL.md`（怖い話だけのチャンネルにしない）。
+- 第1話 `EP0001_nishi_daak`：research.json を取り込み（自動QA PASS）。本文を確認できていない資料があるため、`research/fact_check.md` の確認が済むまで Research Gate は承認しない。
 - 次は PHASE 11（YouTube Upload）。最終関門の承認済みの動画だけをアップロードする。
 
 ## 次の担当者
