@@ -9,3 +9,4 @@ episodes/*/assets/generated/
 episodes/*/audio/generated/
 episodes/*/render/
 *.log
+.pytest_cache/

@@ -34,6 +34,15 @@
 ## 開発開始
 最初に `START_PROMPT_FOR_CLAUDE.md` または `START_PROMPT_FOR_CODEX.md` を開き、AIコーディングエージェントへ渡してください。
 
+## セットアップ（Windows）
+```bat
+py -3.11 -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements-dev.txt
+python -m pytest
+python -m pipeline.main EP0001_nishi_daak --dry-run
+```
+
 ## v1の位置づけ
 これは「仕様・工程・プロンプト・データ契約・実装雛形」のスターターパックです。
 APIキーを設定しただけで全機能が完成するものではありません。`docs/PHASE.md` に従って、1 PHASEずつTDDで実装します。
