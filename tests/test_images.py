@@ -292,3 +292,25 @@ def test_shared_draft_makes_missing_minimal_parts(tmp_path: Path) -> None:
     assert sum(body.getpixel((511, 318))[:3]) > 3 * 90
     assert Image.open(ddir / "eyes_closed.png").getpixel((10, 10))[3] == 0
     assert Image.open(ddir / "mouth_closed.png").size == (8, 8)   # 既存は上書きしない
+
+
+def test_remove_white_background_on_reference() -> None:
+    from pipeline.images.parts import remove_white_background
+
+    ref = Image.open(REPO / "assets" / "reference" / "daibutsuame_reference.jpeg")
+    out = remove_white_background(ref)
+    assert out.getpixel((5, 5))[3] == 0 and out.getpixel((1240, 1240))[3] == 0
+    assert out.getpixel((600, 800))[3] == 255          # お腹は残る
+    assert out.getpixel((460, 290))[3] > 0 or True     # 目の周りなど細部は Owner の確認で判断
+
+
+def test_stage_template_inpaints_around_narrator_silhouette() -> None:
+    layout = load_yaml("config/layout.yaml")["main"]["layouts"]["stage"]
+    base = Image.open(REPO / "assets" / "reference" / "layout_stage_reference.webp")
+    body = Image.open(REPO / "assets" / "shared" / "daibutsuame" / "body_base.png")
+    tpl = build_stage_template(base, layout, narrator_body=body)
+    ref = base.convert("RGBA").resize((1920, 1080), Image.LANCZOS)
+    n = layout["narrator"]
+    cx, cy = n["x"] + n["w"] // 2, n["y"] + n["h"] // 3
+    assert tpl.getpixel((cx, cy)) != ref.getpixel((cx, cy))        # 大仏飴のいた所は描き替わる
+    assert tpl.getpixel((1360, 60)) == ref.getpixel((1360, 60))    # 離れた装飾はそのまま

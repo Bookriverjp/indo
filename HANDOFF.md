@@ -36,7 +36,9 @@
 - 大仏飴パーツ：最小セット（体・目の開閉・口の開閉）は作成済み・Owner未承認。目と口の開きは基準画像から切り出し、ほかは仮版（`shared-draft`）。追加セットは未作成（`assets/shared/daibutsuame/REQUEST.md`）。
 - PHASE 6（TTS）完了：`python -m pipeline.tts <id>`（VOICEVOX、ブロックごとの WAV と `audio/narration.json`、読み方の辞書、栃木弁の抑揚）。詳細は `docs/TTS.md`。
 - PHASE 7（Timeline）完了：`python -m pipeline.timeline <id>` で `render/timeline.json` と `script/subtitles.srt`（`config/timeline.yaml`）。
-- 次は PHASE 8（Renderer）。
+- PHASE 8（Renderer）完了：`python -m pipeline.render <id>`（`--preview` / `--placeholders` / `--draft`）。詳細は `docs/RENDER.md`。
+- 大仏飴の体（body_base）は基準画像の白い背景を透明にした。舞台テンプレートは大仏飴の輪郭まわりを補間して作り直した。
+- 次は PHASE 9（Thumbnail / Metadata）。
 
 ## 次の担当者
 `docs/PHASE.md` の PHASE 0 から順に監査し、最初の未完了PHASEのみ実装すること。

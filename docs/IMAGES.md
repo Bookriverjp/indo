@@ -29,11 +29,12 @@ python -m pipeline.images generate EP0001_nishi_daak --provider openai
 ## 共通素材（全話で使い回す。最初に一度だけ作る）
 ### 紙芝居舞台テンプレート
 ```bat
+python -m pipeline.images shared-draft      # 先に大仏飴の体（透過）を用意する
 python -m pipeline.images shared-template
 ```
 構図の正本 `assets/reference/layout_stage_reference.webp` から `assets/shared/stage_template.png` を作る。
-物語の絵の窓を透明に抜き、字幕枠・地域ラベル枠の見本文字と、描かれている大仏飴を地の色で塗りつぶす。
-大仏飴の部分は仮の塗りつぶしなので、きれいにするなら、正本から大仏飴だけを消した画像（ペイズリー模様と敷物は残す）を
+物語の絵の窓を透明に抜き、字幕枠・地域ラベル枠の見本文字を消す。描かれている大仏飴は、新しい大仏飴の輪郭の周りだけ
+周囲の柄から補間して消す（`body_base.png` がなければ地の色で四角く塗る）。耳の跡などが少し残るので、きれいにするなら、正本から大仏飴だけを消した画像（ペイズリー模様と敷物は残す）を
 画像編集で作り、`--base その画像` で作り直す。
 
 ### 大仏飴パーツ

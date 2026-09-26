@@ -7,7 +7,7 @@ provider は config/image.yaml の image.provider で選ぶ（標準は manual�
   python -m pipeline.images check EP0001_nishi_daak     # assets/inbox/ の画像をチェックして generated/ に取り込む
   python -m pipeline.images generate EP0001_nishi_daak  # openai: API で生成して取り込む（--force で作り直し）
 共通素材:
-  python -m pipeline.images shared-template             # 構図の正本から紙芝居舞台テンプレートを作る
+  python -m pipeline.images shared-template             # 構図の正本から紙芝居舞台テンプレートを作る（先に shared-draft）
   python -m pipeline.images shared-request              # 大仏飴パーツの依頼書と承認ファイル。切り出せるパーツは自動で作る
   python -m pipeline.images shared-draft                # 最小セットの手作業パーツの仮版を作る（既存は上書きしない）
   python -m pipeline.images shared-check [--set full]   # 大仏飴パーツ（標準は最小セット）がそろい、Owner が承認済みかを確認する
@@ -288,8 +288,10 @@ def main(argv: list[str] | None = None, project_root: Path | None = None,
             status = check_assets(root, args.episode_id, cfg)
         elif args.command == "shared-template":
             layout = load_yaml("config/layout.yaml", root)["main"]["layouts"]["stage"]
+            body_path = root / DAIBUTSUAME_DIR / "body_base.png"
+            body = Image.open(body_path).convert("RGBA") if body_path.exists() else None
             with Image.open(args.base or root / STAGE_REFERENCE) as base:
-                tpl = build_stage_template(base, layout)
+                tpl = build_stage_template(base, layout, narrator_body=body)
             out = root / STAGE_TEMPLATE
             out.parent.mkdir(parents=True, exist_ok=True)
             tpl.save(out, "PNG")

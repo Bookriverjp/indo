@@ -40,8 +40,11 @@ episodes/<episode_id>/
   audio/generated/             ブロックごとのナレーション WAV（Git管理外）
   audio/narration.json         ブロックごとの表記・読み・声色・秒数（docs/TTS.md）
   render/timeline.json         紙芝居タイムライン（schemas/timeline.schema.json、Git管理外）
+  render/narration_mix.wav     書き出し用にまとめたナレーション（Git管理外）
   output/
     episode.mp4                本編
+    episode.srt                本編の字幕（YouTube の字幕用）
+    preview.mp4                確認用の書き出し
     shorts.mp4                 ショート
     thumbnail.png              サムネイル
     youtube_metadata.json      タイトル・説明文・タグ

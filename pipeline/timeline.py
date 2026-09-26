@@ -83,11 +83,13 @@ def _card(kind: str, research: dict) -> dict:
     if kind == "region":
         rows = [["地域", research["region"]], ["言語", research["language"]]]
         if research.get("local_title"):
-            local = research["local_title"] + (f"（{research['transliteration']}）" if research.get("transliteration") else "")
-            rows.append(["現地名", local])
+            rows.append(["現地名", research["local_title"]])
+        if research.get("transliteration"):
+            rows.append(["読み", research["transliteration"]])
         levels = Counter(s["reliability"] for s in research["sources"])
         rows.append(["資料", " / ".join(f"{k} {levels[k]}件" for k in "ABCD" if levels[k])])
-        return {"kind": kind, "title": "今日のお話の舞台", "rows": rows}
+        # 現地名は現地の文字のフォントで描く（config/render.yaml の fonts.scripts）
+        return {"kind": kind, "title": "今日のお話の舞台", "rows": rows, "script": research.get("local_script")}
     if kind == "variants":
         rows = [[f"異説{i}", v["summary"]] for i, v in enumerate(research["variants"], 1)] or [["異説", "記録なし"]]
         return {"kind": kind, "title": "異説と背景", "rows": rows}

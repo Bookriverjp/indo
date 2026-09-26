@@ -1,0 +1,57 @@
+# 動画の書き出し（PHASE 8）
+render:
+  fonts:
+    gothic: "assets/fonts/ZenMaruGothic-Bold.ttf"          # 字幕・地域ラベル・カード本文
+    mincho: "assets/fonts/ShipporiMinchoB1-ExtraBold.ttf"  # カードの見出し
+    # カードの「現地名」を描く、現地の文字のフォント（research の local_script の値で選ぶ）
+    scripts:
+      Bengali: "assets/fonts/NotoSansBengali-Bold.ttf"
+      Assamese: "assets/fonts/NotoSansBengali-Bold.ttf"
+      Devanagari: "assets/fonts/NotoSansDevanagari-Bold.ttf"
+      Tamil: "assets/fonts/NotoSansTamil-Bold.ttf"
+      Telugu: "assets/fonts/NotoSansTelugu-Bold.ttf"
+      Kannada: "assets/fonts/NotoSansKannada-Bold.ttf"
+      Malayalam: "assets/fonts/NotoSansMalayalam-Bold.ttf"
+      Gujarati: "assets/fonts/NotoSansGujarati-Bold.ttf"
+      Gurmukhi: "assets/fonts/NotoSansGurmukhi-Bold.ttf"
+      Odia: "assets/fonts/NotoSansOriya-Bold.ttf"
+  colors:
+    ink: [58, 36, 22]              # 生成り地の上の文字
+    light_text: [255, 255, 255]    # 絵の上の字幕（全面の場面）
+    outline: [20, 12, 8]
+    card_bg: [247, 239, 220]
+    card_border: [199, 154, 58]
+    card_accent: [142, 31, 22]
+    chip_bg: [245, 236, 214]
+  sizes:                           # 1920x1080 のときの px
+    subtitle: 50
+    label: 34
+    card_title: 58
+    card_row: 38
+    outline: 4
+  video: {crf: 20, preset: "medium", audio_bitrate: "192k"}
+  preview: {scale: 0.5, fps: 15}   # --preview のとき
+
+  narrator:
+    blink: {interval: [2.0, 6.0], seconds: 0.13, double_probability: 0.15}
+    lipsync_threshold: 0.25        # ブロック内で一番大きい音に対する割合。これより大きいと口を開く
+    breath: {amplitude: 0.012, period: 3.0}
+    medallion_crop: [0.12, 0.02, 0.88, 0.62]   # 丸窓で見せる範囲（大仏飴の画像に対する割合）
+    # 最小セットで表す体全体の動き（docs/CHARACTER_MOTION.md）
+    expression_motion:
+      scared: tremble
+      laugh: bounce
+      joy: jump
+      surprise: hop
+      think: tilt
+      nod: nod
+      head_shake: shake
+      sleep: sway
+      dust_bath: roll
+      popcorn: popcorn
+      grooming: jitter
+      whisper: shrink
+      greet_namaste: bow_small
+      bow: bow
+      bell_cue: shake
+    eyes_closed_expressions: [sleep]

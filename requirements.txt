@@ -7,4 +7,5 @@ anthropic>=1.8,<2
 openai>=3.19,<4
 opencv-python-headless>=4.8
 numpy>=1.26
+imageio-ffmpeg>=0.5
 # Add provider SDKs only when the corresponding PHASE is implemented.

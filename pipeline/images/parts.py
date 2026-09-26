@@ -54,6 +54,7 @@ def draft_minimal_parts(ref: Image.Image, eyes: list[list[int]], mouth: list[int
 
     body = Image.fromarray(base).convert("RGBA")
     body.alpha_composite(fur_img)
+    body = remove_white_background(body)
 
     closed = fur_img.copy()
     d = ImageDraw.Draw(closed)
@@ -68,3 +69,50 @@ def draft_minimal_parts(ref: Image.Image, eyes: list[list[int]], mouth: list[int
     d.arc((mcx + 7, mcy - 30, mcx + 41, mcy), start=70, end=170, fill=col, width=4)
 
     return {"body_base.png": body, "eyes_closed.png": closed, "mouth_closed.png": mouth_closed}
+
+
+def remove_white_background(img: Image.Image, *, min_bright: int = 232, max_sat: int = 18,
+                            enclosed_area: int = 1500, shadow_band: float = 0.86) -> Image.Image:
+    """基準画像の白い背景を透明にする。
+
+    - 画像の端につながる白、または大きな白い塊（体としっぽの間など）を背景とみなす
+    - 下の帯にある、背景とつながった薄い影（足元の影）も消す
+    """
+    import cv2
+    import numpy as np
+
+    arr = np.array(img.convert("RGBA"))
+    rgb = arr[..., :3].astype(np.int16)
+    h, w = rgb.shape[:2]
+    mn = rgb.min(axis=2)
+    sat = rgb.max(axis=2) - mn
+    bright = ((mn > min_bright) & (sat < max_sat)).astype(np.uint8)
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(bright, connectivity=4)
+    bg = np.zeros((h, w), bool)
+    for i in range(1, n):
+        x, y, ww, hh, area = stats[i]
+        if x == 0 or y == 0 or x + ww == w or y + hh == h or area > enclosed_area:
+            bg |= lab == i
+    rows = np.arange(h)[:, None]
+    shadow = ((mn > 195) & (sat < 22) & (rows > int(h * shadow_band)))
+    n2, lab2, _, _ = cv2.connectedComponentsWithStats((shadow | bg).astype(np.uint8), connectivity=4)
+    for i in range(1, n2):
+        comp = lab2 == i
+        if (comp & bg).any():
+            bg |= comp
+    alpha = np.where(bg, 0, 255).astype(np.uint8)
+    alpha = cv2.GaussianBlur(cv2.erode(alpha, np.ones((3, 3), np.uint8)), (0, 0), 1.2)
+    arr[..., 3] = np.minimum(arr[..., 3], alpha)
+    return Image.fromarray(arr, "RGBA")
+
+
+def content_bbox(img: Image.Image, threshold: int = 20) -> tuple[int, int, int, int]:
+    """不透明な部分の範囲。"""
+    return img.getchannel("A").point(lambda v: 255 if v > threshold else 0).getbbox() or (0, 0, *img.size)
+
+
+def fit_full_body(size: tuple[int, int], bbox: tuple[int, int, int, int], box: tuple[int, int]) -> tuple[float, int, int]:
+    """全身の大仏飴を box に収めるときの (倍率, 左上x, 左上y)。bbox を切り詰め、下端・中央にそろえる。"""
+    bw, bh = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    k = min(box[0] / bw, box[1] / bh)
+    return k, (box[0] - round(bw * k)) // 2, box[1] - round(bh * k)
