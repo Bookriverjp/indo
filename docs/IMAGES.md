@@ -37,9 +37,13 @@ python -m pipeline.images shared-template
 画像編集で作り、`--base その画像` で作り直す。
 
 ### 大仏飴パーツ
+まず最小セット（2026-09-26 Owner決定）で進め、表情用の追加セットはあとから足す。
 ```bat
-python -m pipeline.images shared-request
-python -m pipeline.images shared-check
+python -m pipeline.images shared-request   # 依頼書。目（開き）・口（開き）は基準画像から自動で切り出す
+python -m pipeline.images shared-draft     # 目と口を消した体・閉じた目・閉じた口の仮版を作る（既存は上書きしない）
+python -m pipeline.images shared-check     # 最小セットがそろい、承認済みか（--set full で追加セットも）
 ```
+最小セット: `body_base.png`・`eyes_open.png`・`eyes_closed.png`・`mouth_open.png`・`mouth_closed.png`。
+瞬き・口パク・呼吸と体全体の動きができる。目・口・耳・腕の状態や効果を使う表情は、追加セットがそろうまで体全体の動きだけで表す。
 `assets/shared/daibutsuame/REQUEST.md` に作るファイルの一覧（`config/character_motion.yaml` のパーツと状態）と仕様がある。
 すべて正本と同じ大きさ・位置の透明PNG。Owner が確認して `approval.yaml` の `approved` を `true` にするまで動画に使わない。

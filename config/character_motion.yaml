@@ -60,3 +60,30 @@ expressions:
   dust_bath:     {body: roll, fx: [dust], loop: true, max_per_episode: 1}
   popcorn:       {body: popcorn_jump, loop: false, max_per_episode: 1}
   grooming:      {arm_free: raise, body: jitter, loop: true, max_per_episode: 2}
+
+# パーツの用意の段階（2026-09-26 Owner決定：最小セットで先に進める）
+# minimal: 瞬き・口パク・呼吸と、体全体の動き（震え・弾む・跳ねる・傾く・うなずく等）ができる
+#          目・口・耳・腕の状態や FX を使う表情は、そろうまで体全体の動きだけで表す
+# full:    上の parts をすべてそろえる（追加セット）
+part_sets:
+  active: minimal
+  minimal:
+    body_base.png:
+      desc: "基準画像から目と口だけを消した全身（耳・腕・草・しっぽ・首輪・鈴は含む）。消した跡は周りの毛並みでなじませる"
+      source: manual
+    eyes_open.png:
+      desc: "両目（開き）"
+      source: cut_from_reference
+      ellipses: [[511, 318, 42, 40], [722, 352, 42, 42]]   # [中心x, 中心y, 横半径, 縦半径]（基準画像の座標）
+    eyes_closed.png:
+      desc: "両目（閉じ）。eyes_open と同じ位置に、閉じた目（やわらかい弧）を描く"
+      source: manual
+    mouth_open.png:
+      desc: "口（開き）"
+      source: cut_from_reference
+      ellipses: [[594, 478, 48, 30]]
+    mouth_closed.png:
+      desc: "口（閉じ）。mouth_open と同じ位置に、閉じた口を描く"
+      source: manual
+  # shared-draft で手作業パーツの仮版を作るとき、目を消すために毛並みを持ってくる上方向のずれ（px）
+  draft_fur_offsets: [-92, -95]

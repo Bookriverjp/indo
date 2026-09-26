@@ -33,7 +33,7 @@
 - 大仏飴の口調（Owner決定）：一人称「おら」、物語はです・ます調、コメントは栃木弁（`config/persona.yaml`）。
 - PHASE 4（Storyboard / Asset Manifest）完了：`python -m pipeline.assets <id>` で素材一覧・レイヤー配置・画像の指示文を自動作成（`docs/DATA_CONTRACT.md`）。
 - PHASE 5（Image Provider）完了：`python -m pipeline.images`（request / check / generate、shared-template / shared-request / shared-check）。標準は manual、`--provider openai` で API。詳細は `docs/IMAGES.md`。
-- 大仏飴パーツは未作成・未承認（`assets/shared/daibutsuame/REQUEST.md`）。
+- 大仏飴パーツ：最小セット（体・目の開閉・口の開閉）は作成済み・Owner未承認。目と口の開きは基準画像から切り出し、ほかは仮版（`shared-draft`）。追加セットは未作成（`assets/shared/daibutsuame/REQUEST.md`）。
 - 次は PHASE 6（TTS）。
 
 ## 次の担当者

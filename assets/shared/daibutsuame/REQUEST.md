@@ -4,12 +4,22 @@
 
 ## 共通の仕様
 - すべて 1254x1254 の透明背景 PNG。正本と同じ位置・同じ大きさで描き、重ねるとぴったり合うこと
+- 仕上がったら Owner が確認し、approval.yaml の approved を true にする。承認前のパーツは動画に使わない
+
+## 最小セット（先に用意する）
+瞬き・口パク・呼吸と、体全体の動き（震え・弾む・跳ねる・傾く・うなずく）ができる。
+目・口・耳・腕の状態や効果を使う表情は、追加セットがそろうまで体全体の動きだけで表す。
+
+- [x] `body_base.png` — 基準画像から目と口だけを消した全身（耳・腕・草・しっぽ・首輪・鈴は含む）。消した跡は周りの毛並みでなじませる（仮版あり。Owner が確認し、必要なら描き直して差し替える）
+- [x] `eyes_open.png` — 両目（開き）（基準画像から自動で切り出し）
+- [x] `eyes_closed.png` — 両目（閉じ）。eyes_open と同じ位置に、閉じた目（やわらかい弧）を描く（仮版あり。Owner が確認し、必要なら描き直して差し替える）
+- [x] `mouth_open.png` — 口（開き）（基準画像から自動で切り出し）
+- [x] `mouth_closed.png` — 口（閉じ）。mouth_open と同じ位置に、閉じた口を描く（仮版あり。Owner が確認し、必要なら描き直して差し替える）
+
+## 追加セット（あとから）
 - body.png は目・口・耳・腕を除いた頭と胴。ほかのパーツは自分の部分だけを描く
 - 表情の違いは目・口・耳・腕の組み合わせで作る（docs/CHARACTER_MOTION.md）
 - ぴくっ・揺れ・鳴る（twitch / sway / swing / ring / droop）は画像を作らず、動画で回転・移動させる
-- 仕上がったら Owner が確認し、approval.yaml の approved を true にする。承認前のパーツは動画に使わない
-
-## 作るファイル
 
 - [ ] `body.png` — body
 - [ ] `ear_l_up.png` — ear_l: up
@@ -30,9 +40,9 @@
 - [ ] `eye_r_wide.png` — eye_r: wide
 - [ ] `eye_r_teary.png` — eye_r: teary
 - [ ] `eye_r_sleepy.png` — eye_r: sleepy
-- [ ] `mouth_closed.png` — mouth: closed
+- [x] `mouth_closed.png` — mouth: closed
 - [ ] `mouth_small.png` — mouth: small
-- [ ] `mouth_open.png` — mouth: open
+- [x] `mouth_open.png` — mouth: open
 - [ ] `mouth_wide.png` — mouth: wide
 - [ ] `mouth_smile.png` — mouth: smile
 - [ ] `mouth_frown.png` — mouth: frown

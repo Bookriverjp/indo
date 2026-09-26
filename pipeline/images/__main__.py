@@ -8,8 +8,9 @@ provider は config/image.yaml の image.provider で選ぶ（標準は manual�
   python -m pipeline.images generate EP0001_nishi_daak  # openai: API で生成して取り込む（--force で作り直し）
 共通素材:
   python -m pipeline.images shared-template             # 構図の正本から紙芝居舞台テンプレートを作る
-  python -m pipeline.images shared-request              # 大仏飴パーツの依頼書と承認ファイルを書き出す
-  python -m pipeline.images shared-check                # 大仏飴パーツがそろい、Owner が承認済みかを確認する
+  python -m pipeline.images shared-request              # 大仏飴パーツの依頼書と承認ファイル。切り出せるパーツは自動で作る
+  python -m pipeline.images shared-draft                # 最小セットの手作業パーツの仮版を作る（既存は上書きしない）
+  python -m pipeline.images shared-check [--set full]   # 大仏飴パーツ（標準は最小セット）がそろい、Owner が承認済みかを確認する
 """
 from __future__ import annotations
 
@@ -23,6 +24,7 @@ from PIL import Image
 
 from pipeline.config import PROJECT_ROOT, ConfigError, load_yaml
 from pipeline.images.base import ImageError, ImageProvider
+from pipeline.images.parts import cut_ellipses, draft_minimal_parts
 from pipeline.images.process import INPUT_EXTENSIONS, find_input, process_asset
 from pipeline.images.template import build_stage_template
 from pipeline.llm.usage_log import append_usage
@@ -154,24 +156,46 @@ def shared_part_files(motion: dict) -> list[tuple[str, str]]:
 
 
 def write_shared_request(root: Path) -> Path:
+    """依頼書と承認ファイルを書き、基準画像から切り出せる最小セットのパーツを自動で作る。"""
     full = load_yaml("config/character_motion.yaml", root)
     motion = full["character"]
-    ref = root / motion["reference_image"]
-    with Image.open(ref) as im:
-        w, h = im.size
+    minimal = full["part_sets"]["minimal"]
     ddir = root / DAIBUTSUAME_DIR
+    ddir.mkdir(parents=True, exist_ok=True)
+    with Image.open(root / motion["reference_image"]) as opened:
+        ref = opened.convert("RGBA")
+    w, h = ref.size
+
+    for name, spec in minimal.items():
+        if isinstance(spec, dict) and spec["source"] == "cut_from_reference" and not (ddir / name).exists():
+            cut_ellipses(ref, spec["ellipses"]).save(ddir / name, "PNG")
+
     lines = [
         "# 大仏飴パーツの依頼書", "",
         f"外見の正本: `{motion['reference_image']}`（{w}x{h}）。外見（灰白色の毛、赤い首輪、金色の鈴、草）を変えない。", "",
         "## 共通の仕様",
         f"- すべて {w}x{h} の透明背景 PNG。正本と同じ位置・同じ大きさで描き、重ねるとぴったり合うこと",
+        "- 仕上がったら Owner が確認し、approval.yaml の approved を true にする。承認前のパーツは動画に使わない", "",
+        "## 最小セット（先に用意する）",
+        "瞬き・口パク・呼吸と、体全体の動き（震え・弾む・跳ねる・傾く・うなずく）ができる。",
+        "目・口・耳・腕の状態や効果を使う表情は、追加セットがそろうまで体全体の動きだけで表す。", "",
+    ]
+    for name, spec in ((n, s) for n, s in minimal.items() if isinstance(s, dict)):
+        if spec["source"] == "cut_from_reference":
+            how = "基準画像から自動で切り出し"
+        elif (ddir / name).exists():
+            how = "仮版あり。Owner が確認し、必要なら描き直して差し替える"
+        else:
+            how = "要作成。`shared-draft` で仮版を作れる"
+        done = "x" if (ddir / name).exists() else " "
+        lines.append(f"- [{done}] `{name}` — {spec['desc']}（{how}）")
+    lines += [
+        "", "## 追加セット（あとから）",
         "- body.png は目・口・耳・腕を除いた頭と胴。ほかのパーツは自分の部分だけを描く",
         "- 表情の違いは目・口・耳・腕の組み合わせで作る（docs/CHARACTER_MOTION.md）",
-        "- ぴくっ・揺れ・鳴る（twitch / sway / swing / ring / droop）は画像を作らず、動画で回転・移動させる",
-        "- 仕上がったら Owner が確認し、approval.yaml の approved を true にする。承認前のパーツは動画に使わない", "",
-        "## 作るファイル", "",
+        "- ぴくっ・揺れ・鳴る（twitch / sway / swing / ring / droop）は画像を作らず、動画で回転・移動させる", "",
     ]
-    lines += [f"- [ ] `{name}` — {desc}" for name, desc in shared_part_files(full)]
+    lines += [f"- [{'x' if (ddir / name).exists() else ' '}] `{name}` — {desc}" for name, desc in shared_part_files(full)]
     _write_text(ddir / "REQUEST.md", "\n".join(lines) + "\n")
     approval = ddir / "approval.yaml"
     if not approval.exists():
@@ -180,10 +204,31 @@ def write_shared_request(root: Path) -> Path:
     return ddir / "REQUEST.md"
 
 
-def check_shared(root: Path) -> tuple[list[str], bool]:
+def write_shared_drafts(root: Path) -> list[str]:
+    """最小セットの手作業パーツの仮版を作る。すでにあるファイルは上書きしない。"""
     full = load_yaml("config/character_motion.yaml", root)
+    sets = full["part_sets"]
+    minimal = sets["minimal"]
     ddir = root / DAIBUTSUAME_DIR
-    missing = [name for name, _ in shared_part_files(full) if not (ddir / name).exists()]
+    ddir.mkdir(parents=True, exist_ok=True)
+    with Image.open(root / full["character"]["reference_image"]) as opened:
+        ref = opened.convert("RGBA")
+    drafts = draft_minimal_parts(ref, minimal["eyes_open.png"]["ellipses"], minimal["mouth_open.png"]["ellipses"][0],
+                                 sets["draft_fur_offsets"])
+    written = []
+    for name, im in drafts.items():
+        if not (ddir / name).exists():
+            im.save(ddir / name, "PNG")
+            written.append(name)
+    return written
+
+
+def check_shared(root: Path, part_set: str | None = None) -> tuple[list[str], bool]:
+    full = load_yaml("config/character_motion.yaml", root)
+    part_set = part_set or full["part_sets"]["active"]
+    names = [n for n in full["part_sets"]["minimal"] if n.endswith(".png")] if part_set == "minimal" else [n for n, _ in shared_part_files(full)]
+    ddir = root / DAIBUTSUAME_DIR
+    missing = [name for name in names if not (ddir / name).exists()]
     approval_path = ddir / "approval.yaml"
     approved = False
     if approval_path.exists():
@@ -221,7 +266,9 @@ def main(argv: list[str] | None = None, project_root: Path | None = None,
     p = sub.add_parser("shared-template")
     p.add_argument("--base", type=Path, help=f"base image (default: {STAGE_REFERENCE})")
     sub.add_parser("shared-request")
-    sub.add_parser("shared-check")
+    sub.add_parser("shared-draft")
+    p = sub.add_parser("shared-check")
+    p.add_argument("--set", dest="part_set", choices=["minimal", "full"], help="default: part_sets.active")
     args = parser.parse_args(argv)
     root = project_root or PROJECT_ROOT
 
@@ -248,11 +295,15 @@ def main(argv: list[str] | None = None, project_root: Path | None = None,
             tpl.save(out, "PNG")
             print(f"saved: {out}")
             return 0
+        elif args.command == "shared-draft":
+            written = write_shared_drafts(root)
+            print(f"仮版を作成: {', '.join(written) or '(なし。すでにあるファイルは上書きしません)'}")
+            return 0
         elif args.command == "shared-request":
             print(f"request: {write_shared_request(root)}")
             return 0
         else:
-            missing, approved = check_shared(root)
+            missing, approved = check_shared(root, args.part_set)
             for m in missing:
                 print(f"  未提出 {m}")
             print(f"大仏飴パーツ: {'承認済み' if approved else '未承認'} / 未提出 {len(missing)} 件")

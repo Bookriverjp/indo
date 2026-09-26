@@ -241,7 +241,54 @@ def test_shared_request_and_check(tmp_path: Path) -> None:
     assert main(["shared-request"], project_root=tmp_path) == 0
     ddir = tmp_path / "assets" / "shared" / "daibutsuame"
     req = (ddir / "REQUEST.md").read_text(encoding="utf-8")
-    assert "eye_l_open.png" in req and "mouth_closed.png" in req and "body.png" in req
+    # 最小セットと追加セットの両方が並ぶ
+    assert "最小セット" in req and "body_base.png" in req and "eyes_closed.png" in req
+    assert "追加セット" in req and "eye_l_open.png" in req and "body.png" in req
     approval = (ddir / "approval.yaml").read_text(encoding="utf-8")
     assert "approved: false" in approval
+
+    # 基準画像から切り出せるパーツは自動で作られる（同じ大きさ、透明背景、目の中心は不透明）
+    eyes = Image.open(ddir / "eyes_open.png")
+    ref = Image.open(tmp_path / "assets" / "reference" / "daibutsuame_reference.jpeg")
+    assert eyes.size == ref.size and eyes.mode == "RGBA"
+    assert eyes.getpixel((511, 318))[3] == 255 and eyes.getpixel((10, 10))[3] == 0
+    assert (ddir / "mouth_open.png").exists()
+    assert not (ddir / "body_base.png").exists()
+
+    # 最小セットの手作業パーツが足りない／未承認なら 1
     assert main(["shared-check"], project_root=tmp_path) == 1
+    shutil.copy(REPO / "assets" / "shared" / "stage_template.png", tmp_path / "assets" / "shared" / "stage_template.png")
+    for name in ("body_base.png", "eyes_closed.png", "mouth_closed.png"):
+        Image.new("RGBA", ref.size, (0, 0, 0, 0)).save(ddir / name)
+    assert main(["shared-check"], project_root=tmp_path) == 1          # 未承認
+    (ddir / "approval.yaml").write_text("approved: true\napproved_by: owner\napproved_at: 2026-09-26\n", encoding="utf-8")
+    assert main(["shared-check"], project_root=tmp_path) == 0
+    assert main(["shared-check", "--set", "full"], project_root=tmp_path) == 1
+
+
+def test_shared_request_keeps_existing_cut_files(tmp_path: Path) -> None:
+    shutil.copytree(REPO / "config", tmp_path / "config")
+    (tmp_path / "assets" / "reference").mkdir(parents=True)
+    shutil.copy(REPO / "assets" / "reference" / "daibutsuame_reference.jpeg", tmp_path / "assets" / "reference")
+    ddir = tmp_path / "assets" / "shared" / "daibutsuame"
+    ddir.mkdir(parents=True)
+    Image.new("RGBA", (8, 8), (1, 2, 3, 255)).save(ddir / "eyes_open.png")
+    assert main(["shared-request"], project_root=tmp_path) == 0
+    assert Image.open(ddir / "eyes_open.png").size == (8, 8)   # Owner が差し替えたものは上書きしない
+
+
+def test_shared_draft_makes_missing_minimal_parts(tmp_path: Path) -> None:
+    shutil.copytree(REPO / "config", tmp_path / "config")
+    (tmp_path / "assets" / "reference").mkdir(parents=True)
+    shutil.copy(REPO / "assets" / "reference" / "daibutsuame_reference.jpeg", tmp_path / "assets" / "reference")
+    ddir = tmp_path / "assets" / "shared" / "daibutsuame"
+    ddir.mkdir(parents=True)
+    Image.new("RGBA", (8, 8)).save(ddir / "mouth_closed.png")
+    assert main(["shared-draft"], project_root=tmp_path) == 0
+    ref = Image.open(tmp_path / "assets" / "reference" / "daibutsuame_reference.jpeg")
+    body = Image.open(ddir / "body_base.png")
+    assert body.size == ref.size and body.getpixel((511, 318))[3] == 255
+    # 目の中心は、黒い瞳ではなく毛並みの色になっている
+    assert sum(body.getpixel((511, 318))[:3]) > 3 * 90
+    assert Image.open(ddir / "eyes_closed.png").getpixel((10, 10))[3] == 0
+    assert Image.open(ddir / "mouth_closed.png").size == (8, 8)   # 既存は上書きしない
