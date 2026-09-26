@@ -8,7 +8,9 @@ main:
   target_minutes: [8, 12]      # SPEC 5. 1話の標準長
   hook_max_chars: 90           # 15秒以内
   intro_must_include: "大仏飴"
-  ending_should_include: [出典, 資料]
+  ending_should_include: [出典, 資料]   # 締めの出典カードに触れる
+  # 出典は概要欄に載せない（2026-09-26 Owner決定）。ナレーションで概要欄を案内しない
+  description_references: [概要欄, 説明欄]
 
 shorts:
   max_chars: 300               # 60秒以内

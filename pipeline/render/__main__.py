@@ -52,6 +52,7 @@ class Renderer:
         self.assets = {a["asset_id"]: a for a in manifest["assets"]}
         self.layouts = load_yaml("config/layout.yaml", root)["main"]["layouts"]
         self.cfg = load_yaml("config/render.yaml", root)["render"]
+        self.credit = load_yaml("config/voice.yaml", root)["tts"]["credit"]
         self.scale = scale
         self.fps = fps or self.timeline["fps"]
         self.W, self.H = round(self.timeline["width"] * scale), round(self.timeline["height"] * scale)
@@ -295,10 +296,24 @@ class Renderer:
             else:
                 self._text_center(canvas, self.box(lcfg["subtitle"]), sub["lines"], font, tuple(c["ink"]))
 
+        if scene is self.timeline["scenes"][-1]:
+            self._draw_credit(canvas)
+
         if self.draft:
             ImageDraw.Draw(canvas).text((self.s(12), self.H - self.s(34)), "下書き（大仏飴パーツ未承認）",
                                         font=self.font("gothic", self.s(22)), fill=(200, 40, 30, 255))
         return canvas
+
+    def _draw_credit(self, canvas: Image.Image) -> None:
+        """VOICEVOX の利用規約で必要なクレジット。最後の場面の右下に小さく。"""
+        cc = self.cfg["credit"]
+        font = self.font("gothic", self.s(cc["size"]))
+        d = ImageDraw.Draw(canvas)
+        w = d.textlength(self.credit, font=font)
+        x = self.W - self.s(cc["right"]) - w
+        y = self.H - self.s(cc["bottom"]) - self.s(cc["size"]) * 1.2
+        d.text((x, y), self.credit, font=font, fill=tuple(self.cfg["colors"]["chip_bg"]) + (255,),
+               stroke_width=max(1, self.s(3)), stroke_fill=tuple(self.cfg["colors"]["outline"]))
 
     def _fx_frame(self, img: Image.Image, pos: tuple[int, int], anim: str, local: float, p: float,
                   slot: tuple[int, int]):

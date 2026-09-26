@@ -112,6 +112,11 @@ def test_no_hedge_anywhere_is_warning(script: dict) -> None:
     assert "W_NO_HEDGE" in codes(check_main_script(script, RULES, PERSONA).warnings)
 
 
+def test_description_reference_is_warning(script: dict) -> None:
+    set_text(script, "ending", "出典は概要欄にまとめたよ。またね。")
+    assert "W_DESCRIPTION_REF" in codes(check_main_script(script, RULES, PERSONA).warnings)
+
+
 def test_ending_without_sources_mention_is_warning(script: dict) -> None:
     set_text(script, "ending", "そんじゃ、またね。だいじだべ？")
     assert "W_ENDING_SOURCES" in codes(check_main_script(script, RULES, PERSONA).warnings)

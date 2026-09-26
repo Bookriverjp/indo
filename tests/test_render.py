@@ -148,3 +148,24 @@ def test_full_body_fills_box_width_and_stands_on_bottom() -> None:
     assert cols.max() - cols.min() > 419 * 0.9       # 余白を切り詰めて枠いっぱい
     assert rows.max() >= 534 - 12                    # 下端に立つ
     assert alpha[0, 0] == 0                          # 背景は透明
+
+
+def test_credit_is_drawn_only_in_last_scene(root: Path, monkeypatch) -> None:
+    from pipeline.render import __main__ as rmain
+
+    drawn = []
+    real = rmain.Renderer._draw_credit
+
+    def spy(self, canvas):
+        drawn.append(True)
+        return real(self, canvas)
+
+    monkeypatch.setattr(rmain.Renderer, "_draw_credit", spy)
+    r = rmain.Renderer(root, "EP0001_sample", scale=0.5, fps=10, placeholders=True, draft=True)
+    scenes = r.timeline["scenes"]
+    r.frame(scenes[0]["start"] + 0.5)
+    assert drawn == []
+    last = scenes[-1]
+    r.frame(last["start"] + last["duration"] - 0.05)
+    assert drawn == [True]
+    assert r.credit == "VOICEVOX:中国うさぎ"

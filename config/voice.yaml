@@ -9,7 +9,7 @@ tts:
   speaker_uuid: "1f18ffc3-47ea-4ce0-9829-0576d03a7ec8"
   speed_scale: 1.05          # 2026-09-26 Owner決定
   post_phoneme_length: 0.1
-  credit: "VOICEVOX:中国うさぎ"   # 概要欄とエンディングの出典カードに必ず表記
+  credit: "VOICEVOX:中国うさぎ"   # 利用規約の条件。動画の最後の場面に小さく表示する（概要欄には書かない。2026-09-26 Owner決定）
 
   # 声色（style id）と大仏飴の表情の対応。docs/CHARACTER_MOTION.md の ID を使う
   styles:

@@ -39,5 +39,8 @@ https://zunko.jp/con_ongen_kiyaku.html
 
 ```
 
+## 表記の場所（2026-09-26 Owner決定）
+- 動画の最後の場面の右下に小さく「VOICEVOX:中国うさぎ」と表示する（`config/render.yaml` の credit）。概要欄には書かない。
+
 ## 未確認
 - 詳細規約 https://zunko.jp/con_ongen_kiyaku.html は作業環境から取得できなかった。オリジナルキャラクターの声としての利用、宗教的伝承・怪談の扱いに制限がないかOwnerが確認する。

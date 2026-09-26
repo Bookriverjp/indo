@@ -38,6 +38,7 @@
 - PHASE 7（Timeline）完了：`python -m pipeline.timeline <id>` で `render/timeline.json` と `script/subtitles.srt`（`config/timeline.yaml`）。
 - PHASE 8（Renderer）完了：`python -m pipeline.render <id>`（`--preview` / `--placeholders` / `--draft`）。詳細は `docs/RENDER.md`。
 - 大仏飴の体（body_base）は基準画像の白い背景を透明にした。舞台テンプレートは大仏飴の輪郭まわりを補間して作り直した。
+- 概要欄には出典もクレジットも載せない（Owner決定）。出典は動画の締めの出典カード、VOICEVOX のクレジットは動画の最後の場面に小さく表示。
 - 次は PHASE 9（Thumbnail / Metadata）。
 
 ## 次の担当者

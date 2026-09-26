@@ -10,7 +10,7 @@
 4. story: 物語
 5. commentary: 異説・民俗的背景
 6. comparison: 日本との比較。research に根拠がある場合だけ。なければこの section を作らない
-7. ending: 締めと出典への言及
+7. ending: 締め。出典は画面の出典カードに出るので、そのカードに触れる（概要欄には出典を載せないので、概要欄を案内しない）
 
 ブロックの種類（kind）:
 - legend: research で確認できる伝承内容。source_ids に根拠の出典 id を必ず入れる

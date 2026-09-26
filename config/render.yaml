@@ -30,6 +30,8 @@ render:
     card_row: 38
     outline: 4
   video: {crf: 20, preset: "medium", audio_bitrate: "192k"}
+  # VOICEVOX のクレジット（config/voice.yaml の credit）。最後の場面の右下に小さく出す
+  credit: {size: 22, right: 70, bottom: 14}
   preview: {scale: 0.5, fps: 15}   # --preview のとき
 
   narrator:

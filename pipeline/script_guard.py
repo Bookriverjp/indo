@@ -86,6 +86,10 @@ def check_main_script(script: dict, rules: dict, persona: dict) -> GuardResult:
         result.errors.append(Issue("E_INTRO_NAME", f"intro で「{r['intro_must_include']}」と名乗ってください"))
     if _chars(by_section.get("hook", "")) > r["hook_max_chars"]:
         result.warnings.append(Issue("W_HOOK_LONG", f"hook が{r['hook_max_chars']}字（約15秒）を超えています"))
+    for word in r.get("description_references", []):
+        if word in "".join(by_section.values()):
+            result.warnings.append(Issue("W_DESCRIPTION_REF", f"「{word}」には出典を載せません。締めの出典カードを案内してください"))
+            break
     if "ending" in by_section and not any(w in by_section["ending"] for w in r["ending_should_include"]):
         result.warnings.append(Issue("W_ENDING_SOURCES", "ending で出典・資料に触れていません"))
 
