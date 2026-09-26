@@ -7,7 +7,7 @@ tts:
   endpoint: "http://localhost:50021"
   speaker_name: "中国うさぎ"
   speaker_uuid: "1f18ffc3-47ea-4ce0-9829-0576d03a7ec8"
-  speed_scale: null          # 未定（候補 0.85 / 0.95 / 1.05 / 1.15 / 1.25）
+  speed_scale: 1.05          # 2026-09-26 Owner決定
   post_phoneme_length: 0.1
   credit: "VOICEVOX:中国うさぎ"   # 概要欄とエンディングの出典カードに必ず表記
 

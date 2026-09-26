@@ -21,13 +21,19 @@ main:
   default_layout: "stage"
   layouts:
     # B 紙芝居舞台：物語パートの基本形
+    # 構図の正本：assets/reference/layout_stage_reference.webp（2026-09-26 Owner指定）
+    # 装飾（外枠・絵の額・字幕の額・右パネル・ラベルの額・敷物）は1枚の固定テンプレート素材にし、
+    # 絵・字幕・ラベル文字・大仏飴を窓の位置に重ねる。文字は動画編集段階で描画する。
     stage:
-      wall:         {x: 0,    y: 0,   w: 1920, h: 1080}  # 固定素材
-      frame:        {x: 36,   y: 40,  w: 1328, h: 748}   # 固定素材
-      story_art:    {x: 60,   y: 64,  w: 1280, h: 720}   # 16:9 で生成して縮小
-      narrator:     {x: 1330, y: 440, w: 580,  h: 580, style: "full_body"}
-      region_label: {x: 1400, y: 64,  w: 480,  h: 64}
-      subtitle:     {x: 80,   y: 808, w: 1240, h: 112}
+      template:       {x: 0,    y: 0,   w: 1920, h: 1080}  # 固定素材（赤い花模様の外枠ほか装飾一式）
+      story_frame:    {x: 46,   y: 46,  w: 1300, h: 794}   # 青地に花模様の額
+      story_art:      {x: 100,  y: 116, w: 1184, h: 666}   # 16:9 で生成して縮小
+      subtitle_frame: {x: 46,   y: 844, w: 1300, h: 195}   # 字幕の額（絵の外、絵の下）
+      subtitle:       {x: 149,  y: 863, w: 1131, h: 147}   # 生成り色の字幕枠。2行まで、中央揃え
+      side_panel:     {x: 1349, y: 46,  w: 534,  h: 993}   # 生成り地にペイズリー、上部アーチ
+      region_label:   {x: 1424, y: 155, w: 413,  h: 72}    # パネル上部の額の中
+      narrator:       {x: 1418, y: 396, w: 419,  h: 534, style: "full_body"}
+      rug:            {x: 1378, y: 907, w: 505,  h: 126}   # 大仏飴が立つ敷物
     # A 全面＋ワイプ：フックと山場のみ
     fullbleed:
       story_art:    {x: 0,    y: 0,   w: 1920, h: 1080}
@@ -35,12 +41,13 @@ main:
       narrator:     {x: 1564, y: 620, w: 300,  h: 340, style: "medallion", visible_in_hook: false}
       subtitle:     {x: 220,  y: 880, w: 1300, h: 120}
     # C 解説カード：導入・地域紹介・解説・異説・比較・出典
+    # stage と同じテンプレートを使い、絵の窓に情報カードを入れる（大仏飴・ラベル・字幕の位置は共通）
     card:
-      wall:         {x: 0,    y: 0,   w: 1920, h: 1080}
-      info_card:    {x: 80,   y: 110, w: 960,  h: 660}
-      narrator:     {x: 1100, y: 280, w: 760,  h: 760, style: "full_body"}
-      region_label: {x: 1240, y: 120, w: 480,  h: 64}
-      subtitle:     {x: 80,   y: 800, w: 960,  h: 120}
+      template:     {x: 0,    y: 0,   w: 1920, h: 1080}
+      info_card:    {x: 100,  y: 116, w: 1184, h: 666}
+      subtitle:     {x: 149,  y: 863, w: 1131, h: 147}
+      region_label: {x: 1424, y: 155, w: 413,  h: 72}
+      narrator:     {x: 1418, y: 396, w: 419,  h: 534, style: "full_body"}
 
   # SPEC 6. 標準構成との対応
   sections:

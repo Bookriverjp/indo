@@ -24,6 +24,8 @@
 - PHASE 0（Foundation）完了：config loader、logging、episode workspace、JSON Schema validation、dry-run。`python -m pytest` で確認。
 - 画面レイアウト確定：`docs/LAYOUT.md` / `config/layout.yaml`（モック：`docs/mockup/layout_mockup.html`）
 - 大仏飴の動き・表情確定：`docs/CHARACTER_MOTION.md` / `config/character_motion.yaml`
+- ナレーション確定：VOICEVOX 中国うさぎ、速さ1.05倍（`config/voice.yaml`、規約は `docs/licenses/VOICEVOX.md`）
+- 紙芝居舞台の構図の正本：`assets/reference/layout_stage_reference.webp`
 - 本番API統合は未実装。次は PHASE 1（Research Contract）。
 
 ## 次の担当者
