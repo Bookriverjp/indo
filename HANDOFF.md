@@ -46,6 +46,7 @@
   - Owner の台本（シナリオ）を取り込み済み（40ブロック・約7.3分）。物語（hook・story）はです・ます調、それ以外は栃木弁。女性の声は VOICEVOX:四国めたん（ささやき）。
   - 絵コンテ20場面・効果音（虫・川・風・鈴）・ナレーション・タイムライン・概要欄まで作成済み。下書きプレビュー `output/preview.mp4`（Git には入れない）。
   - 残り：物語用の背景12枚（Owner が生成中 → `assets/inbox/<asset_id>.png` → `python -m pipeline.images check`）、大仏飴パーツの Owner 承認、Research Gate 承認、本番の書き出しとサムネイル。
+- ローカル（Windows + VS Code）への移行手順: `docs/LOCAL_SETUP.md`。
 - 次は PHASE 11（YouTube Upload）。最終関門の承認済みの動画だけをアップロードする。
 
 ## 次の担当者
