@@ -5,7 +5,7 @@
 narrator:
   name: "大仏飴"
   side: "right"          # 右に固定
-  facing: "left"         # 舞台・カードの方を向くポーズで生成する
+  facing: "front"        # 正面を向いて語る。説明では草で画面（舞台・カード側）を指す
 
 region_label:
   always_visible: true   # 地域・言語ラベルを常に表示
