@@ -34,6 +34,8 @@ ARTIFACTS = {
     "image_requests": "assets/image_requests.md",
     "image_status": "assets/image_status.md",
     "narration": "audio/generated",
+    "narration_index": "audio/narration.json",
+    "pronunciation": "script/pronunciation.yaml",
     "timeline": "render/timeline.json",
     "episode_video": "output/episode.mp4",
     "shorts_video": "output/shorts.mp4",

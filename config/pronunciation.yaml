@@ -1,0 +1,7 @@
+# 読み方の辞書（全話共通）。字幕は元の表記のまま、音声だけ reading で読む
+# 1話だけの読みは episodes/<id>/script/pronunciation.yaml に同じ形式で書く（同じ表記はそちらが優先）
+# reading はひらがな・カタカナで書く。長い表記から先に置き換える
+words:
+  - {surface: "大仏飴", reading: "だいぶつあめ"}
+  - {surface: "栃木弁", reading: "とちぎべん"}
+  - {surface: "西ベンガル州", reading: "にしベンガルしゅう"}

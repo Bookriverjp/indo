@@ -25,6 +25,7 @@ episodes/<episode_id>/
     script_shorts.md           ショートの台本（人が読む版）
     script_shorts_review.md    ショートの自動チェック結果
     subtitles.srt              字幕
+    pronunciation.yaml         この回だけの読み方の辞書（任意）
   storyboard/
     storyboard_request.md      manual モードの生成依頼
     storyboard_response.json   manual モードで外から作った JSON
@@ -36,7 +37,8 @@ episodes/<episode_id>/
     image_status.md            画像の取り込み状況
     inbox/                     生成した画像を置く場所（Git管理外）
     generated/                 チェック済みの背景・人物・小物・FX（Git管理外）
-  audio/generated/             この回のナレーション音声（Git管理外）
+  audio/generated/             ブロックごとのナレーション WAV（Git管理外）
+  audio/narration.json         ブロックごとの表記・読み・声色・秒数（docs/TTS.md）
   render/timeline.json         紙芝居タイムライン（Git管理外）
   output/
     episode.mp4                本編
