@@ -14,6 +14,7 @@ python -m pipeline.bgloop assets/bgloop/night_river.yaml              # 切り�
 python -m pipeline.bgloop assets/bgloop/night_river.yaml --preview    # 確認用（960x540）
 python -m pipeline.bgloop assets/bgloop/night_river.yaml --stage cut  # 切り抜きだけ（約15秒）
 python -m pipeline.bgloop assets/bgloop/night_river.yaml --stage render --stills 0,360   # 1コマだけ PNG で
+python -m pipeline.bgloop assets/bgloop/新しい絵.png --stage grid   # 座標の目盛りの絵と、シーン設定のひな形
 ```
 出力は `output/bgloop/<name>/`（Git には入れない）。
 - `loop.mp4`：1920x1080・30fps・24秒。最後のコマの次が最初のコマになる（プレイヤーのループ再生でつながる）
@@ -75,3 +76,10 @@ python -m pipeline.bgloop assets/bgloop/night_river.yaml --stage render --stills
 - 描いた絵そのものは最後から最初へぴったりつながる。MP4 はつなぎ目（先頭）が唯一のキーフレームなので、そこで圧縮の細かい粒子が
   一度だけ入れ替わる（ふつうの動画のキーフレームと同じ程度。途中にはキーフレームを置かない）。紙芝居の書き出しに組み込むときは
   MP4 を経ずに `LoopRenderer` から直接コマを取れば、つなぎ目は出ない。
+
+## 持ち出し用のキット（ChatGPT でも使える）
+```bat
+python scripts/build_bgloop_kit.py      # → dist/bgloop_kit.zip（Git には入れない）
+```
+このプロジェクトなしで動く一式（`python -m bgloop ...`）。README と、ChatGPT に渡す指示文（`GPT_INSTRUCTIONS.md`）付き。
+元の説明は `docs/bgloop_kit/`。ffmpeg がない環境では OpenCV で書き出す。

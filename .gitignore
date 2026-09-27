@@ -13,3 +13,4 @@ episodes/*/render/
 .pytest_cache/
 episodes/*/output/*.mp4
 *.zip
+dist/

@@ -220,3 +220,30 @@ def test_night_river_scene_is_valid() -> None:
         assert key in scene
     for rig in scene["motion"]["sway"]:
         assert ("base" in rig and ("top" in rig or "poly" in rig)) or "tops" in rig or "polys" in rig, rig["name"]
+
+
+def test_grid_writes_starter_scene_that_runs(tmp_path: Path, project_root: Path) -> None:
+    picture = tiny_scene_image(project_root / "assets/bgloop/new_scene.png")
+    out = tmp_path / "out"
+    assert main(["assets/bgloop/new_scene.png", "--stage", "grid", "--out", str(out)], project_root=project_root) == 0
+    assert (out / "grid.png").exists()
+    scene = load_scene(picture.with_suffix(".yaml"))
+    assert scene["ref_size"] == [W, H] and scene["image"] == "new_scene.png"
+    # ひな形のままでも切り抜き → 1コマの書き出しまで通る
+    assert main(["assets/bgloop/new_scene.png", "--stage", "cut", "--out", str(out)], project_root=project_root) == 0
+    assert main(["assets/bgloop/new_scene.png", "--stage", "render", "--stills", "0", "--seconds", "1", "--fps", "4",
+                 "--out", str(out)], project_root=project_root) == 0
+    assert (out / "stills" / "frame_00000.png").exists()
+
+
+def test_video_without_ffmpeg_falls_back_to_opencv(cut: Path, tmp_path: Path, monkeypatch) -> None:
+    from pipeline.bgloop import video
+    monkeypatch.setattr(video, "find_ffmpeg", lambda: None)
+    kwargs = {"cut_dir": cut, "scene": copy.deepcopy(SCENE), "seconds": 0.5, "fps": 8, "size": (W, H),
+              "overscan": 1.08, "seed": 3}
+    out = video.render_video(kwargs, tmp_path / "v.mp4", crf=20, preset="fast", workers=1, log=lambda *a: None)
+    cap = cv2.VideoCapture(str(out))
+    n = 0
+    while cap.read()[0]:
+        n += 1
+    assert n == 4
