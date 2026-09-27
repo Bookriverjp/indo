@@ -47,6 +47,7 @@
   - 絵コンテ20場面・効果音（虫・川・風・鈴）・ナレーション・タイムライン・概要欄まで作成済み。下書きプレビュー `output/preview.mp4`（Git には入れない）。
   - 残り：物語用の背景12枚（Owner が生成中 → `assets/inbox/<asset_id>.png` → `python -m pipeline.images check`）、大仏飴パーツの Owner 承認、Research Gate 承認、本番の書き出しとサムネイル。
 - ローカル（Windows + VS Code）への移行手順: `docs/LOCAL_SETUP.md`。
+- 背景ループ（Owner依頼 2026-09-27）：1枚の背景画から、雲・川・木と草・蛍・花びら・前ボケが動く継ぎ目のないループ動画を作る `python -m pipeline.bgloop <scene.yaml>`。1シーン目は夜の川辺の村（`assets/bgloop/night_river.yaml`）。詳細は `docs/BGLOOP.md`。紙芝居の書き出し（`pipeline.render`）にはまだつないでいない。
 - 次は PHASE 11（YouTube Upload）。最終関門の承認済みの動画だけをアップロードする。
 
 ## 次の担当者

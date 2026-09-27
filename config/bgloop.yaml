@@ -1,0 +1,11 @@
+# 背景ループ（1枚絵から動く背景）の書き出し設定。シーンごとの切り抜きと動きは assets/bgloop/<name>.yaml
+bgloop:
+  seconds: 24              # ループの長さ。すべての動きの周期がこれで割り切れるので、最後から最初へ継ぎ目なくつながる
+  fps: 30
+  size: [1920, 1080]
+  overscan: 1.04           # カメラが動いても縁が見えないよう、少し大きく作って切り出す
+  seed: 7                  # 蛍・花びら・星のまたたきの配置（同じ値なら毎回同じ動画）
+  workers: 4               # 並列で描くプロセス数
+  video: {crf: 15, preset: "slow", tune: "grain"}   # 筆の細かい模様を保つ（grain）
+  preview: {scale: 0.5}    # --preview のとき（960x540）
+  out_dir: "output/bgloop"
